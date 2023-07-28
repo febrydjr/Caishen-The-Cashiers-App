@@ -1,40 +1,42 @@
-'use strict';
+"use strict";
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('transaction_items', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      id: {
-        type: Sequelize.UUIDV4
-      },
-      id_transaction: {
-        type: Sequelize.UUIDV4
-      },
-      id_product: {
-        type: Sequelize.UUIDV4
-      },
-      price: {
-        type: Sequelize.INTEGER
-      },
-      qty: {
-        type: Sequelize.INTEGER
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      }
-    });
-  },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('transaction_items');
-  }
+    async up(queryInterface, Sequelize) {
+        await queryInterface.createTable(
+            "transaction_items",
+            {
+                id: {
+                    primaryKey: true,
+                    type: Sequelize.UUID,
+                    defaultValue: uuidv4(),
+                },
+                id_transaction: {
+                    type: Sequelize.UUID,
+                },
+                id_product: {
+                    type: Sequelize.UUID,
+                },
+                price: {
+                    type: Sequelize.BIGINT,
+                },
+                qty: {
+                    type: Sequelize.INTEGER,
+                },
+                created_at: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                    defaultValue: Sequelize.NOW,
+                },
+                updated_at: {
+                    allowNull: false,
+                    type: Sequelize.DATE,
+                    defaultValue: Sequelize.NOW,
+                },
+            },
+            { underscored: true }
+        );
+    },
+    async down(queryInterface, Sequelize) {
+        await queryInterface.dropTable("transaction_items");
+    },
 };
