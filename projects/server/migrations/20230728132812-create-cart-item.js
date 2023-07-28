@@ -1,18 +1,24 @@
 "use strict";
-/** @type {import('sequelize-cli').Migration} */
 const { v4: uuidv4 } = require("uuid");
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
         await queryInterface.createTable(
-            "categories",
+            "cart_items",
             {
                 id: {
                     primaryKey: true,
-                    type: Sequelize.INTEGER,
-                    autoIncrement: true,
+                    type: Sequelize.UUID,
+                    defaultValue: uuidv4(),
                 },
-                name: {
-                    type: Sequelize.STRING,
+                id_cart: {
+                    type: Sequelize.UUID,
+                },
+                id_product: {
+                    type: Sequelize.UUID,
+                },
+                qty: {
+                    type: Sequelize.INTEGER,
                 },
                 created_at: {
                     allowNull: false,
@@ -29,6 +35,6 @@ module.exports = {
         );
     },
     async down(queryInterface, Sequelize) {
-        await queryInterface.dropTable("categories");
+        await queryInterface.dropTable("cart_items");
     },
 };
