@@ -1,7 +1,8 @@
 const db = require("../../../models");
 const User = db.user;
 const messages = require("../../helpers/messages");
-async function getAllUsers(account) {
+
+async function getUser(account) {
   try {
     const users = await User.findOne({ id: account.id });
     console.log("account", users);
@@ -11,4 +12,4 @@ async function getAllUsers(account) {
   }
 }
 
-module.exports = getAllUsers;
+module.exports = getUser;
