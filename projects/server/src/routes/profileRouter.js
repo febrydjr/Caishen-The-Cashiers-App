@@ -10,5 +10,6 @@ router.post(
   profileController.updateAvatar
 );
 router.get("/cashier", profileController.getAllProfiles);
+router.patch("/remove-user", profileController.deleteUser);
 
 module.exports = router;

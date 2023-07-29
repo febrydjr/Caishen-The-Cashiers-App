@@ -10,7 +10,6 @@ async function getProfile(req, res) {
   }
 }
 
-
 async function getAllProfiles(req, res) {
   try {
     const users = await profileService.getAllUsers();
@@ -32,8 +31,19 @@ async function updateAvatar(req, res) {
   }
 }
 
+async function deleteUser(req, res) {
+  try {
+    const { username } = req.body;
+    const result = await profileService.deleteUserByUsername(username);
+    return res.status(500).json(result);
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+}
+
 module.exports = {
   getProfile,
   getAllProfiles,
   updateAvatar,
+  deleteUser,
 };
