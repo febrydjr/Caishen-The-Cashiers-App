@@ -1,5 +1,3 @@
 const authService = require("./auth");
-
-module.exports = {
-    authService
-}
+const profileService = require("./profile");
+module.exports = { authService, profileService };
