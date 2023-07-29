@@ -10,6 +10,7 @@ async function getProfile(req, res) {
   }
 }
 
+
 async function getAllProfiles(req, res) {
   try {
     const users = await profileService.getAllUsers();
