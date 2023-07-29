@@ -10,6 +10,15 @@ async function getProfile(req, res) {
   }
 }
 
+async function getAllProfiles(req, res) {
+  try {
+    const users = await profileService.getAllUsers();
+    return res.status(200).json(users);
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+}
+
 async function updateAvatar(req, res) {
   try {
     const userId = req.account;
@@ -18,11 +27,12 @@ async function updateAvatar(req, res) {
 
     return res.status(200).json(updatedAvatar);
   } catch (error) {
-    return res.status(500).json(error);
+    return res.status(500).json(error.message);
   }
 }
 
 module.exports = {
   getProfile,
+  getAllProfiles,
   updateAvatar,
 };
