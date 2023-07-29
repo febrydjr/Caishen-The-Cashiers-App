@@ -1,5 +1,33 @@
-const { messages } = require("../helpers");
 const { authService } = require("../services");
+const { messages } = require("../helpers");
+
+async function login(req, res) {
+  try {
+    const { identifier, password } = req.body;
+    const user = await authService.login(identifier, password);
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+}
+
+async function register(req, res) {
+  try {
+    const { name, username, email, phone, password } = req.body;
+
+    const user = await authService.register(
+      name,
+      username,
+      email,
+      phone,
+      password
+    );
+
+    return res.status(200).json(user);
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+}
 
 async function forgotPassword(req, res) {
     try {
@@ -10,3 +38,8 @@ async function forgotPassword(req, res) {
         res.status(500).json({ message: error.message });
     }
 }
+
+module.exports = {
+  login,
+  register,
+};

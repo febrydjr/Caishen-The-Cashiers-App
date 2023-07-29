@@ -2,7 +2,8 @@ require("dotenv/config");
 const express = require("express");
 const cors = require("cors");
 const { join } = require("path");
-
+const { authRouter } = require("./routes");
+// console.log("tes");
 const PORT = process.env.PORT || 8000;
 const app = express();
 app.use(
@@ -20,17 +21,8 @@ app.use(express.json());
 
 // ===========================
 // NOTE : Add your routes here
-
-app.get("/api", (req, res) => {
-  res.send(`Hello, this is my API`);
-});
-
-app.get("/api/greetings", (req, res, next) => {
-  res.status(200).json({
-    message: "Hello, Student !",
-  });
-});
-
+// console.log("API ROUTES");
+app.use("/api/auth", authRouter);
 // ===========================
 
 // not found
