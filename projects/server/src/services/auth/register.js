@@ -43,7 +43,7 @@ async function register(name, username, email, phone, password) {
     return messages.success("Registration successful", { user: newUser });
   } catch (error) {
     console.error("Error during registration:", error);
-    return messages.errorClient(error.message);
+    return messages.error(500, error.message);
   }
 }
 

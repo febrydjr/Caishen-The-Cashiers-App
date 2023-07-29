@@ -27,7 +27,7 @@ async function findUser(identifier, password) {
 
 function generateToken(session) {
   try {
-    return jwt.sign(session, process.env.JWT_KEY, { expiresIn: "1h" });
+    return jwt.sign(session, process.env.JWT_KEY, { expiresIn: "12h" });
   } catch (error) {
     throw new Error("Error generating token");
   }
@@ -43,7 +43,7 @@ async function login(identifier, password) {
     return messages.success("Login Success", { token });
   } catch (error) {
     console.error("Error during login:", error);
-    return messages.errorClient(error.message);
+    return messages.error(500, error.message);
   }
 }
 
