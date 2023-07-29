@@ -7,8 +7,8 @@ require("dotenv").config({
 });
 
 const users = db["user"];
-const BASE_REDIRECT = "localhost:8000";
-const KEY_JWT = process.env.KEY_JWT;
+const BASE_REDIRECT = "localhost:3000";
+const KEY_JWT = process.env.JWT_KEY;
 
 async function forgotPassword(email) {
     const account = await users.findOne({ where: { email } });
@@ -21,7 +21,7 @@ async function forgotPassword(email) {
 
     const content = {
         username: account["username"],
-        redirect: `${BASE_REDIRECT}/reset/${token}`,
+        redirect: `http://${BASE_REDIRECT}/reset/${token}`,
     };
 
     await sendMail(account["email"], "RESET PASSWORD", content);
@@ -30,6 +30,4 @@ async function forgotPassword(email) {
     );
 }
 
-module.exports = {
-    forgotPassword,
-};
+module.exports = forgotPassword

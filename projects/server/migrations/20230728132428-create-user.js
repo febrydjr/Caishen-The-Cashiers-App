@@ -35,7 +35,7 @@ module.exports = {
         is_admin: {
           type: Sequelize.BOOLEAN,
         },
-        is_disable: {
+        is_active: {
           type: Sequelize.BOOLEAN,
         },
         created_at: {

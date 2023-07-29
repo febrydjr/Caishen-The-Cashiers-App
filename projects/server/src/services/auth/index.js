@@ -7,4 +7,5 @@ module.exports = {
     login, 
     register, 
     forgotPassword,
+    resetPassword,
 };
