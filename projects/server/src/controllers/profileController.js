@@ -13,8 +13,8 @@ async function getProfile(req, res) {
 async function updateAvatar(req, res) {
   try {
     const userId = req.account;
-    const { avatar } = req.file;
-    const updatedAvatar = await profileService.updateAvatar(userId, avatar);
+    const { file } = req;
+    const updatedAvatar = await profileService.uploadAvatar(userId, file);
 
     return res.status(200).json(updatedAvatar);
   } catch (error) {
