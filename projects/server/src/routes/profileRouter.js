@@ -9,7 +9,8 @@ router.post(
   multer.single("avatar"),
   profileController.updateAvatar
 );
-router.get("/cashier", profileController.getAllProfiles);
-router.patch("/remove-user", profileController.deleteUser);
+router.get("/cashiers", profileController.getAllProfiles);
+router.patch("/user", profileController.deleteUser);
+router.patch("/", profileController.updateUser);
 
 module.exports = router;

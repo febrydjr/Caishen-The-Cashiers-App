@@ -35,15 +35,25 @@ async function deleteUser(req, res) {
   try {
     const { username } = req.body;
     const result = await profileService.deleteUserByUsername(username);
-    return res.status(500).json(result);
+    return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(error.message);
   }
 }
 
+async function updateUser(req, res) {
+  try {
+    const { username, email, id } = req.body;
+    const result = await profileService.updateUser(id, username, email);
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+}
 module.exports = {
   getProfile,
   getAllProfiles,
   updateAvatar,
   deleteUser,
+  updateUser,
 };
