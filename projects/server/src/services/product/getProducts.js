@@ -1,12 +1,14 @@
-const {messages} = require("../../helpers")
+const { messages } = require("../../helpers");
 const db = require("../../../models");
 
 const products = db["product"];
 
-async function getItems(account) {
+async function getProducts(req) {
+    const { account } = req;
+    
     const whereOptions = {};
 
-    if(!account["is_admin"]) whereOptions["is_active"] = true;
+    if (!account["is_admin"]) whereOptions["is_active"] = true;
 
     const result = await products.findAll({
         where: whereOptions,
@@ -15,4 +17,4 @@ async function getItems(account) {
     return messages.success("", result);
 }
 
-module.exports = getItems;
+module.exports = getProducts;

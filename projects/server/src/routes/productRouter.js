@@ -1,9 +1,12 @@
 const router = require("express").Router();
-const {productController} = require("../controllers");
+const { auth, multer } = require("../middleware");
+const { productController } = require("../controllers");
 
-// Get All items
-router.get("/", productController.getItems);
-// Get an item by id
-router.get("/:id", productController.getItem);
+// Add new product
+router.post("/", auth, multer.single("image"), productController.addProduct)
+// Get All products
+router.get("/", auth, productController.getProducts);
+// Get an product by id
+router.get("/:id", productController.getProduct);
 
 module.exports = router;
