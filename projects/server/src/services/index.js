@@ -1,3 +1,4 @@
 const authService = require("./auth");
 const profileService = require("./profile");
-module.exports = { authService, profileService };
+const productService = require("./product");
+module.exports = { authService, profileService, productService };
