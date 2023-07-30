@@ -53,4 +53,6 @@ function vResult(req, res, next) {
   next();
 }
 
+//middleware buat cek admin, hanya admin akses api register
+
 module.exports = { loginValidator, registerValidator, vResult };

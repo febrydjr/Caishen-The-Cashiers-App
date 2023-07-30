@@ -33,14 +33,14 @@ async function createUser(name, username, email, phone, password) {
     return newUser;
   } catch (error) {
     console.error("Error creating user:", error);
-    throw new Error("Failed to create user");
+    throw new Error(error.message);
   }
 }
 
 async function register(name, username, email, phone, password) {
   try {
     const newUser = await createUser(name, username, email, phone, password);
-    return messages.success("Registration successful", { user: newUser });
+    return messages.success("Registration successful");
   } catch (error) {
     console.error("Error during registration:", error);
     return messages.error(500, error.message);

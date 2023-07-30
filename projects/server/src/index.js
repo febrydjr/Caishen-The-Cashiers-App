@@ -2,7 +2,7 @@ require("dotenv/config");
 const express = require("express");
 const cors = require("cors");
 const { join } = require("path");
-const { authRouter, productRouter } = require("./routes");
+const { authRouter, profileRouter, productRouter } = require("./routes");
 const PORT = process.env.PORT || 8000;
 const app = express();
 app.use(
@@ -23,6 +23,7 @@ app.use(express.json());
 // console.log("API ROUTES");
 
 app.use("/api/auth", authRouter);
+app.use("/api/profile", profileRouter);
 app.use("/api/products", productRouter);
 
 // ===========================

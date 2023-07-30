@@ -37,7 +37,7 @@ async function login(identifier, password) {
   try {
     const account = await findUser(identifier, password);
 
-    const payload = { identifier: account.id };
+    const payload = { id: account.id, is_admin: account.is_admin };
     const token = generateToken(payload);
 
     return messages.success("Login Success", { token });
