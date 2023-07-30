@@ -9,4 +9,8 @@ router.get("/", auth, productController.getProducts);
 // Get an product by id
 router.get("/:id", productController.getProduct);
 
+router.post("/category", productController.addCategory);
+router.patch("/category", productController.editCategory);
+router.delete("/category/:categoryId", productController.deleteCategory);
+
 module.exports = router;
