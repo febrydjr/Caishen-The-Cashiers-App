@@ -29,6 +29,16 @@ async function addProduct(req, res) {
     }
 }
 
+async function deleteProduct(req, res) {
+    try {
+        const { id } = req.params;
+        const result = await productService.deleteProduct(id);
+        res.status(result.status).json(messages.response(result));
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 async function addCategory(req, res) {
     try {
         const { name } = req.body;
@@ -68,6 +78,7 @@ module.exports = {
     addProduct,
     getProduct,
     getProducts,
+    deleteProduct,
     addCategory,
     editCategory,
     deleteCategory,
