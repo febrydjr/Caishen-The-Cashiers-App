@@ -1,4 +1,8 @@
-require("dotenv/config");
+// require("dotenv/config");
+const path = require("path");
+require("dotenv").config({
+  path: path.resolve(__dirname, "../.env"),
+});
 const express = require("express");
 const cors = require("cors");
 const { join } = require("path");
@@ -15,7 +19,7 @@ app.use(
     ],
   })
 );
-
+// app.use(cors({ origin: ["http://localhost:3000"] }));
 app.use(express.json());
 
 //#region API ROUTES
@@ -23,6 +27,7 @@ app.use(express.json());
 // ===========================
 // NOTE : Add your routes here
 // console.log("API ROUTES");
+
 app.use("/api/auth", authRouter);
 app.use("/api/profile", profileRouter);
 // ===========================
