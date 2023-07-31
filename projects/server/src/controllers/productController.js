@@ -4,7 +4,9 @@ const { messages } = require("../helpers");
 
 async function getProducts(req, res) {
     try {
-        const result = await productService.getProducts(req);
+        const { account } = req;
+        const query = req.query;
+        const result = await productService.getProducts(account, query);
         res.status(result.status).json(messages.response(result));
     } catch (error) {
         res.status(500).json({ message: error.message });

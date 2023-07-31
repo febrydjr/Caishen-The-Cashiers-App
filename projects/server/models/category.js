@@ -4,6 +4,7 @@ module.exports = (sequelize, DataTypes) => {
   class categories extends Model {
     static associate(models) {
       this.hasMany(models.product_category, { foreignKey: "id_category" });
+      this.belongsToMany(models.product, {through: models.product_category, foreignKey:"id_category"})
     }
   }
   categories.init(
