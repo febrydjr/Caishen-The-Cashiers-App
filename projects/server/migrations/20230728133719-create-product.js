@@ -26,9 +26,6 @@ module.exports = {
                 price: {
                     type: Sequelize.BIGINT,
                 },
-                id_category: {
-                    type: Sequelize.INTEGER,
-                },
                 is_active: {
                     type: Sequelize.BOOLEAN,
                 },

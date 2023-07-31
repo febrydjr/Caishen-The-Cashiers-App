@@ -24,6 +24,8 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: "product_category",
+      createdAt: "created_at",
+      updatedAt: "updated_at",
     }
   );
   return product_categories;
