@@ -1,8 +1,12 @@
-require("dotenv/config");
+// require("dotenv/config");
+const path = require("path");
+require("dotenv").config({
+  path: path.resolve(__dirname, "../.env"),
+});
 const express = require("express");
 const cors = require("cors");
 const { join } = require("path");
-const { authRouter, profileRouter, productRouter } = require("./routes");
+const { authRouter, profileRouter } = require("./routes");
 
 const PORT = process.env.PORT || 8000;
 const app = express();
@@ -14,7 +18,7 @@ app.use(
         ],
     })
 );
-
+// app.use(cors({ origin: ["http://localhost:3000"] }));
 app.use(express.json());
 
 //#region API ROUTES

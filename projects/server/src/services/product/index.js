@@ -20,12 +20,10 @@ module.exports = {
     deleteProduct,
     activateProduct,
     editProduct,
-
     getCategories,
     addCategory,
     editCategory,
     deleteCategory,
-    
     addProductCategories,
     deleteProductCategory,
 };
