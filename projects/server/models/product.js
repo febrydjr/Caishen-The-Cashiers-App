@@ -6,12 +6,12 @@ module.exports = (sequelize, DataTypes) => {
             this.hasMany(models.product_category, {
                 foreignKey: "id_product",
             }),
-                this.hasMany(models.cart_item, {
-                    foreignKey: "id_product",
-                }),
-                this.hasMany(models.transaction_item, {
-                    foreignKey: "id_product",
-                });
+            this.hasMany(models.cart_item, {
+                foreignKey: "id_product",
+            }),
+            this.hasMany(models.transaction_item, {
+                foreignKey: "id_product",
+            });
         }
     }
     product.init(
@@ -32,7 +32,6 @@ module.exports = (sequelize, DataTypes) => {
                 defaultValue: 0,
             },
             price: DataTypes.BIGINT,
-            id_category: DataTypes.UUID,
             is_active: {
                 type: DataTypes.BOOLEAN,
                 defaultValue: true,
