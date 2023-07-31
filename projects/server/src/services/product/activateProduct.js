@@ -3,14 +3,14 @@ const { messages } = require("../../helpers");
 
 const products = db["product"];
 
-async function deleteProduct(id) {
+async function activateProduct(id) {
     return db.sequelize.transaction(async function (t) {
         await products.update(
-            { is_active: 0 },
+            { is_active: 1 },
             { where: { id }, transaction: t }
         );
-        return messages.success("Product successfully disabled");
+        return messages.success("Product successfully activate");
     });
 }
 
-module.exports = deleteProduct;
+module.exports = activateProduct;

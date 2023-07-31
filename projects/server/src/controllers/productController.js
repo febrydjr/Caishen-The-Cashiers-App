@@ -1,3 +1,4 @@
+const fs = require("fs").promises;
 const { productService } = require("../services");
 const { messages } = require("../helpers");
 
@@ -25,6 +26,7 @@ async function addProduct(req, res) {
         const result = await productService.addProduct(req);
         res.status(result.status).json(messages.response(result));
     } catch (error) {
+        await fs.unlink(req.file.path);
         res.status(500).json({ message: error.message });
     }
 }
@@ -36,6 +38,40 @@ async function deleteProduct(req, res) {
         res.status(result.status).json(messages.response(result));
     } catch (error) {
         res.status(500).json({ message: error.message });
+    }
+}
+
+async function activateProduct(req, res) {
+    try {
+        const { id } = req.params;
+        const result = await productService.activateProduct(id);
+        res.status(result.status).json(messages.response(result));
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+async function editProduct(req, res) {
+    try {
+        const { id } = req.params;
+        const { name, description, price, stock, id_categories } = req.body;
+        const { file } = req;
+        const result = await productService.editProduct(id, name, description, price, stock, id_categories, file);
+        res.status(result.status).json(messages.response(result));
+    } catch (error) {
+        if(req.file) await fs.unlink(req.file.path);
+        res.status(500).json({ message: error.message });
+    }
+}
+
+async function getCategories(req, res) {
+    try {
+        const result = await productService.getCategories();
+        return res
+            .status(result.status)
+            .json(messages.response(messages.response(result)));
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
     }
 }
 
@@ -74,12 +110,43 @@ async function deleteCategory(req, res) {
     }
 }
 
+async function addProductCategories(req, res) {
+    try {
+        const { id_product, id_categories } = req.body;
+        const result = await productService.addProductCategories(
+            id_product,
+            id_categories
+        );
+        return res.status(result.status).json(messages.response(result));
+    } catch (error) {
+        return res.status(500).json(error.message);
+    }
+}
+
+async function deleteProductCategory(req, res) {
+    try {
+        const { id_product, id_category } = req.params;
+        const result = await productService.deleteProductCategory(
+            id_product,
+            id_category
+        );
+        return res.status(result.status).json(messages.response(result));
+    } catch (error) {
+        return res.status(500).json(error.message);
+    }
+}
+
 module.exports = {
     addProduct,
     getProduct,
     getProducts,
     deleteProduct,
+    activateProduct,
+    editProduct,
+    getCategories,
     addCategory,
     editCategory,
     deleteCategory,
+    addProductCategories,
+    deleteProductCategory,
 };
