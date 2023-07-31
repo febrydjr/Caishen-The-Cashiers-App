@@ -11,7 +11,6 @@ router.post("/category", productController.addCategory);
 router.post(
     "/",
     auth,
-    isAdmin,
     multer.single("image"),
     productController.addProduct
 );

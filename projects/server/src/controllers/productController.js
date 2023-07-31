@@ -56,10 +56,18 @@ async function editProduct(req, res) {
         const { id } = req.params;
         const { name, description, price, stock, id_categories } = req.body;
         const { file } = req;
-        const result = await productService.editProduct(id, name, description, price, stock, id_categories, file);
+        const result = await productService.editProduct(
+            id,
+            name,
+            description,
+            price,
+            stock,
+            id_categories,
+            file
+        );
         res.status(result.status).json(messages.response(result));
     } catch (error) {
-        if(req.file) await fs.unlink(req.file.path);
+        if (req.file) await fs.unlink(req.file.path);
         res.status(500).json({ message: error.message });
     }
 }
