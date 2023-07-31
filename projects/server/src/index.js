@@ -31,7 +31,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/profile", profileRouter);
 app.use("/api/products", productRouter);
 
-api.use("/api/public", express.static(path.resolve(__dirname, "../public")))
+app.use("/api/public", express.static(path.resolve(__dirname, "../public")))
 
 // ===========================
 
