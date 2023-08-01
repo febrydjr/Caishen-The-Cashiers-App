@@ -17,36 +17,30 @@ import * as Yup from "yup";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 
-const ChangeUsernameModal = ({ isOpen, onClose }) => {
+const AddCashierModal = ({ isOpen, onClose }) => {
   const validationSchema = Yup.object().shape({
-    currentUsername: Yup.string().required("Current Username is required"),
-    newUsername: Yup.string().required("New Username is required"),
+    username: Yup.string().required("Username is required").min(8),
   });
 
   const toast = useToast();
   const handleSubmit = async (values) => {
     try {
-      const token = localStorage.getItem("token");
-
-      await axios.patch(
-        "https://minpro-blog.purwadhikabootcamp.com/api/auth/changeUsername",
-        {
-          currentUsername: values.currentUsername,
-          newUsername: values.newUsername,
-          FE_URL: "http://localhost:3000",
-        }
-      );
+      await axios.post("http://localhost:8000/api/auth/register", {
+        name: values.name,
+        username: values.username,
+        password: "password123",
+        email: values.email,
+        phone: values.phone,
+      });
       toast({
-        title: "Username changed successfully",
-        description: "check your email for verification",
+        title: "Add Cashier successfully!",
         status: "success",
         duration: 4000,
         isClosable: true,
       });
     } catch (error) {
-      console.error("Error changing username:", error);
       toast({
-        title: "Error changing username",
+        title: "Error Addding Cashier!",
         description: error.response.data,
         status: "error",
         duration: 4000,
@@ -66,15 +60,14 @@ const ChangeUsernameModal = ({ isOpen, onClose }) => {
         </ModalHeader>
         <ModalCloseButton />
         <Formik
-          initialValues={{ currentUsername: "", newUsername: "" }}
+          initialValues={{ name: "", username: "", email: "", phone: "" }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ isSubmitting }) => (
+          {() => (
             <Form>
               <ModalBody>
                 <Text
-                  fontFamily={"monospace"}
                   fontSize={"sm"}
                   mb={4}
                   fontWeight={500}
@@ -86,33 +79,51 @@ const ChangeUsernameModal = ({ isOpen, onClose }) => {
                   mb={2}
                   as={Input}
                   type="text"
-                  name="currentUsername"
+                  name="name"
                   rounded={"lg"}
-                  focusBorderColor="#C77DFF"
                   placeholder="Enter Cashier Name"
                   _placeholder={{ fontSize: "sm", color: "gray.400" }}
                 />
                 <Field
+                  mb={2}
                   as={Input}
                   type="text"
-                  name="newUsername"
+                  name="username"
                   rounded={"lg"}
                   placeholder="Enter Cashier Username"
+                  _placeholder={{ fontSize: "sm", color: "gray.400" }}
+                />
+                <Field
+                  mb={2}
+                  as={Input}
+                  type="text"
+                  name="email"
+                  rounded={"lg"}
+                  placeholder="Enter Cashier Email"
+                  _placeholder={{ fontSize: "sm", color: "gray.400" }}
+                />
+                <Field
+                  mb={2}
+                  as={Input}
+                  type="text"
+                  name="phone"
+                  rounded={"lg"}
+                  placeholder="Enter Cashier Phone"
                   _placeholder={{ fontSize: "sm", color: "gray.400" }}
                 />
               </ModalBody>
               <ModalFooter>
                 <Button
                   type="submit"
-                  fontFamily={"monospace"}
                   display={"flex"}
                   justifyContent={"center"}
                   w={"100%"}
                   rounded={"lg"}
                   color={"white"}
-                  colorScheme={"facebook"}
+                  _hover={{ bg: "green" }}
+                  bg={"#2A2B2E"}
                 >
-                  Change Username
+                  Submit Data
                 </Button>
               </ModalFooter>
             </Form>
@@ -123,4 +134,4 @@ const ChangeUsernameModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default ChangeUsernameModal;
+export default AddCashierModal;

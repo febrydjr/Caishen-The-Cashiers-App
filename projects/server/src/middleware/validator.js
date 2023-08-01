@@ -31,10 +31,6 @@ const vSetPassword = vPassword
   .bail()
   .isStrongPassword({
     minLength: 6,
-    minLowercase: 1,
-    minUppercase: 1,
-    minNumbers: 1,
-    minSymbols: 1,
   })
   .withMessage(
     "Password length min 8, uppercase min 1, number min 1, symbol min 1"
@@ -45,7 +41,7 @@ const vName = body("name")
   .bail()
   .isLength({ min: 2, max: 50 })
   .withMessage("Name length must be between 2 and 50 characters");
-const registerValidator = [vName, vEmail, vUsername, vPhone, vSetPassword];
+const registerValidator = [vName, vEmail, vUsername, vPhone];
 
 function vResult(req, res, next) {
   const { errors } = validationResult(req);
