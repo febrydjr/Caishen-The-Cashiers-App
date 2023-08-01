@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react";
 import Login from "./pages/Login";
+import Cashier from "./pages/Cashier";
 
 function App() {
   // const [message, setMessage] = useState("");
@@ -21,6 +22,7 @@ function App() {
     <>
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/cashier" element={<Cashier/>}/>
       </Routes>
     </>
   );
