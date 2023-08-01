@@ -15,14 +15,17 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
             },
             id_user: DataTypes.UUID,
-            total_price: DataTypes.BIGINT,
-            date: DataTypes.DATE,
+            total_price: {
+                type: DataTypes.BIGINT,
+                defaultValue: 0,
+            },
         },
         {
             sequelize,
             modelName: "cart",
-            createdAt: "date",
+            createdAt: "created_at",
             updatedAt: false,
+            underscored: true,
         }
     );
     return cart;
