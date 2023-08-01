@@ -19,7 +19,7 @@ import { IoTrashBinOutline, IoTrashBinSharp } from "react-icons/io5";
 import { AiOutlineEdit } from "react-icons/ai";
 export default function CashierManage({ cashiers }) {
   const [liked, setLiked] = useState(false);
-
+  console.log(cashiers);
   return (
     <>
       <Flex
@@ -32,11 +32,10 @@ export default function CashierManage({ cashiers }) {
         fontFamily={"Fira Code"}
         py={6}
       >
-        {cashiers.map((cashier) => (
+        {cashiers?.map((cashier) => (
           <Box
             w="263px"
             rounded={"lg"}
-            // my={1}
             mx={[0, 2]}
             overflow={"hidden"}
             bg="#CFDDDB"

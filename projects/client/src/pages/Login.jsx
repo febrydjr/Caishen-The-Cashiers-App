@@ -22,7 +22,7 @@ const Login = () => {
   const validationSchema = Yup.object().shape({
     identifier: Yup.string().required("Username/Email is required"),
     password: Yup.string().required("Password is required"),
-    email: Yup.string().email("Invalid email").required("Email is required"),
+    email: Yup.string().email("Invalid email"),
   });
 
   const initialValues = {

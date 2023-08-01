@@ -17,24 +17,23 @@ import axios from "axios";
 import CashierManage from "../components/CashierManage";
 
 const AdminDashboard = () => {
-  const [selectedItem, setSelectedItem] = useState(null);
   const [cashiers, setCashiers] = useState([]);
+  const [activePage, setActivePage] = useState("menu");
 
-  const handleMenuClick = () => {
-    setSelectedItem("THIS IS MENU");
-  };
-
-  const handleCashierManageClick = () => {
-    // setSelectedItem("THIS IS CASHIER MANAGE");
-    fetchCashiers();
-  };
-
-  const handleProductManageClick = () => {
-    setSelectedItem("THIS IS PRODUCT MANAGE");
-  };
-
-  const handleReportClick = () => {
-    setSelectedItem("THIS IS REPORT");
+  const renderPage = () => {
+    switch (activePage) {
+      case "menu":
+        return <Text>INI LANDING PAGE</Text>;
+      case "cashier":
+        console.log("masuk cashier");
+        return <CashierManage cashiers={cashiers} />;
+      case "product":
+        return "INI PRODUCT";
+      case "report":
+        return "THIS IS REPORT";
+      default:
+        return null;
+    }
   };
 
   const fetchCashiers = async () => {
@@ -53,7 +52,7 @@ const AdminDashboard = () => {
   }, []);
 
   return (
-    <Box bgColor={"#2D2D2D"} borderRadius={20}>
+    <Box bgColor={"#2A2B2E"} borderRadius={8}>
       <Navbar />
       <Flex>
         <Box
@@ -79,7 +78,7 @@ const AdminDashboard = () => {
             >
               ADMIN DASHBOARD
             </Text>
-            <Link onClick={handleMenuClick}>
+            <Link onClick={() => setActivePage("menu")}>
               <Flex
                 gap={6}
                 justifyContent={"left"}
@@ -105,7 +104,7 @@ const AdminDashboard = () => {
                 <Text
                   _hover={{ color: "#C2E9DD" }}
                   color="white"
-                  onClick={handleCashierManageClick}
+                  onClick={() => setActivePage("cashier")}
                 >
                   CASHIER MANAGE
                 </Text>
@@ -123,7 +122,7 @@ const AdminDashboard = () => {
                 <Text
                   _hover={{ color: "#C9CAEF" }}
                   color="white"
-                  onClick={handleProductManageClick}
+                  onClick={() => setActivePage("product")}
                 >
                   PRODUCT MANAGE
                 </Text>
@@ -141,7 +140,7 @@ const AdminDashboard = () => {
                 <Text
                   _hover={{ color: "#E4CDED" }}
                   color="white"
-                  onClick={handleReportClick}
+                  onClick={() => setActivePage("report")}
                 >
                   REPORT
                 </Text>
@@ -149,10 +148,7 @@ const AdminDashboard = () => {
             </Link>
           </VStack>
         </Box>
-        <Box ml="4">
-          {/* {selectedItem && <CashierManage cashiers={cashiers} />} */}
-          <CashierManage cashiers={cashiers} />
-        </Box>
+        <Box ml="4">{renderPage()}</Box>
       </Flex>
     </Box>
   );
