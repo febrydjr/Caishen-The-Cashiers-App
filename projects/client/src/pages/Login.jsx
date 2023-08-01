@@ -13,14 +13,16 @@ import {
 } from "@chakra-ui/react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [Toggle, setToggle] = React.useState(false);
   const toast = useToast();
+  const navigate = useNavigate();
   const validationSchema = Yup.object().shape({
     identifier: Yup.string().required("Username/Email is required"),
     password: Yup.string().required("Password is required"),
-    email: Yup.string().email("Invalid email").required("Email is required"),
+    email: Yup.string().email("Invalid email"),
   });
 
   const initialValues = {
@@ -49,6 +51,7 @@ const Login = () => {
           duration: 9000,
           isClosable: true,
         });
+        navigate("/dashboard");
       }
     } catch (err) {
       // console.error(err);
@@ -80,7 +83,7 @@ const Login = () => {
           color={"white"}
           boxShadow={"dark-lg"}
         >
-          <Text fontSize={"4xl"}>Caishen Login!</Text>
+          <Text fontSize={"4xl"}>CaishenPOS Login!</Text>
           <Text fontSize="12px" mb={8}>
             Welcome back! please enter your detail!
           </Text>
