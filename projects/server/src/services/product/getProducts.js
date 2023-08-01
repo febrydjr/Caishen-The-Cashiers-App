@@ -23,7 +23,7 @@ function setPagination(page = 1, limit = 10) {
 }
 
 async function getProducts(account, query) {
-    const { name, id_category, order, page, limit } = query;
+    const { name, id_category, order_by, order, page, limit } = query;
 
     const pagination = setPagination(page, limit);
     const whereOptions = {};
@@ -35,7 +35,10 @@ async function getProducts(account, query) {
     const result = await products.findAll({
         include: includeOptions,
         where: whereOptions,
-        order: [["name", order || "ASC"], [categories, "name", "ASC"]],
+        order: [
+            [order_by || "name", order || "ASC"],
+            [categories, "name", "ASC"],
+        ],
         ...pagination,
     });
 
