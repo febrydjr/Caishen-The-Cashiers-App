@@ -8,6 +8,16 @@ import {
   Center,
   useColorModeValue,
   HStack,
+  Link,
+  Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 import {
   BsArrowUpRight,
@@ -17,8 +27,11 @@ import {
 } from "react-icons/bs";
 import { IoTrashBinOutline, IoTrashBinSharp } from "react-icons/io5";
 import { AiOutlineEdit } from "react-icons/ai";
+import AddCashierModal from "./AddCashierModal";
 export default function CashierManage({ cashiers }) {
   const [liked, setLiked] = useState(false);
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   console.log(cashiers);
   return (
     <>
@@ -108,20 +121,23 @@ export default function CashierManage({ cashiers }) {
           </Box>
         ))}
       </Flex>
-      <Flex
-        position={"fixed"}
-        zIndex={60000}
-        bottom={8}
-        right={8}
-        p={6}
-        justifyContent={"center"}
-        alignItems={"center"}
-        borderRadius={"full"}
-        w={"6%"}
-        bgColor={"#FFFFFF"}
-      >
-        <BsPersonPlusFill size={"25px"} />
-      </Flex>
+      <Link onClick={onOpen}>
+        <Flex
+          position={"fixed"}
+          zIndex={60000}
+          bottom={8}
+          right={8}
+          p={6}
+          justifyContent={"center"}
+          alignItems={"center"}
+          borderRadius={"full"}
+          w={"6%"}
+          bgColor={"#FFFFFF"}
+        >
+          <BsPersonPlusFill size={"25px"} />
+        </Flex>
+      </Link>
+      <AddCashierModal isOpen={isOpen} onOpen={onOpen} onClose={onClose} />
     </>
   );
 }
