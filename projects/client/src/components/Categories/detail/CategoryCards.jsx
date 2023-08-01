@@ -23,7 +23,6 @@ const textOptions = {
 };
 
 function CategoryCards({ categories }) {
-    if (!categories) return <></>;
     return categories.map((category, index) => (
         <GridItem {...gridOptions} id={category["id"]} key={index}>
             <Flex {...flexOptions}>

@@ -1,20 +1,46 @@
-import { GridItem, Text } from "@chakra-ui/react";
+import { Flex, GridItem, Text } from "@chakra-ui/react";
 import customColors from "../../../themes/customColors";
-import { useState } from "react";
+import getImage from "../../../api/getImage";
 
 const gridOptions = {
     w: "180px",
     h: "180px",
-    bgColor: customColors.secondary,
+    pos: "relative",
     borderRadius: "4px",
+    bgPos: "center",
+    bgSize: "cover",
+    overflow: "hidden",
 };
 
-function ProductCards({ data }) {
-    if (!data["products"]) return <></>;
-    return data["products"].map((product, index) => (
-        <GridItem {...gridOptions} id={product["id"]} key={index} >
-            {/* {product["name"]} */}
-            {/* <Text>{product["name"]}</Text> */}
+const titleOptions = {
+    color: customColors.textPrimary,
+    fontFamily: "Fira Code",
+    fontWeight: "semibold",
+    textAlign: "center",
+    noOfLines: 2,
+};
+
+const backdrop = {
+    w: "100%",
+    h:"28%",
+    pos: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    bgColor: "#00000066",
+    backdropFilter: "blur(2px)"
+};
+
+function ProductCards({ products }) {
+    return products.map((product, index) => (
+        <GridItem
+            {...gridOptions}
+            id={product["id"]}
+            key={index}
+            bgImage={getImage(product["image"])}
+        >
+            <Flex bottom={0} {...backdrop}>
+                <Text {...titleOptions}>{product["name"]}</Text>
+            </Flex>
         </GridItem>
     ));
 }

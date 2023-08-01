@@ -12,18 +12,20 @@ const options = {
 
 async function fetchProducts(setProducts) {
     const {data} = await getProducts();
-    setProducts(data);
+    console.log(data.products);
+    setProducts(data.products);
 }
 
 function Products() {
-    const [products, setProducts] = useState({});
+    const [products, setProducts] = useState([]);
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
         fetchProducts(setProducts);
     }, []);
 
     return <Grid {...options}>
-        <ProductCards data={products}/>
+        <ProductCards products={products}/>
     </Grid>;
 }
 

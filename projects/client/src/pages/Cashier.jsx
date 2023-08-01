@@ -7,10 +7,12 @@ import customColors from "../themes/customColors";
 const mainOptions = {
     bgColor: customColors.primary,
     w: "100vw",
-}
+    p: "12px",
+};
 
 const menuOptions = {
     direction: "column",
+    gap: 4,
 };
 
 function Cashier() {
