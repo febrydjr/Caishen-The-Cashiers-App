@@ -12,7 +12,6 @@ const options = {
 
 async function fetchProducts(setProducts) {
     const {data} = await getProducts();
-    console.log(data.products);
     setProducts(data.products);
 }
 
