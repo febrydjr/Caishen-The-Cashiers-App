@@ -24,7 +24,8 @@ async function getItems(req, res) {
 
 async function editItem(req, res) {
     try {
-        const result = await cartService.editItem();
+        const { id_cart_item, qty } = req.body;
+        const result = await cartService.editItem(id_cart_item, +qty);
         res.status(result.status).json(messages.response(result));
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -33,7 +34,8 @@ async function editItem(req, res) {
 
 async function deleteItem(req, res) {
     try {
-        const result = await cartService.deleteItem();
+        const { id } = req.params;
+        const result = await cartService.deleteItem(id);
         res.status(result.status).json(messages.response(result));
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -41,7 +43,8 @@ async function deleteItem(req, res) {
 }
 async function resetCart(req, res) {
     try {
-        const result = await cartService.resetCart();
+        const { id } = req.account;
+        const result = await cartService.resetCart(id);
         res.status(result.status).json(messages.response(result));
     } catch (error) {
         res.status(500).json({ message: error.message });

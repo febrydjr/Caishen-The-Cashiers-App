@@ -7,7 +7,6 @@ const products = db["product"];
 
 async function getItems(id_user) {
     const cart = await carts.findOne({ where: { id_user } });
-    console.log(cart);
     if (!cart) return messages.error(404, "Cart not found");
 
     const result = await cart_items.findAll({
