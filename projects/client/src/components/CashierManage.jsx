@@ -24,6 +24,8 @@ export default function CashierManage({ cashiers }) {
     <>
       <Flex
         flexWrap={"wrap"}
+        columnGap={1}
+        rowGap={6}
         // direction={"row"}
         // maxW={"60%"}
         overflowX={"hidden"}
@@ -40,7 +42,6 @@ export default function CashierManage({ cashiers }) {
             bg="#CFDDDB"
             border={"1px"}
             borderColor="black"
-            // boxShadow={useColorModeValue("6px 6px 0 black", "6px 6px 0 cyan")}
           >
             <Box h={"200px"} borderBottom={"1px"} borderColor="black">
               <Img
@@ -111,8 +112,8 @@ export default function CashierManage({ cashiers }) {
       <Flex
         position={"fixed"}
         zIndex={60000}
-        bottom={20}
-        right={16}
+        bottom={8}
+        right={8}
         p={6}
         justifyContent={"center"}
         alignItems={"center"}

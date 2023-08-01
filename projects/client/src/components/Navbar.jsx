@@ -104,7 +104,6 @@ function Navbar() {
                 size={"sm"}
                 as={RouterLink}
                 to="/"
-                // mr={4}
                 onClick={handleLogout}
                 _hover={{ textColor: "black", bgColor: "white" }}
                 bgColor={"red.500"}
@@ -112,7 +111,7 @@ function Navbar() {
               >
                 Sign Out
               </Button>
-              <Link as={RouterLink} to="/profile">
+              <Link mr={4} as={RouterLink} to="/profile">
                 <Avatar name="User" src="/profile" size="sm" ml={4} />
               </Link>
             </>
