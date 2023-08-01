@@ -77,9 +77,7 @@ async function editProduct(req, res) {
 async function getCategories(req, res) {
     try {
         const result = await productService.getCategories();
-        return res
-            .status(result.status)
-            .json(messages.response(messages.response(result)));
+        return res.status(result.status).json(messages.response(result));
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }
