@@ -4,28 +4,35 @@ import { getProducts } from "../../api/product";
 import ProductCards from "./detail/ProductCards";
 
 const options = {
-    w: "fit-content",
-    gap: 4,
-    autoFlow: "column",
-    templateRows: "repeat(3, 1fr)",
+  w: "fit-content",
+  gap: 4,
+  autoFlow: "column",
+  templateRows: "repeat(3, 1fr)",
 };
 
 async function fetchProducts(setProducts) {
-    const {data} = await getProducts();
-    setProducts(data.products);
+  const { data } = await getProducts();
+  setProducts(data.products);
 }
 
-function Products() {
-    const [products, setProducts] = useState([]);
-    const [page, setPage] = useState(1);
+function Products(isOpen, onOpen, onClose) {
+  const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(1);
 
-    useEffect(() => {
-        fetchProducts(setProducts);
-    }, []);
+  useEffect(() => {
+    fetchProducts(setProducts);
+  }, []);
 
-    return <Grid {...options}>
-        <ProductCards products={products}/>
-    </Grid>;
+  return (
+    <Grid {...options}>
+      <ProductCards
+        products={products}
+        onClose={onClose}
+        isOpen={isOpen}
+        onOpen={onOpen}
+      />
+    </Grid>
+  );
 }
 
 export default Products;

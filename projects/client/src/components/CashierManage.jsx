@@ -28,6 +28,7 @@ import {
 import { IoTrashBinOutline, IoTrashBinSharp } from "react-icons/io5";
 import { AiOutlineEdit } from "react-icons/ai";
 import AddCashierModal from "./AddCashierModal";
+import getImage from "../api/getImage";
 export default function CashierManage({ cashiers }) {
   const [liked, setLiked] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -37,8 +38,9 @@ export default function CashierManage({ cashiers }) {
     <>
       <Flex
         flexWrap={"wrap"}
-        columnGap={1}
+        // columnGap={1}
         rowGap={6}
+        w={"100%"}
         // direction={"row"}
         // maxW={"60%"}
         overflowX={"hidden"}
@@ -47,7 +49,7 @@ export default function CashierManage({ cashiers }) {
       >
         {cashiers?.map((cashier) => (
           <Box
-            w="263px"
+            w="255px"
             rounded={"lg"}
             mx={[0, 2]}
             overflow={"hidden"}
@@ -57,14 +59,12 @@ export default function CashierManage({ cashiers }) {
           >
             <Box h={"200px"} borderBottom={"1px"} borderColor="black">
               <Img
-                src={
-                  "https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
-                }
+                src={getImage(cashier.avatar)}
                 roundedTop={"sm"}
                 objectFit="cover"
                 h="full"
                 w="full"
-                alt={"Blog Image"}
+                alt={"avatar"}
               />
             </Box>
             <Box p={4}>
@@ -98,7 +98,7 @@ export default function CashierManage({ cashiers }) {
                 w="full"
               >
                 <Text fontSize={"md"} fontWeight={"semibold"}>
-                  {cashier.username}
+                  {cashier.username.slice(0, 12)}
                 </Text>
                 <AiOutlineEdit size={"25px"} />
               </Flex>
