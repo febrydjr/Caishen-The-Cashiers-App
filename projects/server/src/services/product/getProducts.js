@@ -5,15 +5,20 @@ const { Op } = require("sequelize");
 const products = db["product"];
 const categories = db["category"];
 
-const includeOptions = [
-    {
-        attributes: ["id", "name"],
-        model: categories,
-        through: {
-            attributes: [],
+function includeOptions(id) {
+    const whereOptions = {};
+    if (id) whereOptions["id"] = parseInt(id);
+    return [
+        {
+            attributes: ["id", "name"],
+            model: categories,
+            through: {
+                attributes: [],
+            },
+            where: whereOptions,
         },
-    },
-];
+    ];
+}
 
 function setPagination(page = 1, limit = 10) {
     return {
@@ -23,17 +28,19 @@ function setPagination(page = 1, limit = 10) {
 }
 
 async function getProducts(account, query) {
-    const { name, id_category, order_by, order, page, limit } = query;
+    const { title, id_category, order_by, order, page, limit } = query;
 
     const pagination = setPagination(page, limit);
     const whereOptions = {};
     if (!account["is_admin"]) whereOptions["is_active"] = true;
-    if (name) whereOptions["name"] = { [Op.like]: `%${name}%` };
-    if (id_category) whereOptions["id_category"] = parseInt(id_category);
+    if (title) whereOptions["name"] = { [Op.like]: `%${title}%` };
+    // if (id_category) whereOptions["$categories.id$"] = parseInt(id_category);
+
+    console.log(whereOptions);
 
     const countProduct = await products.count();
     const result = await products.findAll({
-        include: includeOptions,
+        include: includeOptions(id_category),
         where: whereOptions,
         order: [
             [order_by || "name", order || "ASC"],

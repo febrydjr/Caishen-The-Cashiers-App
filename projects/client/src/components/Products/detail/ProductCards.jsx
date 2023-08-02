@@ -22,7 +22,8 @@ const titleOptions = {
 
 const backdrop = {
     w: "100%",
-    h:"28%",
+    h:"32%",
+    px: "4px",
     pos: "absolute",
     alignItems: "center",
     justifyContent: "center",

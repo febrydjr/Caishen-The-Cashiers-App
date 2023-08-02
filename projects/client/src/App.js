@@ -7,7 +7,6 @@ import { ChakraProvider } from "@chakra-ui/react";
 import Login from "./pages/Login";
 import Cashier from "./pages/Cashier";
 import AdminDashboard from "./pages/AdminDashboard";
-import CashierManage from "./components/CashierManage";
 import { Box } from "@chakra-ui/react";
 
 function App() {
