@@ -17,11 +17,6 @@ const titleOptions = {
     fontSize: "1.2em",
 };
 
-async function fetchCategories(setCategories) {
-    const { data } = await getCategories();
-    setCategories(data);
-}
-
 function setOptions(editCategory) {
     if (editCategory) options["templateColumns"] = "repeat(6, 1fr)";
     else options["templateRows"] = "repeat(2, 1fr)";
@@ -29,7 +24,13 @@ function setOptions(editCategory) {
 }
 
 function Categories({ editCategory = false, setCategory }) {
-    const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState([{ id: 0, name: "All" }]);
+
+    async function fetchCategories() {
+        const { data } = await getCategories();
+        console.log([...categories, ...data]);
+        setCategories([...categories, ...data]);
+    }
 
     setOptions(editCategory);
 
@@ -44,7 +45,10 @@ function Categories({ editCategory = false, setCategory }) {
                 <Divider />
             </HStack>
             <Grid {...options}>
-                <CategoryCards categories={categories} setCategory={setCategory} />
+                <CategoryCards
+                    categories={categories}
+                    setCategory={setCategory}
+                />
             </Grid>
         </>
     );
