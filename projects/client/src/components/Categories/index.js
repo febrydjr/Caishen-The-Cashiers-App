@@ -2,6 +2,13 @@ import { Divider, Grid, HStack, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import CategoryCards from "./detail/CategoryCards";
 import { getCategories } from "../../api/product";
+import customColors from "../../themes/customColors";
+
+const fontOptions = {
+    color: customColors.textPrimary,
+    fontFamily: "Fira Code",
+    fontWeight: "semibold",
+}
 
 const options = {
     w: "fit-content",
@@ -40,10 +47,10 @@ function Categories({ isEdit = false, setCategory, setPage, isOpen, onClose, onO
     return (
         <>
             <HStack>
-                <Text {...titleOptions}>Categories</Text>
+                <Text {...titleOptions} {...fontOptions}>Categories</Text>
                 <Divider />
             </HStack>
-            <Grid {...options}>
+            <Grid {...options} {...fontOptions}>
                 <CategoryCards
                     categories={categories}
                     setCategory={setCategory}

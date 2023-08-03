@@ -34,7 +34,6 @@ function CategoryCards({ categories, setCategory, setPage, isEdit }) {
     }
 
     return categories.map((category, index) => (
-      <>
         <GridItem
             {...gridOptions}
             id={category["id"]}
@@ -44,13 +43,12 @@ function CategoryCards({ categories, setCategory, setPage, isEdit }) {
             <Flex {...flexOptions}>
                 <Text {...textOptions}>{category["name"]}</Text>
             </Flex>
+            <EditCategoryModal
+                isOpen={isOpen}
+                onClose={onClose}
+                category={category}
+            />
         </GridItem>
-        <EditCategoryModal
-        isOpen={isOpen}
-        onClose={onClose}
-        category={category}
-      />
-      </>
     ));
 }
 

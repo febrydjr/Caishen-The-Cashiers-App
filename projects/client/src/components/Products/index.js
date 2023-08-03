@@ -3,6 +3,13 @@ import { useEffect, useRef, useState } from "react";
 import { getProducts } from "../../api/product";
 import ProductCards from "./detail/ProductCards";
 import Filter from "./detail/Filter";
+import customColors from "../../themes/customColors";
+
+const fontOptions = {
+    color: customColors.textPrimary,
+    fontFamily: "Fira Code",
+    fontWeight: "semibold",
+}
 
 const options = {
     w: "fit-content",
@@ -20,7 +27,7 @@ const titleOptions = {
     fontSize: "1.2em",
 };
 
-function Products({ category = 0, page = 0, setPage, isEdit = false }) {
+function Products({ category = 0, page = 0, title = "", setPage, isEdit = false }) {
     const [products, setProducts] = useState([]);
     const [order, setOrder] = useState("ASC");
     const [filter, setFilter] = useState("name");
@@ -40,6 +47,7 @@ function Products({ category = 0, page = 0, setPage, isEdit = false }) {
 
     async function fetchProducts() {
         const queries = {
+            title,
             order_by: filter,
             order,
             page,
@@ -56,11 +64,11 @@ function Products({ category = 0, page = 0, setPage, isEdit = false }) {
     useEffect(() => {
         fetchProducts({});
         console.log(products);
-    }, [category, filter, order, page]);
+    }, [title, category, filter, order, page]);
 
     return (
         <>
-            <HStack>
+            <HStack {...fontOptions}>
                 <Text {...titleOptions}>Products</Text>
                 <Divider />
                 <Filter
@@ -70,7 +78,7 @@ function Products({ category = 0, page = 0, setPage, isEdit = false }) {
                     setPage={setPage}
                 />
             </HStack>
-            <Grid {...options} onScroll={onProductsScroll} ref={productsRef}>
+            <Grid {...options} {...fontOptions} onScroll={onProductsScroll} ref={productsRef}>
                 <ProductCards products={products} isEdit={isEdit}/>
             </Grid>
         </>

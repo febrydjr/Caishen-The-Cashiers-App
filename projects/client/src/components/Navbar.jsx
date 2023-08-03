@@ -18,27 +18,13 @@ import { GiHamburgerMenu, GiToken } from "react-icons/gi";
 import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
 // import "../App.css";
 
-function Navbar() {
+function Navbar({searchQuery, setSearchQuery}) {
   const [isToggle, setIsToggle] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
   const handleToggle = () => {
     setIsToggle(!isToggle);
-  };
-
-  const handleSearch = () => {
-    // const filteredArticles = articlesData.filter((article) => {
-    //   const { title, author, category } = article;
-    //   const lowerCaseQuery = searchQuery.toLowerCase();
-    //   return (
-    //     title.toLowerCase().includes(lowerCaseQuery) ||
-    //     author.toLowerCase().includes(lowerCaseQuery) ||
-    //     category.toLowerCase().includes(lowerCaseQuery)
-    //   );
-    // });
-    // navigate("/search-results", { state: { filteredArticles } });
   };
 
   const handleLogout = () => {
@@ -82,17 +68,11 @@ function Navbar() {
             ml={10}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSearch();
-              }
-            }}
           />
           <Button
             ml={2}
             colorScheme="gray"
             _hover={{ bg: "#DAFFFB" }}
-            onClick={handleSearch}
           >
             <AiOutlineSearch size={"20px"} />
           </Button>

@@ -39,25 +39,24 @@ function ProductCards({ products, isEdit }) {
     }
 
     return products.map((product, index) => (
-        <>
-            <GridItem
-                {...gridOptions}
-                id={product["id"]}
-                key={index}
-                bgImage={getImage(product["image"])}
-                onClick={() => handleClick()}
-            >
-                <Flex bottom={0} {...backdrop}>
-                    <Text {...titleOptions}>{product["name"]}</Text>
-                </Flex>
-            </GridItem>
+        <GridItem
+            {...gridOptions}
+            id={product["id"]}
+            key={`product-${index}`}
+            bgImage={getImage(product["image"])}
+            onClick={() => handleClick()}
+        >
+            <Flex bottom={0} {...backdrop}>
+                <Text {...titleOptions}>{product["name"]}</Text>
+            </Flex>
             <EditProductModal
+                key={index}
                 isOpen={isOpen}
                 onOpen={onOpen}
                 onClose={onClose}
                 product={product}
             />
-        </>
+        </GridItem>
     ));
 }
 

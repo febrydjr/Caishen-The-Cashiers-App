@@ -5,7 +5,7 @@ import AddProductModal from "../components/Products/detail/AddProductModal";
 import Categories from "./Categories";
 import { useState } from "react";
 
-function ProductManage() {
+function ProductManage({searchQuery=""}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [page, setPage] = useState(0);
@@ -15,7 +15,7 @@ function ProductManage() {
     <Flex>
       <Flex direction={"column"} gap={4}>
         <Categories setCategory={setCategory} setPage={setPage}/>
-        <Products isEdit={true} category={category} page={page} setPage={setPage}/>
+        <Products isEdit={true} category={category} page={page} title={searchQuery} setPage={setPage}/>
       </Flex>
       <Link
         onClick={() => {
