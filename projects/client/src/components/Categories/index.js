@@ -23,7 +23,7 @@ function setOptions(editCategory) {
     options["autoFlow"] = editCategory ? "row" : "column";
 }
 
-function Categories({ editCategory = false, setCategory, setPage, isOpen, onClose, onOpen }) {
+function Categories({ isEdit = false, setCategory, setPage, isOpen, onClose, onOpen }) {
     const [categories, setCategories] = useState([{ id: 0, name: "All" }]);
 
     async function fetchCategories() {
@@ -31,7 +31,7 @@ function Categories({ editCategory = false, setCategory, setPage, isOpen, onClos
         setCategories([...categories, ...data]);
     }
 
-    setOptions(editCategory);
+    setOptions(isEdit);
 
     useEffect(() => {
         fetchCategories(setCategories);
@@ -48,6 +48,7 @@ function Categories({ editCategory = false, setCategory, setPage, isOpen, onClos
                     categories={categories}
                     setCategory={setCategory}
                     setPage={setPage}
+                    isEdit={isEdit}
                     onClose={onClose}
                     isOpen={isOpen}
                     onOpen={onOpen}

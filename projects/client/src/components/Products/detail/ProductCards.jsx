@@ -22,36 +22,41 @@ const titleOptions = {
 
 const backdrop = {
     w: "100%",
-    h:"32%",
+    h: "32%",
     px: "4px",
     pos: "absolute",
     alignItems: "center",
     justifyContent: "center",
     bgColor: "#00000066",
-    backdropFilter: "blur(2px)"
+    backdropFilter: "blur(2px)",
 };
 
-function ProductCards({ products }) {
+function ProductCards({ products, isEdit }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
+
+    function handleClick() {
+        if (isEdit) onOpen();
+    }
+
     return products.map((product, index) => (
         <>
-        <GridItem
-            {...gridOptions}
-            id={product["id"]}
-            key={index}
-            bgImage={getImage(product["image"])}
-            onClick={onOpen}
-        >
-            <Flex bottom={0} {...backdrop}>
-                <Text {...titleOptions}>{product["name"]}</Text>
-            </Flex>
-        </GridItem>
-        <EditProductModal
-        isOpen={isOpen}
-        onOpen={onOpen}
-        onClose={onClose}
-        product={product}
-      />
+            <GridItem
+                {...gridOptions}
+                id={product["id"]}
+                key={index}
+                bgImage={getImage(product["image"])}
+                onClick={() => handleClick()}
+            >
+                <Flex bottom={0} {...backdrop}>
+                    <Text {...titleOptions}>{product["name"]}</Text>
+                </Flex>
+            </GridItem>
+            <EditProductModal
+                isOpen={isOpen}
+                onOpen={onOpen}
+                onClose={onClose}
+                product={product}
+            />
         </>
     ));
 }

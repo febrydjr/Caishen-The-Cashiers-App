@@ -21,7 +21,7 @@ const textOptions = {
     fontSize: "1.4em",
 };
 
-function CategoryCards({ categories, isEdit=false, setCategory, setPage }) {
+function CategoryCards({ categories, setCategory, setPage, isEdit }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     function changeCategory(id_category) {
         setCategory(id_category);

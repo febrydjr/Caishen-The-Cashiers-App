@@ -20,7 +20,7 @@ const titleOptions = {
     fontSize: "1.2em",
 };
 
-function Products({ category, page, setPage }) {
+function Products({ category = 0, page = 0, setPage, isEdit = false }) {
     const [products, setProducts] = useState([]);
     const [order, setOrder] = useState("ASC");
     const [filter, setFilter] = useState("name");
@@ -71,7 +71,7 @@ function Products({ category, page, setPage }) {
                 />
             </HStack>
             <Grid {...options} onScroll={onProductsScroll} ref={productsRef}>
-                <ProductCards products={products} />
+                <ProductCards products={products} isEdit={isEdit}/>
             </Grid>
         </>
     );
