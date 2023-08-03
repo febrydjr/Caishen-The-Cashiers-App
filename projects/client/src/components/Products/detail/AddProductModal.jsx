@@ -186,9 +186,6 @@ const AddProductModal = ({ isOpen, onClose }) => {
                 </Field>
               </ModalBody>
               <ModalFooter>
-                <Button colorScheme="red" mr={3} onClick={onClose}>
-                  <RiDeleteBinFill size={20} />
-                </Button>
                 <Button
                   type="submit"
                   display={"flex"}

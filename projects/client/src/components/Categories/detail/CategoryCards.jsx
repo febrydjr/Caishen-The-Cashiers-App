@@ -41,7 +41,7 @@ function CategoryCards({ categories }) {
       <EditCategoryModal
         isOpen={isOpen}
         onClose={onClose}
-        categoryId={category["id"]}
+        category={category}
       />
     </>
   ));

@@ -18,12 +18,42 @@ import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import { RiDeleteBinFill } from "react-icons/ri";
 
-const EditCategoryModal = ({ isOpen, onClose, categoryId }) => {
+const EditCategoryModal = ({ isOpen, onClose, category }) => {
   const toast = useToast();
+  const handleDelete = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      await axios.delete(
+        `http://localhost:8000/api/products/category/${category.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast({
+        title: "Category deleted!",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+      window.location.reload();
+    } catch (error) {
+      console.log(error.message);
+      toast({
+        title: "Error deleting category!",
+        description: error.response.data.message,
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
+  };
+
   const handleSubmit = async (values) => {
     try {
       await axios.patch("http://localhost:8000/api/products/category", {
-        categoryId: String(categoryId),
+        categoryId: String(category.id),
         name: values.name,
       });
       toast({
@@ -79,7 +109,7 @@ const EditCategoryModal = ({ isOpen, onClose, categoryId }) => {
                 />
               </ModalBody>
               <ModalFooter>
-                <Button colorScheme="red" mr={3} onClick={onClose}>
+                <Button colorScheme="red" mr={3} onClick={() => handleDelete()}>
                   <RiDeleteBinFill size={20} />
                 </Button>
                 <Button

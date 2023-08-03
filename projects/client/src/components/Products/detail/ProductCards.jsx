@@ -51,7 +51,7 @@ function ProductCards({ products }) {
         isOpen={isOpen}
         onOpen={onOpen}
         onClose={onClose}
-        productId={product["id"]}
+        product={product}
       />
     </>
   ));

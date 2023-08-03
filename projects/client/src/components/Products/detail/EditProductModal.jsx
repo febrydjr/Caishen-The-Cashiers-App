@@ -14,12 +14,13 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import { Formik, Form, Field } from "formik";
+import { FaCheck, FaTimes } from "react-icons/fa";
 import * as Yup from "yup";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import { RiDeleteBinFill } from "react-icons/ri";
 
-const EditProductModal = ({ isOpen, onClose, productId }) => {
+const EditProductModal = ({ isOpen, onClose, product }) => {
   const toast = useToast();
   const [category, setCategory] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -46,6 +47,64 @@ const EditProductModal = ({ isOpen, onClose, productId }) => {
     fetchData();
   }, []);
 
+  const handleDelete = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      await axios.delete(`http://localhost:8000/api/products/${product.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(product.id);
+      toast({
+        title: "Product deleted!",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+      window.location.reload();
+    } catch (error) {
+      console.log(error.message);
+      toast({
+        title: "Error deleting user!",
+        description: error.response.data.message,
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
+  };
+
+  const handleActivate = async () => {
+    const token = localStorage.getItem("token");
+    try {
+      await axios.get(
+        `http://localhost:8000/api/products/active/${product.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      toast({
+        title: "Product Activated!",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
+      window.location.reload();
+    } catch (error) {
+      console.log(error.message);
+      toast({
+        title: "Error activating user!",
+        description: error.response.data.message,
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
+    }
+  };
+
   const handleSubmit = async (values) => {
     try {
       const formData = new FormData();
@@ -57,7 +116,7 @@ const EditProductModal = ({ isOpen, onClose, productId }) => {
       formData.append("id_categories", values.category);
 
       await axios.patch(
-        `http://localhost:8000/api/products/${productId}`,
+        `http://localhost:8000/api/products/${product.id}`,
         formData
       );
       toast({
@@ -96,11 +155,11 @@ const EditProductModal = ({ isOpen, onClose, productId }) => {
             category: "",
           }}
           validationSchema={Yup.object({
-            name: Yup.string().required("Required"),
-            description: Yup.string().required("Required"),
-            price: Yup.number().required("Required"),
-            stock: Yup.number().required("Required"),
-            category: Yup.string().required("Required"),
+            name: Yup.string(),
+            description: Yup.string(),
+            price: Yup.number(),
+            stock: Yup.number(),
+            category: Yup.string(),
           })}
           onSubmit={handleSubmit}
         >
@@ -181,9 +240,37 @@ const EditProductModal = ({ isOpen, onClose, productId }) => {
                 </Field>
               </ModalBody>
               <ModalFooter>
-                <Button colorScheme="red" mr={3} onClick={onClose}>
-                  <RiDeleteBinFill size={20} />
-                </Button>
+                {product.is_active ? (
+                  <Flex
+                    p={2}
+                    bg={"red"}
+                    mr={2}
+                    color={"white"}
+                    borderRadius={8}
+                    alignItems="center"
+                    justifyContent={"space-between"}
+                    borderLeft={"1px"}
+                    cursor="pointer"
+                    onClick={() => handleDelete()}
+                  >
+                    <FaTimes fontSize={"25px"} />
+                  </Flex>
+                ) : (
+                  <Flex
+                    p={2}
+                    bg={"green"}
+                    mr={2}
+                    color={"white"}
+                    borderRadius={8}
+                    alignItems="center"
+                    justifyContent={"space-between"}
+                    borderLeft={"1px"}
+                    cursor="pointer"
+                    onClick={() => handleActivate()}
+                  >
+                    <FaCheck fontSize={"25px"} />
+                  </Flex>
+                )}
                 <Button
                   type="submit"
                   display={"flex"}

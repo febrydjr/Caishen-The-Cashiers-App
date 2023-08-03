@@ -40,7 +40,6 @@ export default function CashierManage({ cashiers }) {
 
   const handleDelete = async (username) => {
     try {
-      console.log(username);
       await axios.delete(`http://localhost:8000/api/profile/user/${username}`);
       toast({
         title: "User deleted!",
