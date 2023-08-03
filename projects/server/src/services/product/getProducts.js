@@ -34,13 +34,17 @@ async function getProducts(account, query) {
     const whereOptions = {};
     if (!account["is_admin"]) whereOptions["is_active"] = true;
     if (title) whereOptions["name"] = { [Op.like]: `%${title}%` };
-    // if (id_category) whereOptions["$categories.id$"] = parseInt(id_category);
 
-    console.log(whereOptions);
+    const includeOption = includeOptions(id_category);
 
-    const countProduct = await products.count();
+    let countProduct = await products.findAll({
+        include: includeOption,
+        where: whereOptions,
+    });
+    countProduct = countProduct.length;
+
     const result = await products.findAll({
-        include: includeOptions(id_category),
+        include: includeOption,
         where: whereOptions,
         order: [
             [order_by || "name", order || "ASC"],

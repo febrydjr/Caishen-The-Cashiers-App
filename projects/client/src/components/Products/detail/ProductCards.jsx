@@ -14,8 +14,6 @@ const gridOptions = {
 
 const titleOptions = {
     color: customColors.textPrimary,
-    fontFamily: "Fira Code",
-    fontWeight: "semibold",
     textAlign: "center",
     noOfLines: 2,
 };

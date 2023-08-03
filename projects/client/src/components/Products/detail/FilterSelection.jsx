@@ -8,9 +8,10 @@ const styleOptions = {
 
 const filters = ["name", "price"];
 
-function FilterSelection({ setFilter }) {
+function FilterSelection({ setFilter, setPage }) {
     function onChangeFilter(event) {
         setFilter(event.target.value);
+        setPage(0);
     }
 
     return (

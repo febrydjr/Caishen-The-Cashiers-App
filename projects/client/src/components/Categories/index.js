@@ -23,12 +23,11 @@ function setOptions(editCategory) {
     options["autoFlow"] = editCategory ? "row" : "column";
 }
 
-function Categories({ editCategory = false, setCategory }) {
+function Categories({ editCategory = false, setCategory, setPage }) {
     const [categories, setCategories] = useState([{ id: 0, name: "All" }]);
 
     async function fetchCategories() {
         const { data } = await getCategories();
-        console.log([...categories, ...data]);
         setCategories([...categories, ...data]);
     }
 
@@ -48,6 +47,7 @@ function Categories({ editCategory = false, setCategory }) {
                 <CategoryCards
                     categories={categories}
                     setCategory={setCategory}
+                    setPage={setPage}
                 />
             </Grid>
         </>

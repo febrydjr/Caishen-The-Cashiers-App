@@ -19,9 +19,10 @@ const textOptions = {
     fontSize: "1.4em",
 };
 
-function CategoryCards({ categories, setCategory }) {
+function CategoryCards({ categories, setCategory, setPage }) {
     function changeCategory(id_category) {
         setCategory(id_category);
+        setPage(1);
     }
 
     function handleClick(id_category) {

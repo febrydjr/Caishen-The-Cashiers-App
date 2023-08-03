@@ -3,10 +3,10 @@ import axios from "axios";
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const TOKEN = localStorage.getItem("token");
 
-function createQuery(queries){
+function createQuery(queries) {
     // title, id_category, order_by, order, page=1, limit=10
-    if(!queries["page"]) queries["page"] = 1;
-    if(!queries["limit"]) queries["limit"] = 10;
+    if (!queries["page"]) queries["page"] = 1;
+    if (!queries["limit"]) queries["limit"] = 10;
     let query = "";
     for (const key in queries) {
         query += `${key}=${queries[key]}&`;
@@ -16,17 +16,15 @@ function createQuery(queries){
 
 async function getProducts(queries) {
     const query = createQuery(queries);
-
     try {
-        const response = await axios.get(
-            `${BASE_URL}/products?${query}`, 
-            {
-            headers : {
+        const response = await axios.get(`${BASE_URL}/products?${query}`, {
+            headers: {
                 Authorization: `Bearer ${TOKEN}`,
-            }
+            },
         });
         return response.data;
     } catch (error) {
+        console.error(error.message);
     }
 }
 
@@ -35,6 +33,7 @@ async function getProduct(id) {
         const response = await axios.get(`${BASE_URL}/products/${id}`);
         return response.data;
     } catch (error) {
+        console.error(error.message);
     }
 }
 
@@ -43,6 +42,7 @@ async function getCategories() {
         const response = await axios.get(`${BASE_URL}/products/categories`);
         return response.data;
     } catch (error) {
+        console.error(error.message);
     }
 }
 

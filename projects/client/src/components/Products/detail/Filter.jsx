@@ -12,12 +12,12 @@ const options = {
     alignItems: "center",
 };
 
-function Filter({ order, setOrder, setFilter }) {
+function Filter({ order, setOrder, setFilter, setPage }) {
     return (
         <Flex {...options}>
             <BsFilterRight size={"28px"} />
-            <FilterSelection setFilter={setFilter} />
-            <FilterOrder order={order} setOrder={setOrder}/>
+            <FilterSelection setFilter={setFilter} setPage={setPage} />
+            <FilterOrder order={order} setOrder={setOrder} setPage={setPage} />
         </Flex>
     );
 }

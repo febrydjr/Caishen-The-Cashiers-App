@@ -25,11 +25,12 @@ const menuOptions = {
 
 function Cashier() {
     const [category, setCategory] = useState(0);
+    const [page, setPage] = useState(0);
     return (
         <Grid {...mainOptions}>
             <Flex {...menuOptions}>
-                <Categories setCategory={setCategory}/>
-                <Products category={category}/>
+                <Categories setCategory={setCategory} setPage={setPage}/>
+                <Products category={category} page={page} setPage={setPage}/>
             </Flex>
             <Transactions />
         </Grid>
