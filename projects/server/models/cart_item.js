@@ -16,7 +16,10 @@ module.exports = (sequelize, DataTypes) => {
             },
             id_cart: DataTypes.UUID,
             id_product: DataTypes.UUID,
-            qty: DataTypes.INTEGER,
+            qty: {
+                type: DataTypes.INTEGER,
+                defaultValue: 1,
+            },
         },
         {
             sequelize,

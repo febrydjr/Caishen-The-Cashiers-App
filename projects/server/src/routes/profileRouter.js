@@ -10,5 +10,8 @@ router.post(
   profileController.updateAvatar
 );
 router.get("/cashier", profileController.getAllProfiles);
+router.get("/cashiers", profileController.getAllProfiles);
+router.delete("/user/:username", profileController.deleteUser);
+router.patch("/user", profileController.activateUser);
 
 module.exports = router;
