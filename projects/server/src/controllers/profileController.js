@@ -33,8 +33,17 @@ async function updateAvatar(req, res) {
 
 async function deleteUser(req, res) {
   try {
-    const { username } = req.body;
+    const { username } = req.params;
     const result = await profileService.deleteUserByUsername(username);
+    return res.status(200).json(result);
+  } catch (error) {
+    return res.status(500).json(error.message);
+  }
+}
+async function activateUser(req, res) {
+  try {
+    const { username } = req.body;
+    const result = await profileService.activateUserByUsername(username);
     return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json(error.message);
@@ -53,6 +62,7 @@ async function updateUser(req, res) {
 module.exports = {
   getProfile,
   getAllProfiles,
+  activateUser,
   updateAvatar,
   deleteUser,
   updateUser,
