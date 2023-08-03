@@ -1,13 +1,13 @@
 import { Button, Flex, Link, useDisclosure } from "@chakra-ui/react";
-import Products from "./Products";
+import Categories from "./Categories";
 import { BsPersonPlusFill } from "react-icons/bs";
-import AddProductModal from "../components/Products/detail/AddProductModal";
+import AddCategoryModal from "../components/Categories/detail/AddCategoryModal";
 
 function ProductManage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Flex>
-      <Products />
+      <Categories />
       <Link
         onClick={() => {
           onOpen();
@@ -15,8 +15,8 @@ function ProductManage() {
       >
         <Flex
           position={"fixed"}
-          _hover={{ cursor: "pointer", bgColor: "#FAC1D9" }}
           zIndex={60000}
+          _hover={{ cursor: "pointer", bgColor: "#FAC1D9" }}
           bottom={8}
           right={8}
           p={6}
@@ -29,7 +29,7 @@ function ProductManage() {
           <BsPersonPlusFill size={"25px"} />
         </Flex>
       </Link>
-      <AddProductModal isOpen={isOpen} onClose={onClose} />
+      <AddCategoryModal isOpen={isOpen} onClose={onClose} />
     </Flex>
   );
 }

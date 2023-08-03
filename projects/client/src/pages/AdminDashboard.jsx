@@ -16,11 +16,12 @@ import {
   MdOutlineAllInbox,
   MdOutlineAutoGraph,
 } from "react-icons/md";
+import { BiCategoryAlt } from "react-icons/bi";
 // import { MdOutlineAllInbox } from "react-icons/fi";
 // import { TbGraph } from "react-icons/tb";
 import axios from "axios";
 import CashierManage from "../components/CashierManage";
-import ProductCategories from "../components/Categories";
+import ProductCategories from "../components/CategoryManage";
 import ProductManage from "../components/ProductManage";
 
 const AdminDashboard = () => {
@@ -162,7 +163,7 @@ const AdminDashboard = () => {
                 display={"flex"}
                 flexDirection={"row"}
               >
-                <MdOutlineAllInbox size={"50px"} />
+                <BiCategoryAlt size={"50px"} />
                 <Text
                   _hover={{ color: "#C9CAEF" }}
                   color="white"

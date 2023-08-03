@@ -10,7 +10,7 @@ router.post(
   profileController.updateAvatar
 );
 router.get("/cashiers", profileController.getAllProfiles);
-router.patch("/user", profileController.deleteUser);
-router.patch("/", profileController.updateUser);
+router.delete("/user/:username", profileController.deleteUser);
+router.patch("/user", profileController.activateUser);
 
 module.exports = router;

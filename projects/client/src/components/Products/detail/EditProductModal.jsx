@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Input,
@@ -9,14 +10,13 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
+  Select,
   Flex,
 } from "@chakra-ui/react";
-import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
 import { RiDeleteBinFill } from "react-icons/ri";
 
 const EditProductModal = ({ isOpen, onClose, productId }) => {
@@ -24,17 +24,21 @@ const EditProductModal = ({ isOpen, onClose, productId }) => {
   const [category, setCategory] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
 
+  const [selectedCategory, setSelectedCategory] = useState("");
+
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
-    setSelectedImage(URL.createObjectURL(file));
+    setSelectedImage(file);
   };
 
   const fetchData = async () => {
     try {
-      const res = await axios.get("localhost:8000/api/products/categories");
+      const res = await axios.get(
+        "http://localhost:8000/api/products/categories"
+      );
       setCategory(res.data.data);
     } catch (error) {
-      // alert("Error fetching data:", error);
+      console.log(error);
     }
   };
 
@@ -44,12 +48,18 @@ const EditProductModal = ({ isOpen, onClose, productId }) => {
 
   const handleSubmit = async (values) => {
     try {
-      await axios.patch(`http://localhost:8000/api/products/${productId}`, {
-        name: values.name,
-        description: values.description,
-        price: values.price,
-        category: values.category,
-      });
+      const formData = new FormData();
+      formData.append("name", values.name);
+      formData.append("description", values.description);
+      formData.append("price", values.price);
+      formData.append("stock", values.stock);
+      formData.append("image", selectedImage);
+      formData.append("id_categories", values.category);
+
+      await axios.patch(
+        `http://localhost:8000/api/products/${productId}`,
+        formData
+      );
       toast({
         title: "Successfully Edit Product!",
         status: "success",
@@ -73,12 +83,28 @@ const EditProductModal = ({ isOpen, onClose, productId }) => {
       <ModalContent>
         <ModalHeader>
           <Text fontFamily={"Fira Code"} fontSize={"2xl"} fontWeight={700}>
-            Edit Category
+            Edit Product
           </Text>
         </ModalHeader>
         <ModalCloseButton />
-        <Formik initialValues={{ name: "" }} onSubmit={handleSubmit}>
-          {() => (
+        <Formik
+          initialValues={{
+            name: "",
+            description: "",
+            price: "",
+            stock: "",
+            category: "",
+          }}
+          validationSchema={Yup.object({
+            name: Yup.string().required("Required"),
+            description: Yup.string().required("Required"),
+            price: Yup.number().required("Required"),
+            stock: Yup.number().required("Required"),
+            category: Yup.string().required("Required"),
+          })}
+          onSubmit={handleSubmit}
+        >
+          {({ setFieldValue }) => (
             <Form>
               <ModalBody>
                 <Text
@@ -110,7 +136,7 @@ const EditProductModal = ({ isOpen, onClose, productId }) => {
                 <Field
                   mb={2}
                   as={Input}
-                  type="text"
+                  type="number"
                   name="price"
                   rounded={"lg"}
                   placeholder="Enter Product Price"
@@ -119,7 +145,7 @@ const EditProductModal = ({ isOpen, onClose, productId }) => {
                 <Field
                   mb={2}
                   as={Input}
-                  type="text"
+                  type="number"
                   name="stock"
                   rounded={"lg"}
                   placeholder="Enter Product Stock"
@@ -128,21 +154,31 @@ const EditProductModal = ({ isOpen, onClose, productId }) => {
                 <Field
                   mb={2}
                   as={Input}
-                  type="text"
-                  name="imageupload"
+                  onChange={(e) => handleImageUpload(e)}
+                  type="file"
+                  name="image"
                   rounded={"lg"}
-                  placeholder="Upload Product Images"
+                  accept="image/*"
                   _placeholder={{ fontSize: "sm", color: "gray.400" }}
                 />
                 <Field
                   mb={2}
-                  as={Input}
-                  type="text"
-                  name="categoryId"
+                  as={Select}
+                  name="category"
                   rounded={"lg"}
-                  placeholder="Dropdown Category"
+                  placeholder="Select Category"
                   _placeholder={{ fontSize: "sm", color: "gray.400" }}
-                />
+                  onChange={(event) => {
+                    setSelectedCategory(event.target.value);
+                    setFieldValue("category", event.target.value);
+                  }}
+                >
+                  {category.map((category) => (
+                    <option key={category.id} value={category.id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </Field>
               </ModalBody>
               <ModalFooter>
                 <Button colorScheme="red" mr={3} onClick={onClose}>

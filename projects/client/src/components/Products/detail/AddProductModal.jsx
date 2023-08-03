@@ -101,11 +101,11 @@ const AddProductModal = ({ isOpen, onClose }) => {
             category: "",
           }}
           validationSchema={Yup.object({
-            name: Yup.string().required("Required"),
-            description: Yup.string().required("Required"),
-            price: Yup.number().required("Required"),
-            stock: Yup.number().required("Required"),
-            category: Yup.string().required("Required"),
+            name: Yup.string(),
+            description: Yup.string(),
+            price: Yup.number(),
+            stock: Yup.number(),
+            category: Yup.string(),
           })}
           onSubmit={handleSubmit}
         >
