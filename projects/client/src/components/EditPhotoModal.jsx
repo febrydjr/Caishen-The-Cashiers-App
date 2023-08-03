@@ -11,11 +11,13 @@ import {
   FormControl,
   FormLabel,
   Input,
+  useToast,
 } from "@chakra-ui/react";
 import axios from "axios";
 
 const EditPhotoModal = ({ isOpen, onClose, onSave, token }) => {
   const [profilePhoto, setProfilePhoto] = useState(null);
+  const toast = useToast();
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -38,9 +40,22 @@ const EditPhotoModal = ({ isOpen, onClose, onSave, token }) => {
           Authorization: `Bearer ${token}`,
         },
       });
+      toast({
+        title: "Successfully updated profile photo!",
+        status: "success",
+        duration: 4000,
+        isClosable: true,
+      });
       onSave(profilePhoto);
       onClose();
     } catch (error) {
+      toast({
+        title: "Error updating profile photo!",
+        description: error.response.data.message,
+        status: "error",
+        duration: 4000,
+        isClosable: true,
+      });
       console.log("Error uploading profile photo:", error);
     }
   };

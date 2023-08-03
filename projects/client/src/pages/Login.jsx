@@ -20,8 +20,8 @@ const Login = () => {
   const toast = useToast();
   const navigate = useNavigate();
   const validationSchema = Yup.object().shape({
-    identifier: Yup.string().required("Username/Email is required"),
-    password: Yup.string().required("Password is required"),
+    identifier: Yup.string(),
+    password: Yup.string(),
     email: Yup.string().email("Invalid email"),
   });
 
