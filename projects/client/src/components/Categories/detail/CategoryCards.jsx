@@ -1,4 +1,6 @@
-import { Flex, GridItem, Text } from "@chakra-ui/react";
+import { Flex, GridItem, Text, useDisclosure } from "@chakra-ui/react";
+import EditCategoryModal from "./EditCategoryModal";
+
 
 const gridOptions = {
     w: "180px",
@@ -19,17 +21,20 @@ const textOptions = {
     fontSize: "1.4em",
 };
 
-function CategoryCards({ categories, setCategory, setPage }) {
+function CategoryCards({ categories, isEdit=false, setCategory, setPage }) {
+    const { isOpen, onOpen, onClose } = useDisclosure();
     function changeCategory(id_category) {
         setCategory(id_category);
         setPage(1);
     }
 
     function handleClick(id_category) {
-        changeCategory(id_category);
+        if (isEdit) return onOpen();
+        return changeCategory(id_category);
     }
 
     return categories.map((category, index) => (
+      <>
         <GridItem
             {...gridOptions}
             id={category["id"]}
@@ -40,6 +45,12 @@ function CategoryCards({ categories, setCategory, setPage }) {
                 <Text {...textOptions}>{category["name"]}</Text>
             </Flex>
         </GridItem>
+        <EditCategoryModal
+        isOpen={isOpen}
+        onClose={onClose}
+        category={category}
+      />
+      </>
     ));
 }
 

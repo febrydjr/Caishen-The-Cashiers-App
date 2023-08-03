@@ -11,7 +11,7 @@ async function getItems(id_user) {
 
     const result = await cart_items.findAll({
         attributes: {
-            exclude: ["id_cart", "created_at", "updated_at"]
+            exclude: ["id_cart", "id_product", "created_at", "updated_at"]
         },
         where: { id_cart: cart["id"] },
         include: [

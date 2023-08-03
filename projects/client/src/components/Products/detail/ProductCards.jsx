@@ -1,6 +1,7 @@
-import { Flex, GridItem, Text } from "@chakra-ui/react";
+import { Flex, GridItem, Text, useDisclosure } from "@chakra-ui/react";
 import customColors from "../../../themes/customColors";
 import getImage from "../../../api/getImage";
+import EditProductModal from "./EditProductModal";
 
 const gridOptions = {
     w: "180px",
@@ -10,6 +11,7 @@ const gridOptions = {
     bgPos: "center",
     bgSize: "cover",
     overflow: "hidden",
+    cursor: "pointer",
 };
 
 const titleOptions = {
@@ -30,17 +32,27 @@ const backdrop = {
 };
 
 function ProductCards({ products }) {
+    const { isOpen, onOpen, onClose } = useDisclosure();
     return products.map((product, index) => (
+        <>
         <GridItem
             {...gridOptions}
             id={product["id"]}
             key={index}
             bgImage={getImage(product["image"])}
+            onClick={onOpen}
         >
             <Flex bottom={0} {...backdrop}>
                 <Text {...titleOptions}>{product["name"]}</Text>
             </Flex>
         </GridItem>
+        <EditProductModal
+        isOpen={isOpen}
+        onOpen={onOpen}
+        onClose={onClose}
+        product={product}
+      />
+        </>
     ));
 }
 
