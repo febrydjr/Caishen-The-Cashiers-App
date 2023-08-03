@@ -26,9 +26,8 @@ import ProductManage from "../components/ProductManage";
 
 const AdminDashboard = () => {
   const [cashiers, setCashiers] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [products, setProducts] = useState([]);
   const [activePage, setActivePage] = useState("cashier");
+  const [searchQuery, setSearchQuery] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const renderPage = () => {
@@ -52,7 +51,7 @@ const AdminDashboard = () => {
       case "product":
         return (
           <Box mt={6}>
-            <ProductManage />;
+            <ProductManage searchQuery={searchQuery}/>;
           </Box>
         );
       case "report":
@@ -79,7 +78,7 @@ const AdminDashboard = () => {
 
   return (
     <Box bgColor={"#2A2B2E"} maxW={"100vw"} borderRadius={8}>
-      <Navbar />
+      <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
       <Flex>
         <Box
           color="white"
