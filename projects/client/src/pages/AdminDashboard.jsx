@@ -1,24 +1,13 @@
-import {
-  Box,
-  Text,
-  Flex,
-  VStack,
-  Divider,
-  Link,
-  Button,
-  useDisclosure,
-} from "@chakra-ui/react";
+import { Box, Text, Flex, VStack, Link, useDisclosure } from "@chakra-ui/react";
 import Navbar from "../components/Navbar";
 import { useState, useEffect } from "react";
-import { BsMenuButtonWideFill } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
 import {
   MdManageAccounts,
   MdOutlineAllInbox,
   MdOutlineAutoGraph,
 } from "react-icons/md";
 import { BiCategoryAlt } from "react-icons/bi";
-// import { MdOutlineAllInbox } from "react-icons/fi";
-// import { TbGraph } from "react-icons/tb";
 import axios from "axios";
 import CashierManage from "../components/CashierManage";
 import ProductCategories from "../components/CategoryManage";
@@ -29,11 +18,15 @@ const AdminDashboard = () => {
   const [activePage, setActivePage] = useState("cashier");
   const [searchQuery, setSearchQuery] = useState("");
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/");
+    }
+  }, []);
   const renderPage = () => {
     switch (activePage) {
-      // case "menu":
-      //   return <Text>INI LANDING PAGE</Text>;
       case "cashier":
         console.log("masuk cashier");
         return <CashierManage cashiers={cashiers} />;
@@ -51,7 +44,7 @@ const AdminDashboard = () => {
       case "product":
         return (
           <Box mt={6}>
-            <ProductManage searchQuery={searchQuery}/>;
+            <ProductManage searchQuery={searchQuery} />;
           </Box>
         );
       case "report":
@@ -78,7 +71,7 @@ const AdminDashboard = () => {
 
   return (
     <Box bgColor={"#2A2B2E"} maxW={"100vw"} borderRadius={8}>
-      <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
+      <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <Flex>
         <Box
           color="white"
@@ -103,20 +96,6 @@ const AdminDashboard = () => {
             >
               ADMIN DASHBOARD
             </Text>
-            {/* <Link onClick={() => setActivePage("menu")}>
-              <Flex
-                gap={6}
-                justifyContent={"left"}
-                alignItems={"center"}
-                display={"flex"}
-                flexDirection={"row"}
-              >
-                <BsMenuButtonWideFill size={"40px"} />
-                <Text _hover={{ color: "#FAC1D9" }} color="white">
-                  MENU
-                </Text>
-              </Flex>
-            </Link> */}
             <Link>
               <Flex
                 gap={4}

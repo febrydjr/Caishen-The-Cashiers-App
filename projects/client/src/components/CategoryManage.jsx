@@ -1,7 +1,6 @@
-import { Button, Flex, Link, useDisclosure } from "@chakra-ui/react";
+import { Flex, Link, useDisclosure } from "@chakra-ui/react";
 import Categories from "./Categories";
 import { TbLayoutGridAdd } from "react-icons/tb";
-import { BsPersonPlusFill } from "react-icons/bs";
 import AddCategoryModal from "../components/Categories/detail/AddCategoryModal";
 
 function ProductManage() {

@@ -12,8 +12,7 @@ import {
   Flex,
 } from "@chakra-ui/react";
 import React from "react";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import * as Yup from "yup";
+import { Formik, Form, Field } from "formik";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import { RiDeleteBinFill } from "react-icons/ri";
@@ -39,7 +38,6 @@ const EditCategoryModal = ({ isOpen, onClose, category }) => {
       });
       window.location.reload();
     } catch (error) {
-      console.log(error.message);
       toast({
         title: "Error deleting category!",
         description: error.response.data.message,

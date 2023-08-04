@@ -54,7 +54,6 @@ const Login = () => {
         navigate("/dashboard");
       }
     } catch (err) {
-      // console.error(err);
       toast({
         title: "Error",
         description: "Login Failed",

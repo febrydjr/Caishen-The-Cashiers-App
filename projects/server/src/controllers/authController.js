@@ -4,7 +4,6 @@ const { messages } = require("../helpers");
 async function login(req, res) {
   try {
     const { identifier, password } = req.body;
-    console.log(identifier, password);
     const user = await authService.login(identifier, password);
     return res.status(200).json(messages.response(user));
   } catch (error) {
