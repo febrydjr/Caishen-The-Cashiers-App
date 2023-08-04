@@ -47,6 +47,7 @@ const EditPhotoModal = ({ isOpen, onClose, onSave, token }) => {
         isClosable: true,
       });
       onSave(profilePhoto);
+      window.location.reload();
       onClose();
     } catch (error) {
       toast({

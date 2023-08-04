@@ -1,6 +1,6 @@
 import { Button, Flex, Link, useDisclosure } from "@chakra-ui/react";
 import Products from "./Products";
-import { BsPersonPlusFill } from "react-icons/bs";
+import { BiAddToQueue } from "react-icons/bi";
 import AddProductModal from "../components/Products/detail/AddProductModal";
 
 function ProductManage() {
@@ -26,7 +26,7 @@ function ProductManage() {
           w={"6%"}
           bgColor={"#FFFFFF"}
         >
-          <BsPersonPlusFill size={"25px"} />
+          <BiAddToQueue size={"25px"} />
         </Flex>
       </Link>
       <AddProductModal isOpen={isOpen} onClose={onClose} />

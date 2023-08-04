@@ -4,6 +4,7 @@ import {
   Text,
   Button,
   Divider,
+  Avatar,
   Card,
   CardBody,
   Image,
@@ -41,36 +42,28 @@ export default function ProfilePage() {
     navigate("/dashboard");
   };
 
+  const fetchData = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get("http://localhost:8000/api/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const { name, username, avatar, email, phone, is_active, is_admin } =
+        response.data.data;
+      setName(name);
+      setUsername(username);
+      setAvatar(avatar);
+      setEmail(email);
+      setPhone(phone);
+      setIs_active(is_active);
+      setIs_admin(is_admin);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const response = await axios.get("http://localhost:8000/api/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        console.log(response);
-        const {
-          name: fetchName,
-          username: fetchUsername,
-          avatar: fetchAvatar,
-          email: fetchEmail,
-          phone: fetchPhone,
-          is_active: fetchStatus,
-          is_admin: fetchIsAdmin,
-        } = response.data.data;
-        setName(fetchName);
-        setUsername(fetchUsername);
-        setAvatar(fetchAvatar);
-        setEmail(fetchEmail);
-        setPhone(fetchPhone);
-        setIs_active(fetchStatus);
-        setIs_admin(fetchIsAdmin);
-      } catch (error) {
-        console.log(error);
-      }
-    };
     fetchData();
   }, []);
 
@@ -102,12 +95,12 @@ export default function ProfilePage() {
           <Card bgColor={"#FAC1D9"} mb={4} boxShadow="none">
             <CardBody textAlign="center">
               <center>
-                <Image
+                <Avatar
                   src={getImage(avatar)} // ini error gabisa get gambar
                   alt="avatar"
                   borderRadius="full"
                   boxSize="160px"
-                  mb={2}
+                  mb={4}
                 />
               </center>
               <Button
@@ -172,7 +165,7 @@ export default function ProfilePage() {
                   <Text>Role</Text>
                 </Box>
                 <Box w="70%">
-                  <Text color="gray.500">{is_admin ? "Cashier" : "Admin"}</Text>
+                  <Text color="gray.500">{is_admin ? "Admin" : "Cashier"}</Text>
                 </Box>
               </Flex>
               <Divider my={3} />

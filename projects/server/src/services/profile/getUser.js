@@ -4,8 +4,8 @@ const messages = require("../../helpers/messages");
 
 async function getUser(account) {
   try {
-    const users = await User.findOne({ id: account.id });
-    console.log("account", users);
+    const users = await User.findOne({ where: { id: account.id } });
+    console.log(users);
     return messages.success("Users found", users);
   } catch (error) {
     throw messages.error(500, "Failed to get users");
