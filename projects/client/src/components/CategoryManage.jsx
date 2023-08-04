@@ -8,7 +8,9 @@ function ProductManage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Flex>
-      <Categories />
+      <Flex direction={"column"} gap={4}>
+        <Categories isEdit={true}/>
+      </Flex>
       <Link
         onClick={() => {
           onOpen();

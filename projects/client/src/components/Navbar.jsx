@@ -19,9 +19,8 @@ import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
 import getImage from "../api/getImage";
 import axios from "axios";
 
-function Navbar() {
+function Navbar({ searchQuery, setSearchQuery }) {
   const [isToggle, setIsToggle] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const [avatar, setAvatar] = useState("");
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -46,19 +45,6 @@ function Navbar() {
 
   const handleToggle = () => {
     setIsToggle(!isToggle);
-  };
-
-  const handleSearch = () => {
-    // const filteredArticles = articlesData.filter((article) => {
-    //   const { title, author, category } = article;
-    //   const lowerCaseQuery = searchQuery.toLowerCase();
-    //   return (
-    //     title.toLowerCase().includes(lowerCaseQuery) ||
-    //     author.toLowerCase().includes(lowerCaseQuery) ||
-    //     category.toLowerCase().includes(lowerCaseQuery)
-    //   );
-    // });
-    // navigate("/search-results", { state: { filteredArticles } });
   };
 
   const handleLogout = () => {
@@ -102,18 +88,8 @@ function Navbar() {
             ml={10}
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSearch();
-              }
-            }}
           />
-          <Button
-            ml={2}
-            colorScheme="gray"
-            _hover={{ bg: "#DAFFFB" }}
-            onClick={handleSearch}
-          >
+          <Button ml={2} colorScheme="gray" _hover={{ bg: "#DAFFFB" }}>
             <AiOutlineSearch size={"20px"} />
           </Button>
         </Flex>

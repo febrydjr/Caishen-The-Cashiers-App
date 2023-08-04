@@ -75,12 +75,12 @@ async function editProduct(req, res) {
 }
 
 async function getCategories(req, res) {
-  try {
-    const result = await productService.getCategories();
-    return res.status(result.status).json(messages.response(result));
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
-  }
+    try {
+        const result = await productService.getCategories();
+        return res.status(result.status).json(messages.response(result));
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
 }
 
 async function addCategory(req, res) {

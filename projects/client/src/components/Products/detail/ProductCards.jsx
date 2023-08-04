@@ -4,57 +4,60 @@ import getImage from "../../../api/getImage";
 import EditProductModal from "./EditProductModal";
 
 const gridOptions = {
-  w: "160px",
-  h: "160px",
-  pos: "relative",
-  borderRadius: "4px",
-  bgPos: "center",
-  bgSize: "cover",
-  overflow: "hidden",
+    w: "180px",
+    h: "180px",
+    pos: "relative",
+    borderRadius: "4px",
+    bgPos: "center",
+    bgSize: "cover",
+    overflow: "hidden",
+    cursor: "pointer",
 };
 
 const titleOptions = {
-  color: customColors.textPrimary,
-  fontFamily: "Fira Code",
-  fontWeight: "semibold",
-  textAlign: "center",
-  noOfLines: 2,
+    color: customColors.textPrimary,
+    textAlign: "center",
+    noOfLines: 2,
 };
 
 const backdrop = {
-  w: "100%",
-  h: "28%",
-  pos: "absolute",
-  alignItems: "center",
-  justifyContent: "center",
-  bgColor: "#00000066",
-  backdropFilter: "blur(2px)",
+    w: "100%",
+    h: "32%",
+    px: "4px",
+    pos: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+    bgColor: "#00000066",
+    backdropFilter: "blur(2px)",
 };
 
-function ProductCards({ products }) {
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  return products.map((product, index) => (
-    <>
-      <GridItem
-        {...gridOptions}
-        id={product["id"]}
-        key={index}
-        bgImage={getImage(product["image"])}
-        cursor={"pointer"}
-        onClick={onOpen}
-      >
-        <Flex bottom={0} {...backdrop}>
-          <Text {...titleOptions}>{product["name"]}</Text>
-        </Flex>
-      </GridItem>
-      <EditProductModal
-        isOpen={isOpen}
-        onOpen={onOpen}
-        onClose={onClose}
-        product={product}
-      />
-    </>
-  ));
+function ProductCards({ products, isEdit }) {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    function handleClick() {
+        if (isEdit) onOpen();
+    }
+
+    return products.map((product, index) => (
+        <GridItem
+            {...gridOptions}
+            id={product["id"]}
+            key={`product-${index}`}
+            bgImage={getImage(product["image"])}
+            onClick={() => handleClick()}
+        >
+            <Flex bottom={0} {...backdrop}>
+                <Text {...titleOptions}>{product["name"]}</Text>
+            </Flex>
+            <EditProductModal
+                key={index}
+                isOpen={isOpen}
+                onOpen={onOpen}
+                onClose={onClose}
+                product={product}
+            />
+        </GridItem>
+    ));
 }
 
 export default ProductCards;
