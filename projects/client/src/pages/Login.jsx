@@ -15,24 +15,37 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 
+const ResetSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email address format"),
+});
+
 const Login = () => {
-  const [Toggle, setToggle] = React.useState(false);
+  const [toggle, setToggle] = React.useState(false);
   const toast = useToast();
   const navigate = useNavigate();
-  const validationSchema = Yup.object().shape({
-    identifier: Yup.string(),
-    password: Yup.string(),
-    email: Yup.string().email("Invalid email"),
-  });
-
-  const initialValues = {
-    identifier: "",
-    password: "",
-    email: "",
-  };
 
   const handleReset = async (values) => {
-    console.log(values.email, "RESET PASSWORD");
+    try {
+      await axios.post("http://localhost:8000/api/auth/forgot", {
+        email: values.email,
+        FE_URL: "http://localhost:3000",
+      });
+      toast({
+        title: "Link reset password sent",
+        description: "Please check your email",
+        status: "success",
+        duration: 3000,
+        isClosable: true,
+      });
+    } catch (error) {
+      console.error("Error sending password reset email:", error);
+      toast({
+        title: "Invalid email address",
+        status: "error",
+        duration: 3000,
+        isClosable: true,
+      });
+    }
   };
 
   const handleLogin = async (values) => {
@@ -64,6 +77,12 @@ const Login = () => {
     }
   };
 
+  const initialValues = {
+    identifier: "",
+    password: "",
+    email: "",
+  };
+
   return (
     <Box
       bgImage={"/bglogin.png"}
@@ -88,12 +107,12 @@ const Login = () => {
           </Text>
           <Formik
             initialValues={initialValues}
-            validationSchema={validationSchema}
-            onSubmit={Toggle ? handleReset : handleLogin}
+            validationSchema={ResetSchema}
+            onSubmit={toggle ? handleReset : handleLogin}
           >
             {({ errors, touched }) => (
               <Form>
-                {!Toggle && (
+                {!toggle && (
                   <>
                     <Field name="identifier">
                       {({ field, form }) => (
@@ -134,13 +153,13 @@ const Login = () => {
                     </Button>
                     <Text fontSize={"12px"}>
                       Forgot Password? &nbsp;
-                      <Link onClick={() => setToggle(!Toggle)}>
+                      <Link onClick={() => setToggle(!toggle)}>
                         Click here!
                       </Link>
                     </Text>
                   </>
                 )}
-                {Toggle && (
+                {toggle && (
                   <>
                     <Field name="email">
                       {({ field, form }) => (
@@ -156,11 +175,16 @@ const Login = () => {
                         </FormControl>
                       )}
                     </Field>
-                    <Button type="submit" mb={4} colorScheme="blue">
+                    <Button
+                      type="submit"
+                      mb={4}
+                      colorScheme="blue"
+                      isLoading={false}
+                    >
                       Send Link
                     </Button>
                     <Text fontSize={"12px"}>
-                      <Link onClick={() => setToggle(!Toggle)}>
+                      <Link onClick={() => setToggle(!toggle)}>
                         Back to login
                       </Link>
                     </Text>

@@ -28,7 +28,7 @@ const AddCashierModal = ({ isOpen, onClose }) => {
       await axios.post("http://localhost:8000/api/auth/register", {
         name: values.name,
         username: values.username,
-        password: "password123",
+        password: "Password123@",
         email: values.email,
         phone: values.phone,
       });
