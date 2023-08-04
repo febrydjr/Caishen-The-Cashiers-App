@@ -1,5 +1,6 @@
 import { Button, Flex, Link, useDisclosure } from "@chakra-ui/react";
 import Categories from "./Categories";
+import { TbLayoutGridAdd } from "react-icons/tb";
 import { BsPersonPlusFill } from "react-icons/bs";
 import AddCategoryModal from "../components/Categories/detail/AddCategoryModal";
 
@@ -28,7 +29,7 @@ function ProductManage() {
           w={"6%"}
           bgColor={"#FFFFFF"}
         >
-          <BsPersonPlusFill size={"25px"} />
+          <TbLayoutGridAdd size={"25px"} />
         </Flex>
       </Link>
       <AddCategoryModal isOpen={isOpen} onClose={onClose} />

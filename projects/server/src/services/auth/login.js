@@ -36,10 +36,8 @@ function generateToken(session) {
 async function login(identifier, password) {
   try {
     const account = await findUser(identifier, password);
-
     const payload = { id: account.id, is_admin: account.is_admin };
     const token = generateToken(payload);
-
     return messages.success("Login Success", { token });
   } catch (error) {
     console.error("Error during login:", error);

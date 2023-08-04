@@ -7,6 +7,8 @@ import { ChakraProvider } from "@chakra-ui/react";
 import Login from "./pages/Login";
 import Cashier from "./pages/Cashier";
 import AdminDashboard from "./pages/AdminDashboard";
+import ProfilePage from "./pages/ProfilePage";
+
 import { Box } from "@chakra-ui/react";
 
 function App() {
@@ -24,9 +26,10 @@ function App() {
     <>
       <Box w={"100vw"}>
         <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/cashier" element={<Cashier/>}/>
-        <Route path="/dashboard" element={<AdminDashboard />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/cashier" element={<Cashier />} />
+          <Route path="/dashboard" element={<AdminDashboard />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </Box>
     </>
