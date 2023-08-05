@@ -1,4 +1,4 @@
-import { Button, Flex, Link, useDisclosure } from "@chakra-ui/react";
+import { Flex, Link, useDisclosure } from "@chakra-ui/react";
 import Products from "./Products";
 import { BiAddToQueue } from "react-icons/bi";
 import AddProductModal from "../components/Products/detail/AddProductModal";
@@ -7,7 +7,6 @@ import { useState } from "react";
 
 function ProductManage({searchQuery=""}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
   const [page, setPage] = useState(0);
   const [category, setCategory] = useState(0); 
 

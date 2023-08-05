@@ -1,41 +1,24 @@
-import { useState } from "react";
 import {
   Box,
   Heading,
   Text,
   Img,
   Flex,
-  Center,
-  useColorModeValue,
   HStack,
   Link,
-  Button,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
   useDisclosure,
   useToast,
 } from "@chakra-ui/react";
 import {
-  BsArrowUpRight,
-  BsHeartFill,
-  BsHeart,
   BsPersonPlusFill,
 } from "react-icons/bs";
-import { IoTrashBinOutline, IoTrashBinSharp } from "react-icons/io5";
 import { FaCheck, FaTimes } from "react-icons/fa";
-import { AiOutlineEdit } from "react-icons/ai";
 import AddCashierModal from "./AddCashierModal";
 import getImage from "../api/getImage";
 import axios from "axios";
 
 export default function CashierManage({ cashiers }) {
   const toast = useToast();
-  const [liked, setLiked] = useState(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleDelete = async (username) => {

@@ -7,7 +7,6 @@ import {
   Avatar,
   Card,
   CardBody,
-  Image,
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
@@ -96,7 +95,7 @@ export default function ProfilePage() {
             <CardBody textAlign="center">
               <center>
                 <Avatar
-                  src={getImage(avatar)} // ini error gabisa get gambar
+                  src={getImage(avatar)}
                   alt="avatar"
                   borderRadius="full"
                   boxSize="160px"
