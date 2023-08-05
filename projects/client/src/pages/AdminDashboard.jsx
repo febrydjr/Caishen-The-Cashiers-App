@@ -28,7 +28,6 @@ const AdminDashboard = () => {
   const renderPage = () => {
     switch (activePage) {
       case "cashier":
-        console.log("masuk cashier");
         return <CashierManage cashiers={cashiers} />;
       case "category":
         return (

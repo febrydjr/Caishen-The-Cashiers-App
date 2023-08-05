@@ -21,7 +21,7 @@ function ResetPassword() {
 
   const handleSubmit = async (values) => {
     try {
-      await axios.patch("http://localhost:8000/reset", values, {
+      await axios.patch("http://localhost:8000/api/auth/reset", values, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -46,53 +46,67 @@ function ResetPassword() {
   };
 
   return (
-    <Box
-      fontFamily={"Fira Code"}
-      m={"auto"}
-      width={"30%"}
-      mt={10}
-      mb={10}
-      px={6}
-      py={4}
-    >
-      <Box bgColor={"gray.40"} px={6} py={6} boxShadow={"lg"}>
-        <Heading as="h1" size="xl" mb={8}>
-          Reset Password
-        </Heading>
-        <Formik
-          initialValues={{
-            password: "",
-          }}
-          validationSchema={Yup.object({
-            password: Yup.string()
-              .matches(
-                /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d]).{8,}$/,
-                "Password must contain at least 8 characters, one symbol, one uppercase letter, and one number."
-              )
-              .required("Required"),
-          })}
-          onSubmit={handleSubmit}
+    <Box bgColor={"#2e2e2e"} h={"100vh"}>
+      <Box
+        fontFamily={"Fira Code"}
+        m={"auto"}
+        width={"35%"}
+        mb={10}
+        py={4}
+        bgColor={"#2e2e2e"}
+      >
+        <Box
+          borderRadius={10}
+          w={"500px"}
+          bgColor={"white"}
+          mt={32}
+          px={6}
+          py={6}
+          boxShadow={"lg"}
         >
-          <Form>
-            <Field name="password">
-              {({ field }) => (
-                <FormControl id="password" mb={4}>
-                  <FormLabel>Enter New Password: </FormLabel>
-                  <Input type="password" {...field} required />
-                  <ErrorMessage name="password" component="div" color="red" />
-                </FormControl>
-              )}
-            </Field>
-            <Button
-              type="submit"
-              size="md"
-              variant="solid"
-              colorScheme="facebook"
-            >
-              Reset Password
-            </Button>
-          </Form>
-        </Formik>
+          <Heading fontFamily={"Fira Code"} as="h1" size="xl" mb={8}>
+            Reset Password
+          </Heading>
+          <Formik
+            initialValues={{
+              password: "",
+            }}
+            validationSchema={Yup.object({
+              password: Yup.string()
+                .matches(
+                  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d]).{8,}$/,
+                  "Password must contain at least 8 characters, one symbol, one uppercase letter, and one number."
+                )
+                .required("Required"),
+            })}
+            onSubmit={handleSubmit}
+          >
+            <Form>
+              <Field name="password">
+                {({ field }) => (
+                  <FormControl id="password" mb={4}>
+                    <FormLabel>Enter New Password: </FormLabel>
+                    <Input type="password" {...field} required />
+                    <ErrorMessage
+                      fontFamily="Fira Code"
+                      name="password"
+                      component="div"
+                      color="red"
+                    />
+                  </FormControl>
+                )}
+              </Field>
+              <Button
+                type="submit"
+                size="md"
+                variant="solid"
+                colorScheme="facebook"
+              >
+                Reset Password
+              </Button>
+            </Form>
+          </Formik>
+        </Box>
       </Box>
     </Box>
   );

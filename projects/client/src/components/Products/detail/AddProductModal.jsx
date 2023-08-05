@@ -26,7 +26,6 @@ const AddProductModal = ({ isOpen, onClose }) => {
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     setSelectedImage(file);
-    console.log(file);
   };
 
   const fetchData = async () => {
@@ -47,7 +46,6 @@ const AddProductModal = ({ isOpen, onClose }) => {
   const handleSubmit = async (values) => {
     try {
       const formData = new FormData();
-      console.log("Ini Form:", formData);
       formData.append("name", values.name);
       formData.append("description", values.description);
       formData.append("price", values.price);

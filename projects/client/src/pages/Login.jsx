@@ -56,6 +56,7 @@ const Login = () => {
         password,
       });
       if (res.status === 200) {
+        console.log(res.status);
         localStorage.setItem("token", res.data.token);
         toast({
           title: "Success",

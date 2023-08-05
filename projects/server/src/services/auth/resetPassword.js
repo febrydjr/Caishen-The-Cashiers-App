@@ -24,7 +24,6 @@ async function resetPassword(token, password) {
     let account = jwt.verify(token, KEY_JWT);
     account = await getAccount(account["id"]);
 
-    console.log(token, password);
     const hashPassword = await hashPass(password);
 
     return await db.sequelize.transaction(async function (t) {

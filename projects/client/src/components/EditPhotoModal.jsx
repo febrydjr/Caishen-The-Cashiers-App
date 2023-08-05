@@ -22,7 +22,6 @@ const EditPhotoModal = ({ isOpen, onClose, onSave, token }) => {
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     setProfilePhoto(file);
-    console.log(file);
   };
 
   const handleSave = async () => {
