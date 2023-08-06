@@ -24,8 +24,12 @@ async function getItems(req, res) {
 
 async function editItem(req, res) {
     try {
-        const { id_cart_item, qty } = req.body;
-        const result = await cartService.editItem(id_cart_item, +qty);
+        const { id_cart_item, id_product, qty } = req.body;
+        const result = await cartService.editItem(
+            id_cart_item,
+            id_product,
+            +qty
+        );
         res.status(result.status).json(messages.response(result));
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -51,10 +55,21 @@ async function resetCart(req, res) {
     }
 }
 
+async function getTotal(req, res) {
+    try {
+        const { id } = req.account;
+        const result = await cartService.getTotal(id);
+        res.status(result.status).json(messages.response(result));
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 module.exports = {
     addItem,
     getItems,
     editItem,
     deleteItem,
     resetCart,
+    getTotal,
 };

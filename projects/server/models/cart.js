@@ -15,10 +15,6 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
             },
             id_user: DataTypes.UUID,
-            total_price: {
-                type: DataTypes.BIGINT,
-                defaultValue: 0,
-            },
         },
         {
             sequelize,

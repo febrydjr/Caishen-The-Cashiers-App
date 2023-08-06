@@ -14,12 +14,6 @@ module.exports = {
                 id_user: {
                     type: Sequelize.UUID,
                 },
-                total_price: {
-                    type: Sequelize.BIGINT,
-                },
-                date: {
-                    type: Sequelize.DATE,
-                },
                 created_at: {
                     allowNull: false,
                     type: Sequelize.DATE,

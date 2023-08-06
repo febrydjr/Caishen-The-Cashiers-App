@@ -43,7 +43,7 @@ const AdminDashboard = () => {
       case "product":
         return (
           <Box mt={6}>
-            <ProductManage searchQuery={searchQuery} />;
+            <ProductManage searchQuery={searchQuery}/>;
           </Box>
         );
       case "report":
@@ -70,7 +70,7 @@ const AdminDashboard = () => {
 
   return (
     <Box bgColor={"#2A2B2E"} maxW={"100vw"} borderRadius={8}>
-      <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
       <Flex>
         <Box
           color="white"
