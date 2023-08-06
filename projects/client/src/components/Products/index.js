@@ -14,7 +14,6 @@ const fontOptions = {
 const options = {
     w: "fit-content",
     maxW: "100%",
-    // maxW: "calc(100vw - ((100vw - 32px) / 6)) ",
     gap: 4,
     autoFlow: "column",
     templateRows: "repeat(2, 1fr)",

@@ -31,7 +31,6 @@ function generateToken(session) {
 async function login(identifier, password) {
   try {
     const account = await findUser(identifier, password);
-
     if (!account) return messages.error(500 ,"user not found");
 
     const passwordMatch = await bcrypt.compare(password, account.password);
@@ -39,7 +38,6 @@ async function login(identifier, password) {
 
     const payload = { id: account.id, is_admin: account.is_admin };
     const token = generateToken(payload);
-
     return messages.success("Login Success", { token });
   } catch (error) {
     console.error("Error during login:", error);

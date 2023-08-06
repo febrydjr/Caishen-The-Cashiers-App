@@ -2,8 +2,8 @@ const { profileService } = require("../services");
 
 async function getProfile(req, res) {
   try {
-    const userId = req.account;
-    const profile = await profileService.getUser(userId);
+    const account = req.account;
+    const profile = await profileService.getUser(account);
     return res.status(200).json(profile);
   } catch (error) {
     return res.status(500).json(error.message);

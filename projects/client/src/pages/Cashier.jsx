@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/react";
+import { Flex, Grid } from "@chakra-ui/react";
 import Categories from "../components/Categories";
 import Products from "../components/Products";
 import Transactions from "../components/Transactions";
@@ -30,7 +30,6 @@ function Cashier() {
     const [category, setCategory] = useState(0);
     const [page, setPage] = useState(0);
     const [searchQuery, setSearchQuery] = useState("");
-
     const [updateCarts, setUpdateCarts] = useState("");
 
     return (

@@ -18,13 +18,11 @@ import { FaCheck, FaTimes } from "react-icons/fa";
 import * as Yup from "yup";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
-import { RiDeleteBinFill } from "react-icons/ri";
 
 const EditProductModal = ({ isOpen, onClose, product }) => {
   const toast = useToast();
   const [category, setCategory] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
-
   const [selectedCategory, setSelectedCategory] = useState("");
 
   const handleImageUpload = (event) => {
@@ -55,7 +53,6 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log(product.id);
       toast({
         title: "Product deleted!",
         status: "success",
@@ -64,7 +61,6 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
       });
       window.location.reload();
     } catch (error) {
-      console.log(error.message);
       toast({
         title: "Error deleting user!",
         description: error.response.data.message,
@@ -94,7 +90,6 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
       });
       window.location.reload();
     } catch (error) {
-      console.log(error.message);
       toast({
         title: "Error activating user!",
         description: error.response.data.message,

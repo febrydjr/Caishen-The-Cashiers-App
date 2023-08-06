@@ -13,15 +13,35 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { useState, useRef } from "react";
+import { useState, useEffect } from "react";
 import { GiHamburgerMenu, GiToken } from "react-icons/gi";
 import { AiOutlineClose, AiOutlineSearch } from "react-icons/ai";
-// import "../App.css";
+import getImage from "../api/getImage";
+import axios from "axios";
 
-function Navbar({searchQuery, setSearchQuery}) {
+function Navbar({ searchQuery, setSearchQuery }) {
   const [isToggle, setIsToggle] = useState(false);
+  const [avatar, setAvatar] = useState("");
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
+
+  const fetchData = async (values) => {
+    try {
+      const token = localStorage.getItem("token");
+      const response = await axios.get("http://localhost:8000/api/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const { avatar } = response.data.data;
+      setAvatar(avatar);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleToggle = () => {
     setIsToggle(!isToggle);
@@ -70,11 +90,7 @@ function Navbar({searchQuery, setSearchQuery}) {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <Button
-            ml={2}
-            colorScheme="gray"
-            _hover={{ bg: "#DAFFFB" }}
-          >
+          <Button ml={2} colorScheme="gray" _hover={{ bg: "#DAFFFB" }}>
             <AiOutlineSearch size={"20px"} />
           </Button>
         </Flex>
@@ -93,7 +109,7 @@ function Navbar({searchQuery, setSearchQuery}) {
                 Sign Out
               </Button>
               <Link mr={4} as={RouterLink} to="/profile">
-                <Avatar name="User" src="/profile" size="sm" ml={4} />
+                <Avatar name="User" src={getImage(avatar)} size="sm" ml={4} />
               </Link>
             </>
           ) : (

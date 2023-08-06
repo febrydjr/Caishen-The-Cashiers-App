@@ -10,14 +10,12 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
-  Flex,
   Select,
 } from "@chakra-ui/react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
-import { RiDeleteBinFill } from "react-icons/ri";
 
 const AddProductModal = ({ isOpen, onClose }) => {
   const toast = useToast();
@@ -28,7 +26,6 @@ const AddProductModal = ({ isOpen, onClose }) => {
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     setSelectedImage(file);
-    console.log(file);
   };
 
   const fetchData = async () => {
@@ -47,10 +44,8 @@ const AddProductModal = ({ isOpen, onClose }) => {
   }, []);
 
   const handleSubmit = async (values) => {
-    console.log("OKKOKOKOK");
     try {
       const formData = new FormData();
-      console.log("Ini Form:", formData);
       formData.append("name", values.name);
       formData.append("description", values.description);
       formData.append("price", values.price);
@@ -72,7 +67,6 @@ const AddProductModal = ({ isOpen, onClose }) => {
       });
       onClose();
     } catch (error) {
-      console.log("ERERERRER");
       toast({
         title: "Error adding Product!",
         description: error.response.data.message,
