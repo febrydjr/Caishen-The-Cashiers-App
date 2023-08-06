@@ -11,6 +11,7 @@ const {
     profileRouter,
     productRouter,
     cartRouter,
+    transactionRouter,
 } = require("./routes");
 
 const PORT = process.env.PORT || 8000;
@@ -36,6 +37,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/profile", profileRouter);
 app.use("/api/products", productRouter);
 app.use("/api/cart", cartRouter);
+app.use("/api/transactions", transactionRouter)
 
 app.use("/api/public", express.static(path.resolve(__dirname, "../public")));
 
