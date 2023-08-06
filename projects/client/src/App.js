@@ -3,11 +3,14 @@ import logo from "./logo.svg";
 import "./App.css";
 import { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { ChakraProvider } from "@chakra-ui/react";
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import Login from "./pages/Login";
 import Cashier from "./pages/Cashier";
 import AdminDashboard from "./pages/AdminDashboard";
 import { Box } from "@chakra-ui/react";
+import {breakpoints} from "./themes/theme"
+
+const theme = extendTheme({breakpoints});
 
 function App() {
   // const [message, setMessage] = useState("");
@@ -21,15 +24,15 @@ function App() {
   //   })();
   // }, []);
   return (
-    <>
-      <Box w={"100vw"}>
+    <ChakraProvider theme={theme}>
+      <Box w={"100vw"} overflowX="hidden">
         <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/cashier" element={<Cashier/>}/>
         <Route path="/dashboard" element={<AdminDashboard />} />
         </Routes>
       </Box>
-    </>
+    </ChakraProvider>
   );
 }
 

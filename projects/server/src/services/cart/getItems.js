@@ -14,10 +14,11 @@ async function getItems(id_user) {
             exclude: ["id_cart", "id_product", "created_at", "updated_at"]
         },
         where: { id_cart: cart["id"] },
+        order: ["created_at"],
         include: [
             {
                 model: products,
-                attributes: ["name", "image", "price"],
+                attributes: ["id", "name", "image", "price"],
             }
         ]
     });

@@ -1,23 +1,28 @@
-import { Flex, Grid } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import Categories from "../components/Categories";
 import Products from "../components/Products";
 import Transactions from "../components/Transactions";
 import customColors from "../themes/customColors";
 import { useState } from "react";
-import Navbar from "../components/Navbar"
+import Navbar from "../components/Navbar";
 
 const mainOptions = {
     bgColor: customColors.primary,
     w: "100vw",
-    h: "100vh",
+    h: "fit-content",
+    minW: "100vw",
+    minH: "100vh",
     p: "16px",
-    templateColumns: "5fr 1fr",
     gap: "16px",
 };
 
 const menuOptions = {
     direction: "column",
     w: "100%",
+    maxW: {
+        md: "56vw",
+        lg: "70vw",
+    },
     gap: 4,
 };
 
@@ -26,10 +31,12 @@ function Cashier() {
     const [page, setPage] = useState(0);
     const [searchQuery, setSearchQuery] = useState("");
 
+    const [updateCarts, setUpdateCarts] = useState("");
+
     return (
         <>
-            <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
-            <Grid {...mainOptions}>
+            <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+            <Flex {...mainOptions}>
                 <Flex {...menuOptions}>
                     <Categories setCategory={setCategory} setPage={setPage} />
                     <Products
@@ -37,10 +44,14 @@ function Cashier() {
                         page={page}
                         title={searchQuery}
                         setPage={setPage}
+                        setUpdateCarts={setUpdateCarts}
                     />
                 </Flex>
-                <Transactions />
-            </Grid>
+                <Transactions
+                    updateCarts={updateCarts}
+                    setUpdateCarts={setUpdateCarts}
+                />
+            </Flex>
         </>
     );
 }

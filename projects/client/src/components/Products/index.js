@@ -9,11 +9,12 @@ const fontOptions = {
     color: customColors.textPrimary,
     fontFamily: "Fira Code",
     fontWeight: "semibold",
-}
+};
 
 const options = {
     w: "fit-content",
-    maxW: "calc(100vw - ((100vw - 32px) / 6)) ",
+    maxW: "100%",
+    // maxW: "calc(100vw - ((100vw - 32px) / 6)) ",
     gap: 4,
     autoFlow: "column",
     templateRows: "repeat(2, 1fr)",
@@ -27,7 +28,14 @@ const titleOptions = {
     fontSize: "1.2em",
 };
 
-function Products({ category = 0, page = 0, title = "", setPage, isEdit = false }) {
+function Products({
+    category = 0,
+    page = 0,
+    title = "",
+    setPage,
+    setUpdateCarts,
+    isEdit = false,
+}) {
     const [products, setProducts] = useState([]);
     const [order, setOrder] = useState("ASC");
     const [filter, setFilter] = useState("name");
@@ -78,8 +86,17 @@ function Products({ category = 0, page = 0, title = "", setPage, isEdit = false 
                     setPage={setPage}
                 />
             </HStack>
-            <Grid {...options} {...fontOptions} onScroll={onProductsScroll} ref={productsRef}>
-                <ProductCards products={products} isEdit={isEdit}/>
+            <Grid
+                {...options}
+                {...fontOptions}
+                onScroll={onProductsScroll}
+                ref={productsRef}
+            >
+                <ProductCards
+                    products={products}
+                    setUpdateCarts={setUpdateCarts}
+                    isEdit={isEdit}
+                />
             </Grid>
         </>
     );

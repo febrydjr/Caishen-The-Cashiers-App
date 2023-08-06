@@ -1,6 +1,7 @@
 const { Op } = require("sequelize");
 const db = require("../../../models");
 const { messages } = require("../../helpers");
+const editItem = require("./editItem");
 
 const carts = db["cart"];
 const cart_items = db["cart_item"];
@@ -23,16 +24,9 @@ async function addItem(id_user, id_product) {
     });
 
     return await db.sequelize.transaction(async function (t) {
-        if (isExist)
-            await cart_items.update(
-                { qty: isExist["qty"] + 1 },
-                { where: { id: isExist["id"] }, transaction: t }
-            );
-        else
-            await cart_items.create(
-                { id_cart: cart["id"], id_product },
-                { transaction: t }
-            );
+        if (isExist) {
+            return await editItem(isExist["id"], id_product, isExist["qty"] + 1);
+        } else await cart_items.create({ id_cart: cart["id"], id_product,  }, { transaction: t });
         return messages.success("Item added successfully");
     });
 }

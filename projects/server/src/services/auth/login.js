@@ -17,11 +17,6 @@ async function findUser(identifier, password) {
     },
   });
 
-  if (!user) throw new Error("username/email atau password salah");
-
-  const passwordMatch = await bcrypt.compare(password, user.password);
-  if (!passwordMatch) throw new Error("username/email atau password salah");
-
   return user;
 }
 
@@ -36,6 +31,11 @@ function generateToken(session) {
 async function login(identifier, password) {
   try {
     const account = await findUser(identifier, password);
+
+    if (!account) return messages.error(500 ,"user not found");
+
+    const passwordMatch = await bcrypt.compare(password, account.password);
+    if (!passwordMatch) return messages.error(400, "username/email atau password salah");
 
     const payload = { id: account.id, is_admin: account.is_admin };
     const token = generateToken(payload);

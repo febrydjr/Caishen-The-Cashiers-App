@@ -24,7 +24,7 @@ async function getProducts(queries) {
         });
         return response.data;
     } catch (error) {
-        console.error(error.message);
+        console.error(error.response.data.message);
     }
 }
 
@@ -33,7 +33,7 @@ async function getProduct(id) {
         const response = await axios.get(`${BASE_URL}/products/${id}`);
         return response.data;
     } catch (error) {
-        console.error(error.message);
+        console.error(error.response.data.message);
     }
 }
 
@@ -42,7 +42,7 @@ async function getCategories() {
         const response = await axios.get(`${BASE_URL}/products/categories`);
         return response.data;
     } catch (error) {
-        console.error(error.message);
+        console.error(error.response.data.message);
     }
 }
 

@@ -7,20 +7,21 @@ const fontOptions = {
     color: customColors.textPrimary,
     fontFamily: "Fira Code",
     fontWeight: "semibold",
-}
+};
 
 const containerOptions = {
-    bgColor: customColors.secondary,
+    flexGrow: 1,
     direction: "column",
-}
+    gap: 4,
+};
 
-function Transactions(){
+function Transactions({ updateCarts, setUpdateCarts }) {
     return (
         <Flex {...containerOptions} {...fontOptions}>
-            <Cart />
-            <Checkout />
+            <Cart updateCarts={updateCarts} setUpdateCarts={setUpdateCarts} />
+            <Checkout updateCarts={updateCarts} />
         </Flex>
-    )
+    );
 }
 
 export default Transactions;

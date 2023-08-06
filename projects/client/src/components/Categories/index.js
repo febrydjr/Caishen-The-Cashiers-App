@@ -12,7 +12,7 @@ const fontOptions = {
 
 const options = {
     w: "fit-content",
-    maxW: "calc(100vw - ((100vw - 32px) / 6)) ",
+    maxW: "full",
     gap: 4,
     overflowX: "scroll",
     css: {

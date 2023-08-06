@@ -34,7 +34,8 @@ function Navbar({searchQuery, setSearchQuery}) {
 
   return (
     <Box
-      w={"100vw"}
+      w={"full"}
+      minW={"100vw"}
       fontFamily={"Fira Code"}
       fontSize={"large"}
       bg="#2A2B2E"

@@ -3,6 +3,7 @@ const getItems = require("./getItems");
 const editItem = require("./editItem");
 const deleteItem = require("./deleteItem");
 const resetCart = require("./resetCart");
+const getTotal = require("./getTotal");
 
 module.exports = {
     addItem,
@@ -10,4 +11,5 @@ module.exports = {
     editItem,
     deleteItem,
     resetCart,
+    getTotal,
 };
