@@ -13,7 +13,7 @@ const fontOptions = {
 
 const options = {
   w: "fit-content",
-  maxW: "calc(100vw - ((100vw - 32px) / 6)) ",
+  maxW: "100%",
   gap: 4,
   autoFlow: "column",
   templateRows: "repeat(2, 1fr)",
@@ -32,6 +32,7 @@ function Products({
   page = 0,
   title = "",
   setPage,
+  setUpdateCarts,
   isEdit = false,
 }) {
   const [products, setProducts] = useState([]);
@@ -44,6 +45,7 @@ function Products({
   function onProductsScroll() {
     if (productsRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = productsRef.current;
+      // console.log(scrollWidth, scrollLeft, clientWidth)
       if (scrollLeft + clientWidth === scrollWidth && page < maxPage)
         setPage(page + 1);
     }
@@ -88,7 +90,11 @@ function Products({
         onScroll={onProductsScroll}
         ref={productsRef}
       >
-        <ProductCards products={products} isEdit={isEdit} />
+        <ProductCards
+          products={products}
+          setUpdateCarts={setUpdateCarts}
+          isEdit={isEdit}
+        />
       </Grid>
     </>
   );

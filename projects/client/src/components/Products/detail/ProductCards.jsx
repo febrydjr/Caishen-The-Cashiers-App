@@ -1,6 +1,8 @@
 import { Flex, GridItem, Text, useDisclosure } from "@chakra-ui/react";
+import { v4 as uuidv4 } from "uuid";
 import customColors from "../../../themes/customColors";
 import getImage from "../../../api/getImage";
+import { addCartItem } from "../../../api/cart";
 import EditProductModal from "./EditProductModal";
 
 const gridOptions = {
@@ -31,11 +33,17 @@ const backdrop = {
     backdropFilter: "blur(2px)",
 };
 
-function ProductCards({ products, isEdit }) {
+function ProductCards({ products, setUpdateCarts, isEdit }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
 
-    function handleClick() {
-        if (isEdit) onOpen();
+    async function addCart(id_product) {
+        await addCartItem(id_product);
+        setUpdateCarts(uuidv4());
+    }
+
+    function handleClick(id) {
+        if (isEdit) return onOpen();
+        return addCart(id);
     }
 
     return products.map((product, index) => (
@@ -44,7 +52,7 @@ function ProductCards({ products, isEdit }) {
             id={product["id"]}
             key={`product-${index}`}
             bgImage={getImage(product["image"])}
-            onClick={() => handleClick()}
+            onClick={() => handleClick(product["id"])}
         >
             <Flex bottom={0} {...backdrop}>
                 <Text {...titleOptions}>{product["name"]}</Text>
