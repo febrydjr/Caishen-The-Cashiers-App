@@ -11,62 +11,73 @@ import {
   ModalOverlay,
   Text,
   Flex,
-  Select,
 } from "@chakra-ui/react";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import axios from "axios";
 import { useToast } from "@chakra-ui/react";
+import { v4 as uuidv4 } from "uuid";
+import { addTransaction } from "../../../api/transaction";
 
-const AddProductModal = ({ isOpen, onClose }) => {
+const CheckoutModal = ({ isOpen, onClose, setUpdateCarts, total }) => {
   const toast = useToast();
+  const [money, setMoney] = useState("");
+  const [change, setChange] = useState(total);
 
-  const handleSubmit = async (values) => {
-    console.log("CHECKOUT SUCCESS");
+  const handleChange = (event) => {
+    setMoney(Number(event.target.value));
   };
+
+  useEffect(() => {
+    setChange(money - total);
+  }, [total, money]);
+
+  const handleSubmit = async () => {
+    await addTransaction(toast);
+    setUpdateCarts(uuidv4());
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>
-          <Text fontFamily={"Fira Code"} fontSize={"2xl"} fontWeight={700}>
-            Checkout!
-          </Text>
-        </ModalHeader>
+      <ModalContent fontFamily={"Fira Code"}>
+        <ModalHeader>Checkout!</ModalHeader>
         <ModalCloseButton />
-        <Form>
-          <ModalBody>
-            <Text fontSize={"sm"} mb={4} fontWeight={500} color={"gray.600"}>
-              Enter Customer Money :
+        <ModalBody>
+          <Flex justifyContent={"center"} direction={"column"}>
+            <Text mb={1} alignSelf={"left"}>
+              Total: {total}
             </Text>
-            <Field
-              mb={2}
-              as={Input}
-              type="text"
-              name="change"
-              rounded={"lg"}
-              placeholder="Enter Category Name"
-              _placeholder={{ fontSize: "sm", color: "gray.400" }}
+            <Input
+              id="customer-money"
+              type="number"
+              placeholder="Input Customer Money"
+              // value={money}
+              onChange={handleChange}
             />
-          </ModalBody>
-          <ModalFooter>
-            <Button
-              onClick={handleSubmit}
-              display={"flex"}
-              justifyContent={"center"}
-              w={"100%"}
-              rounded={"lg"}
-              color={"white"}
-              _hover={{ bg: "green" }}
-              bg={"#2A2B2E"}
-            >
-              Checkout!
-            </Button>
-          </ModalFooter>
-        </Form>
+            <Text alignSelf={"center"} mt={4}>
+              Change:
+            </Text>
+            <Text alignSelf={"center"} fontSize={"40px"}>
+              {!change ? 0 : change}
+            </Text>
+          </Flex>
+        </ModalBody>
+
+        <ModalFooter>
+          <Button onClick={onClose} variant="outline">
+            Cancel
+          </Button>
+          <Button
+            _hover={{ color: "black", bgColor: "gray.100" }}
+            bgColor={"green"}
+            color={"white"}
+            ml={3}
+            onClick={handleSubmit}
+          >
+            Checkout
+          </Button>
+        </ModalFooter>
       </ModalContent>
     </Modal>
   );
 };
 
-export default AddProductModal;
+export default CheckoutModal;

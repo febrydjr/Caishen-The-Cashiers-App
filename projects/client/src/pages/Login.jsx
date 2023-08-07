@@ -27,7 +27,19 @@ const Login = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
-      navigate("/dashboard");
+      try {
+        const decoded = jwt_decode(token);
+        const isAdmin = decoded.is_admin;
+        if (isAdmin) {
+          return navigate("/dashboard");
+        } else {
+          return navigate("/cashier");
+        }
+      } catch (error) {
+        return navigate("/404");
+      }
+    } else {
+      return navigate("/");
     }
   }, []);
   const handleReset = async (values) => {

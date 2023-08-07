@@ -12,6 +12,7 @@ import axios from "axios";
 import CashierManage from "../components/CashierManage";
 import ProductCategories from "../components/CategoryManage";
 import ProductManage from "../components/ProductManage";
+import jwt_decode from "jwt-decode";
 
 const AdminDashboard = () => {
   const [cashiers, setCashiers] = useState([]);
@@ -22,9 +23,19 @@ const AdminDashboard = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/");
+      return navigate("/");
+    }
+    try {
+      const decoded = jwt_decode(token);
+      const isAdmin = decoded.is_admin;
+      if (!isAdmin) {
+        return navigate("/403");
+      }
+    } catch (error) {
+      return navigate("/404");
     }
   }, []);
+
   const renderPage = () => {
     switch (activePage) {
       case "cashier":
