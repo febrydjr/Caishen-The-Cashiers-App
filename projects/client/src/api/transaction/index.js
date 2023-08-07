@@ -1,4 +1,5 @@
 import axios from "axios";
+import Notification from "../Notification";
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const TOKEN = localStorage.getItem("token");
@@ -9,12 +10,19 @@ const HEADERS = {
     },
 };
 
-async function addTransaction(total, products) {
+async function addTransaction(toast) {
     try {
         const response = await axios.post(TRANSACTION_URL, {}, HEADERS);
+        Notification(toast, {
+            title: response.data.message,
+            status: response.status,
+        });
         return response.data;
     } catch (error) {
-        console.error(error.response.data.message);
+        Notification(toast, {
+            title: error.response.data.message,
+            status: error.response.status,
+        });
     }
 }
 

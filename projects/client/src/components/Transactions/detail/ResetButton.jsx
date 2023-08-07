@@ -1,4 +1,4 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Text, useToast } from "@chakra-ui/react";
 import { resetCart } from "../../../api/cart";
 import { v4 as uuidv4 } from "uuid";
 import customColors from "../../../themes/customColors";
@@ -15,8 +15,10 @@ const resetOptions = {
 };
 
 function ResetButton({ setUpdateCarts }) {
+    const toast = useToast();
+
     async function onReset() {
-        await resetCart();
+        await resetCart(toast);
         setUpdateCarts(uuidv4());
     }
 

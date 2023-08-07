@@ -1,4 +1,4 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Text, useToast } from "@chakra-ui/react";
 import customColors from "../../../themes/customColors";
 import { addTransaction } from "../../../api/transaction";
 import { v4 as uuidv4 } from "uuid";
@@ -17,8 +17,10 @@ const textOptions = {
 };
 
 function CheckoutButton({ setUpdateCarts }) {
+    const toast = useToast();
+
     async function onCheckout() {
-        const response = await addTransaction();
+        await addTransaction(toast);        
         setUpdateCarts(uuidv4());
     }
 
