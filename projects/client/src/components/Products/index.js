@@ -66,11 +66,12 @@ function Products({
         setProducts(
             page <= 1 ? data["products"] : [...products, ...data["products"]]
         );
+        onProductsScroll();
     }
 
     useEffect(() => {
         fetchProducts({});
-        console.log(products);
+        // console.log(products);
     }, [title, category, filter, order, page]);
 
     return (
@@ -86,6 +87,7 @@ function Products({
                 />
             </HStack>
             <Grid
+                id="container-product"
                 {...options}
                 {...fontOptions}
                 onScroll={onProductsScroll}
