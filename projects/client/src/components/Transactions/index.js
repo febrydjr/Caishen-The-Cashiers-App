@@ -19,7 +19,7 @@ function Transactions({ updateCarts, setUpdateCarts }) {
     return (
         <Flex {...containerOptions} {...fontOptions}>
             <Cart updateCarts={updateCarts} setUpdateCarts={setUpdateCarts} />
-            <Checkout updateCarts={updateCarts} />
+            <Checkout updateCarts={updateCarts} setUpdateCarts={setUpdateCarts} />
         </Flex>
     );
 }

@@ -1,4 +1,4 @@
-import { Flex, Image, Spacer, Text } from "@chakra-ui/react";
+import { Flex, Image, Spacer, Text, useToast } from "@chakra-ui/react";
 import { RiDeleteBin5Fill } from "react-icons/ri";
 import customColors from "../../../themes/customColors";
 import Counter from "./Counter";
@@ -62,9 +62,10 @@ function priceFormater(price) {
 
 function CartCards({ cart, setUpdateCarts }) {
     const [deleteToggle, setDeleteToggle] = useState(false);
+    const toast = useToast();
 
     async function deleteItem(id_cart) {
-        await deleteCartItem(id_cart);
+        await deleteCartItem(toast, id_cart);
         setTimeout(() => {
             setUpdateCarts(uuidv4());
         }, 300);

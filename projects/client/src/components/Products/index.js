@@ -46,7 +46,6 @@ function Products({
         if (productsRef.current) {
             const { scrollLeft, scrollWidth, clientWidth } =
                 productsRef.current;
-            // console.log(scrollWidth, scrollLeft, clientWidth)
             if (scrollLeft + clientWidth === scrollWidth && page < maxPage)
                 setPage(page + 1);
         }
@@ -58,7 +57,6 @@ function Products({
             order_by: filter,
             order,
             page,
-            limit: 6,
         };
         if (category !== 0) queries["id_category"] = category;
         const { data } = await getProducts(queries);
@@ -66,11 +64,12 @@ function Products({
         setProducts(
             page <= 1 ? data["products"] : [...products, ...data["products"]]
         );
+        onProductsScroll();
     }
 
     useEffect(() => {
         fetchProducts({});
-        console.log(products);
+        // console.log(products);
     }, [title, category, filter, order, page]);
 
     return (
@@ -86,6 +85,7 @@ function Products({
                 />
             </HStack>
             <Grid
+                id="container-product"
                 {...options}
                 {...fontOptions}
                 onScroll={onProductsScroll}
