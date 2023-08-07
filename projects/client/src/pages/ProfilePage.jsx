@@ -15,6 +15,7 @@ import { BsBoxArrowInLeft } from "react-icons/bs";
 import EditPhotoModal from "../components/EditPhotoModal";
 import getImage from "../api/getImage";
 import { PiUploadBold } from "react-icons/pi";
+import jwt_decode from "jwt-decode";
 
 export default function ProfilePage() {
   const navigate = useNavigate();
@@ -37,8 +38,27 @@ export default function ProfilePage() {
       reader.readAsDataURL(file);
     }
   };
-  const handleNavigate = () => {
-    navigate("/dashboard");
+  const checkAdmin = () => {
+    const token = localStorage.getItem("token");
+    try {
+      if (token) {
+        const decoded = jwt_decode(token);
+        return decoded.is_admin;
+      }
+      return false;
+    } catch (error) {
+      console.error("Error decoding token:", error);
+      return false;
+    }
+  };
+
+  const handleBack = () => {
+    const isAdmin = checkAdmin();
+    if (isAdmin) {
+      navigate("/dashboard");
+    } else {
+      navigate("/cashier");
+    }
   };
 
   const fetchData = async () => {
@@ -83,7 +103,7 @@ export default function ProfilePage() {
 
   return (
     <Box fontFamily={"Fira Code"} bg="#2e2e2e" pt={10} minH="100vh">
-      <Button onClick={handleNavigate} ml={10} p={4} mb={4}>
+      <Button onClick={handleBack} ml={10} p={4} mb={4}>
         <Flex alignItems={"center"}>
           <BsBoxArrowInLeft size={24} />
           <Text>&nbsp;DASHBOARD</Text>

@@ -6,10 +6,12 @@ import Cashier from "./pages/Cashier";
 import AdminDashboard from "./pages/AdminDashboard";
 import ProfilePage from "./pages/ProfilePage";
 import ResetPassword from "./pages/ResetPassword";
+import NotAuthorized from "./pages/NotAuthorized";
+import NotFound from "./pages/NotFound";
 import { Box } from "@chakra-ui/react";
-import {breakpoints} from "./themes/theme"
+import { breakpoints } from "./themes/theme";
 
-const theme = extendTheme({breakpoints});
+const theme = extendTheme({ breakpoints });
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
           <Route path="/dashboard" element={<AdminDashboard />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/reset/:token" element={<ResetPassword />} />
+          <Route path="/403" element={<NotAuthorized />} />
+          <Route path="/404" element={<NotFound />} />
         </Routes>
       </Box>
     </ChakraProvider>

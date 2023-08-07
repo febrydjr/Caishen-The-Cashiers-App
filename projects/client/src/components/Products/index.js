@@ -6,99 +6,98 @@ import Filter from "./detail/Filter";
 import customColors from "../../themes/customColors";
 
 const fontOptions = {
-    color: customColors.textPrimary,
-    fontFamily: "Fira Code",
-    fontWeight: "semibold",
+  color: customColors.textPrimary,
+  fontFamily: "Fira Code",
+  fontWeight: "semibold",
 };
 
 const options = {
-    w: "fit-content",
-    maxW: "100%",
-    gap: 4,
-    autoFlow: "column",
-    templateRows: "repeat(2, 1fr)",
-    overflowX: "scroll",
-    css: {
-        "&::-webkit-scrollbar": { display: "none" },
-    },
+  w: "fit-content",
+  maxW: "100%",
+  gap: 4,
+  autoFlow: "column",
+  templateRows: "repeat(2, 1fr)",
+  overflowX: "scroll",
+  css: {
+    "&::-webkit-scrollbar": { display: "none" },
+  },
 };
 
 const titleOptions = {
-    fontSize: "1.2em",
+  fontSize: "1.2em",
 };
 
 function Products({
-    category = 0,
-    page = 0,
-    title = "",
-    setPage,
-    setUpdateCarts,
-    isEdit = false,
+  category = 0,
+  page = 0,
+  title = "",
+  setPage,
+  setUpdateCarts,
+  isEdit = false,
 }) {
-    const [products, setProducts] = useState([]);
-    const [order, setOrder] = useState("ASC");
-    const [filter, setFilter] = useState("name");
-    const [maxPage, setMaxPage] = useState(1);
+  const [products, setProducts] = useState([]);
+  const [order, setOrder] = useState("ASC");
+  const [filter, setFilter] = useState("name");
+  const [maxPage, setMaxPage] = useState(1);
 
-    const productsRef = useRef();
+  const productsRef = useRef();
 
-    function onProductsScroll() {
-        if (productsRef.current) {
-            const { scrollLeft, scrollWidth, clientWidth } =
-                productsRef.current;
-            if (scrollLeft + clientWidth === scrollWidth && page < maxPage)
-                setPage(page + 1);
-        }
+  function onProductsScroll() {
+    if (productsRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = productsRef.current;
+      if (scrollLeft + clientWidth === scrollWidth && page < maxPage)
+        setPage(page + 1);
     }
+  }
 
-    async function fetchProducts() {
-        const queries = {
-            title,
-            order_by: filter,
-            order,
-            page,
-        };
-        if (category !== 0) queries["id_category"] = category;
-        const { data } = await getProducts(queries);
-        setMaxPage(data["pages"]);
-        setProducts(
-            page <= 1 ? data["products"] : [...products, ...data["products"]]
-        );
-        onProductsScroll();
-    }
-
-    useEffect(() => {
-        fetchProducts({});
-        // console.log(products);
-    }, [title, category, filter, order, page]);
-
-    return (
-        <>
-            <HStack {...fontOptions}>
-                <Text {...titleOptions}>Products</Text>
-                <Divider />
-                <Filter
-                    order={order}
-                    setOrder={setOrder}
-                    setFilter={setFilter}
-                    setPage={setPage}
-                />
-            </HStack>
-            <Grid
-                id="container-product"
-                {...options}
-                {...fontOptions}
-                onScroll={onProductsScroll}
-                ref={productsRef}
-            >
-                <ProductCards
-                    products={products}
-                    setUpdateCarts={setUpdateCarts}
-                    isEdit={isEdit}
-                />
-            </Grid>
-        </>
+  async function fetchProducts() {
+    const queries = {
+      title,
+      order_by: filter,
+      order,
+      page,
+    };
+    if (category !== 0) queries["id_category"] = category;
+    const { data } = await getProducts(queries);
+    setMaxPage(data["pages"]);
+    setProducts(
+      page <= 1 ? data["products"] : [...products, ...data["products"]]
     );
+    onProductsScroll();
+  }
+
+  useEffect(() => {
+    fetchProducts({});
+    // console.log(products);
+  }, [title, category, filter, order, page]);
+
+  return (
+    <>
+      <HStack {...fontOptions}>
+        <Text {...titleOptions}>Products</Text>
+        <Divider />
+        <Filter
+          order={order}
+          setOrder={setOrder}
+          setFilter={setFilter}
+          setPage={setPage}
+        />
+      </HStack>
+      <Grid
+        id="container-product"
+        {...options}
+        {...fontOptions}
+        onScroll={onProductsScroll}
+        ref={productsRef}
+      >
+        <ProductCards
+          products={products}
+          setUpdateCarts={setUpdateCarts}
+          isEdit={isEdit}
+        />
+      </Grid>
+    </>
+  );
 }
 
 export default Products;
