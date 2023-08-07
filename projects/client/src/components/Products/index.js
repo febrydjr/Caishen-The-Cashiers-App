@@ -57,7 +57,7 @@ function Products({
       order_by: filter,
       order,
       page,
-      limit: 6,
+      limit: 10,
     };
     if (category !== 0) queries["id_category"] = category;
     const { data } = await getProducts(queries);

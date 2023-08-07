@@ -158,7 +158,7 @@ const AdminDashboard = () => {
                 display={"flex"}
                 flexDirection={"row"}
               >
-                <MdOutlineAutoGraph size={"31px"} />
+                <MdOutlineAutoGraph size={"37px"} />
                 <Text
                   _hover={{ color: "#E4CDED" }}
                   color="white"
