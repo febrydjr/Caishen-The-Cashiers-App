@@ -69,7 +69,6 @@ function Products({
 
     useEffect(() => {
         fetchProducts({});
-        // console.log(products);
     }, [title, category, filter, order, page]);
 
     return (

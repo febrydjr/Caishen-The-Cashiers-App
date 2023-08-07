@@ -63,10 +63,11 @@ function priceFormater(price) {
 function CartCards({ cart, setUpdateCarts }) {
     const [deleteToggle, setDeleteToggle] = useState(false);
     const toast = useToast();
-
-    async function deleteItem(id_cart) {
+    async function deleteItem(event, id_cart) {
+        event.stopPropagation()
         await deleteCartItem(toast, id_cart);
         setTimeout(() => {
+            // setDeleteToggle(false)
             setUpdateCarts(uuidv4());
         }, 300);
     }
@@ -74,7 +75,7 @@ function CartCards({ cart, setUpdateCarts }) {
     return (
         <Flex {...mainOptions}>
             {deleteToggle && (
-                <Flex {...logoOptions} onClick={() => deleteItem(cart["id"])}>
+                <Flex {...logoOptions} onClick={(event) => deleteItem(event, cart["id"])}>
                     <RiDeleteBin5Fill />
                 </Flex>
             )}
