@@ -1,9 +1,15 @@
 const { messages } = require("../helpers");
 const { transactionService } = require("../services");
 
-async function createTransaction(req, res) {
+async function addTransaction(req, res) {
     try {
-        const result = await transactionService.createTransaction();
+        const { id } = req.account;
+        // const { total, products } = req.body;
+        const result = await transactionService.addTransaction(
+            id,
+            // total,
+            // products
+        );
         res.status(result.status).json(messages.response(result));
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -12,7 +18,8 @@ async function createTransaction(req, res) {
 
 async function getTransactions(req, res) {
     try {
-        const result = await transactionService.getTransactions();
+        const queries = req.query;
+        const result = await transactionService.getTransactions(queries);
         res.status(result.status).json(messages.response(result));
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -20,6 +27,6 @@ async function getTransactions(req, res) {
 }
 
 module.exports = {
-    createTransaction,
+    addTransaction,
     getTransactions,
-}
+};

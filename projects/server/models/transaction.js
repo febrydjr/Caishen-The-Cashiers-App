@@ -4,7 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     class transaction extends Model {
         static associate(models) {
             this.belongsTo(models["user"], { foreignKey: "id_user" });
-            this.hasMany(models["transaction_item"], {foreignKey: "id_transaction"})
+            this.hasMany(models["transaction_item"], {
+                foreignKey: "id_transaction",
+            });
         }
     }
     transaction.init(
@@ -16,13 +18,13 @@ module.exports = (sequelize, DataTypes) => {
             },
             id_user: DataTypes.UUID,
             total_price: DataTypes.BIGINT,
-            date: DataTypes.DATE,
         },
         {
             sequelize,
             modelName: "transaction",
-            createdAt: "date",
-            updatedAt: false,
+            underscored: true,
+            createdAt: "created_at",
+            updatedAt: "updated_at",
         }
     );
     return transaction;

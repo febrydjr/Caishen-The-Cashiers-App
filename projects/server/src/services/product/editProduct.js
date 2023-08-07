@@ -24,7 +24,7 @@ async function updateCategories(id, id_categories) {
   });
 }
 
-async function editProduct(
+async function editProduct({
   id,
   name,
   description,
@@ -32,7 +32,7 @@ async function editProduct(
   stock,
   id_categories,
   image
-) {
+}) {
   const updateField = await createUpdateField(
     name,
     description,
@@ -40,12 +40,14 @@ async function editProduct(
     stock,
     image
   );
+  console.log("UPDATE FIELD >>>>>", id, updateField);
   const oldProduct = await products.findOne({ where: { id } });
   return await db.sequelize.transaction(async function (t) {
     await products.update(updateField, {
       where: { id },
       transaction: t,
     });
+    console.log(">>>>> UPDATED")
     if (id_categories) await updateCategories(id, id_categories);
     if (image) await fs.unlink(oldProduct["image"]);
     return messages.success("Product successfully updated");
