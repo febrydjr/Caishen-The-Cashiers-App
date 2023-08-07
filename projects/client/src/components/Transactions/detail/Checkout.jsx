@@ -2,6 +2,7 @@ import { Flex, Spacer, Text } from "@chakra-ui/react";
 import customColors from "../../../themes/customColors";
 import { getCartTotal } from "../../../api/cart";
 import { useEffect, useState } from "react";
+import CheckoutButton from "./CheckoutButton";
 
 const mainOptions = {
     bgColor: customColors.secondary,
@@ -11,15 +12,6 @@ const mainOptions = {
     flexGrow: 1,
     flexBasis: "fit-content",
     p: "12px",
-};
-
-const orderOptions = {
-    bgColor: customColors.textSecondary,
-    color: customColors.primary,
-    h: "3.2em",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: "8px",
 };
 
 const textOptions = {
@@ -38,7 +30,7 @@ function priceFormater(price) {
     return formatted;
 }
 
-function Checkout({ updateCarts }) {
+function Checkout({ updateCarts, setUpdateCarts }) {
     const [total, setTotal] = useState(0);
 
     async function getTotal() {
@@ -58,9 +50,7 @@ function Checkout({ updateCarts }) {
                 <Text>{priceFormater(total)}</Text>
             </Flex>
             <Spacer />
-            <Flex {...orderOptions}>
-                <Text {...textOptions}>Order</Text>
-            </Flex>
+            <CheckoutButton setUpdateCarts={setUpdateCarts}/>
         </Flex>
     );
 }

@@ -1,4 +1,4 @@
-import { Flex, Text } from "@chakra-ui/react";
+import { Flex, Text, useToast } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
 import customColors from "../../../themes/customColors";
 import { editCartItem } from "../../../api/cart";
@@ -29,10 +29,12 @@ const changeColor = {
 };
 
 function Counter({ cart, counter = 1, setUpdateCarts }) {
+    const toast = useToast()
+
     async function handleCounter(event, isAdd) {
         event.stopPropagation();
         const qty = counter + (isAdd ? 1 : -1);
-        await editCartItem(cart["id"], cart["product"]["id"], qty);
+        await editCartItem(toast, cart["id"], cart["product"]["id"], qty);
         setUpdateCarts(uuidv4());
     }
 

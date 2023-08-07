@@ -24,7 +24,7 @@ async function updateCategories(id, id_categories) {
   });
 }
 
-async function editProduct(
+async function editProduct({
   id,
   name,
   description,
@@ -32,7 +32,7 @@ async function editProduct(
   stock,
   id_categories,
   image
-) {
+}) {
   const updateField = await createUpdateField(
     name,
     description,
