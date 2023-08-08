@@ -15,6 +15,7 @@ import {
 import { useToast } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
 import { addTransaction } from "../../../api/transaction";
+import Notification from "../../../api/Notification";
 
 function priceFormater(price) {
     let formatted = "";
@@ -24,11 +25,16 @@ function priceFormater(price) {
         if (price.length > 3) formatted = "." + formatted;
         price = price.slice(0, -3);
     }
-
     return formatted;
 }
 
-const CheckoutModal = ({ isOpen, onClose, setUpdateCarts, total }) => {
+const CheckoutModal = ({
+    isOpen,
+    onClose,
+    setUpdateCarts,
+    setCompletedOrder,
+    total,
+}) => {
     const toast = useToast();
     const [money, setMoney] = useState("");
     const [change, setChange] = useState(total);
@@ -39,15 +45,28 @@ const CheckoutModal = ({ isOpen, onClose, setUpdateCarts, total }) => {
 
     useEffect(() => {
         setChange(money - total);
-    }, [total, money]);
+    }, [money]);
 
     const handleSubmit = async () => {
-        await addTransaction(toast);
-        setUpdateCarts(uuidv4());
+        if (money >= total) {
+            await addTransaction(toast);
+            setUpdateCarts(uuidv4());
+            setCompletedOrder(uuidv4());
+        } else {
+            Notification(toast, {
+                title: "Uang kurang",
+                status: 400,
+            });
+        }
     };
 
+    function handleClose() {
+        setChange(0);
+        onClose();
+    }
+
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={handleClose}>
             <ModalOverlay />
             <ModalContent fontFamily={"Fira Code"}>
                 <ModalHeader>Checkout!</ModalHeader>
@@ -71,11 +90,10 @@ const CheckoutModal = ({ isOpen, onClose, setUpdateCarts, total }) => {
                             Change:
                         </Text>
                         <Text alignSelf={"center"} fontSize={"40px"}>
-                            {!change ? 0 : priceFormater(change)}
+                            {!change || change < 0 ? 0 : priceFormater(change)}
                         </Text>
                     </Flex>
                 </ModalBody>
-
                 <ModalFooter>
                     <Button onClick={onClose} variant="outline">
                         Cancel

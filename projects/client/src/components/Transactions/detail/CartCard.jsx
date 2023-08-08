@@ -75,7 +75,7 @@ function CartCards({ cart, setUpdateCarts }) {
     return (
         <Flex {...mainOptions}>
             {deleteToggle && (
-                <Flex {...logoOptions} onClick={(event) => deleteItem(event, cart["id"])}>
+                <Flex {...logoOptions} onClick={() => deleteItem(cart["id"])}>
                     <RiDeleteBin5Fill />
                 </Flex>
             )}

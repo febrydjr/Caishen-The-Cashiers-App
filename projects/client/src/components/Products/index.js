@@ -31,6 +31,7 @@ function Products({
     category = 0,
     page = 0,
     title = "",
+    completedOrder,
     setPage,
     setUpdateCarts,
     isEdit = false,
@@ -69,7 +70,8 @@ function Products({
 
     useEffect(() => {
         fetchProducts({});
-    }, [title, category, filter, order, page]);
+    }, [title, category, filter, order, page, completedOrder]);
+
 
     return (
         <>

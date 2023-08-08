@@ -33,6 +33,8 @@ function Cashier() {
   const [page, setPage] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [updateCarts, setUpdateCarts] = useState("");
+  const [completedOrder, setCompletedOrder] = useState("")
+
   const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -60,6 +62,7 @@ function Cashier() {
             category={category}
             page={page}
             title={searchQuery}
+            completedOrder={completedOrder}
             setPage={setPage}
             setUpdateCarts={setUpdateCarts}
           />
@@ -67,6 +70,7 @@ function Cashier() {
         <Transactions
           updateCarts={updateCarts}
           setUpdateCarts={setUpdateCarts}
+          setCompletedOrder={setCompletedOrder}
         />
       </Flex>
     </>

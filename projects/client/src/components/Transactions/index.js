@@ -15,11 +15,11 @@ const containerOptions = {
     gap: 4,
 };
 
-function Transactions({ updateCarts, setUpdateCarts }) {
+function Transactions({ updateCarts, setUpdateCarts, setCompletedOrder }) {
     return (
         <Flex {...containerOptions} {...fontOptions}>
             <Cart updateCarts={updateCarts} setUpdateCarts={setUpdateCarts} />
-            <Checkout updateCarts={updateCarts} setUpdateCarts={setUpdateCarts} />
+            <Checkout updateCarts={updateCarts} setUpdateCarts={setUpdateCarts} setCompletedOrder={setCompletedOrder}/>
         </Flex>
     );
 }
