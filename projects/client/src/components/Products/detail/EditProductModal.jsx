@@ -23,8 +23,9 @@ import {
     deleteProduct,
     getCategories,
 } from "../../../api/product";
+import {v4 as uuidv4} from "uuid";
 
-const EditProductModal = ({ isOpen, onClose, product }) => {
+const EditProductModal = ({ isOpen, onClose, product, setUpdateProduct }) => {
     const toast = useToast();
     const [category, setCategory] = useState([]);
     const [selectedImage, setSelectedImage] = useState(null);
@@ -56,7 +57,8 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
                 duration: 4000,
                 isClosable: true,
             });
-            window.location.reload();
+            setUpdateProduct(uuidv4())
+            onClose();
         } catch (error) {
             toast({
                 title: "Error deleting user!",
@@ -77,7 +79,8 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
                 duration: 4000,
                 isClosable: true,
             });
-            window.location.reload();
+            setUpdateProduct(uuidv4())
+            onClose();
         } catch (error) {
             toast({
                 title: "Error activating user!",
@@ -109,6 +112,8 @@ const EditProductModal = ({ isOpen, onClose, product }) => {
                 duration: 4000,
                 isClosable: true,
             });
+            setUpdateProduct(uuidv4());
+            onClose()
         } catch (error) {
             toast({
                 title: "Error editing Product!",

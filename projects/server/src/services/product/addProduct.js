@@ -18,7 +18,7 @@ async function addProduct(req) {
             },
             { transaction: t }
         );
-        await addProductCategories(result["id"], id_categories);
+        await addProductCategories(result["id"], id_categories, t);
         return messages.success("Product successfully added");
     });
 }

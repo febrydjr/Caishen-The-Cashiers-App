@@ -30,7 +30,7 @@ function setOptions(editCategory) {
     options["autoFlow"] = editCategory ? "row" : "column";
 }
 
-function Categories({ isEdit = false, setCategory, setPage, isOpen, onClose, onOpen }) {
+function Categories({ isEdit = false, setCategory, setPage, updateCategory, setUpdateCategory }) {
     const [categories, setCategories] = useState([{ id: 0, name: "All" }]);
 
     async function fetchCategories() {
@@ -42,7 +42,7 @@ function Categories({ isEdit = false, setCategory, setPage, isOpen, onClose, onO
 
     useEffect(() => {
         fetchCategories(setCategories);
-    }, []);
+    }, [updateCategory]);
 
     return (
         <>
@@ -56,9 +56,7 @@ function Categories({ isEdit = false, setCategory, setPage, isOpen, onClose, onO
                     setCategory={setCategory}
                     setPage={setPage}
                     isEdit={isEdit}
-                    onClose={onClose}
-                    isOpen={isOpen}
-                    onOpen={onOpen}
+                    setUpdateCategory={setUpdateCategory}
                 />
             </Grid>
         </>

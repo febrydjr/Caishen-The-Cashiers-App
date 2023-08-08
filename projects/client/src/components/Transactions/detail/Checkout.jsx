@@ -31,6 +31,7 @@ function priceFormater(price) {
 }
 
 function Checkout({ updateCarts, setUpdateCarts, setCompletedOrder }) {
+
     const [total, setTotal] = useState(0);
 
     async function getTotal() {

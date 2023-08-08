@@ -67,6 +67,7 @@ function CartCards({ cart, setUpdateCarts }) {
     async function deleteItem(id_cart) {
         await deleteCartItem(toast, id_cart);
         setTimeout(() => {
+            // setDeleteToggle(false)
             setUpdateCarts(uuidv4());
         }, 300);
     }
