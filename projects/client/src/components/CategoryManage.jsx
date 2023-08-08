@@ -4,7 +4,7 @@ import { TbLayoutGridAdd } from "react-icons/tb";
 import AddCategoryModal from "../components/Categories/detail/AddCategoryModal";
 import { useState } from "react";
 
-function ProductManage() {
+function CategoryManage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [updateCategory, setUpdateCategory] = useState();
 
@@ -40,4 +40,4 @@ function ProductManage() {
   );
 }
 
-export default ProductManage;
+export default CategoryManage;
