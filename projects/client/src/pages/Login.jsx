@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import {
   Box,
@@ -14,6 +14,7 @@ import {
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 const ResetSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email address format"),
@@ -23,7 +24,24 @@ const Login = () => {
   const [toggle, setToggle] = React.useState(false);
   const toast = useToast();
   const navigate = useNavigate();
-
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const decoded = jwt_decode(token);
+        const isAdmin = decoded.is_admin;
+        if (isAdmin) {
+          return navigate("/dashboard");
+        } else {
+          return navigate("/cashier");
+        }
+      } catch (error) {
+        return navigate("/not-found");
+      }
+    } else {
+      return navigate("/");
+    }
+  }, []);
   const handleReset = async (values) => {
     try {
       await axios.post("http://localhost:8000/api/auth/forgot", {
@@ -56,23 +74,29 @@ const Login = () => {
         password,
       });
       if (res.status === 200) {
-        console.log(res.status);
         localStorage.setItem("token", res.data.token);
+        const token = res.data.token;
+        const decoded = jwt_decode(token);
+        const isAdmin = decoded.is_admin;
         toast({
           title: "Success",
           description: "Login Success",
           status: "success",
-          duration: 9000,
+          duration: 5000,
           isClosable: true,
         });
-        navigate("/dashboard");
+        if (isAdmin) {
+          navigate("/dashboard");
+        } else {
+          navigate("/cashier");
+        }
       }
     } catch (err) {
       toast({
         title: "Error",
         description: "Login Failed",
         status: "error",
-        duration: 9000,
+        duration: 5000,
         isClosable: true,
       });
     }

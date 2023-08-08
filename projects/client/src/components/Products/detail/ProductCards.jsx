@@ -1,4 +1,4 @@
-import { Flex, GridItem, Text, useDisclosure } from "@chakra-ui/react";
+import { Flex, GridItem, Text, useDisclosure, useToast } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
 import customColors from "../../../themes/customColors";
 import getImage from "../../../api/getImage";
@@ -35,9 +35,10 @@ const backdrop = {
 
 function ProductCards({ products, setUpdateCarts, isEdit }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const toast = useToast();
 
     async function addCart(id_product) {
-        await addCartItem(id_product);
+        await addCartItem(toast, id_product);
         setUpdateCarts(uuidv4());
     }
 
