@@ -39,6 +39,7 @@ function createQuery(queries) {
 
 async function getTransactions(queries) {
     try {
+        console.log(HEADERS)
         const query = createQuery(queries);
         const response = await axios.get(
             `${TRANSACTION_URL}?${query}`,

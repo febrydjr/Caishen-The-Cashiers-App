@@ -2,6 +2,11 @@ import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_API_BASE_URL;
 const TOKEN = localStorage.getItem("token");
+const HEADERS = {
+    headers: {
+        Authorization: `Bearer ${TOKEN}`,
+    },
+};
 
 function createQuery(queries) {
     // title, id_category, order_by, order, page=1, limit=10
@@ -17,11 +22,10 @@ function createQuery(queries) {
 async function getProducts(queries) {
     const query = createQuery(queries);
     try {
-        const response = await axios.get(`${BASE_URL}/products?${query}`, {
-            headers: {
-                Authorization: `Bearer ${TOKEN}`,
-            },
-        });
+        const response = await axios.get(
+            `${BASE_URL}/products?${query}`,
+            HEADERS
+        );
         return response.data;
     } catch (error) {
         console.error(error.response.data.message);
@@ -46,4 +50,28 @@ async function getCategories() {
     }
 }
 
-export { getProducts, getProduct, getCategories };
+async function deleteProduct(id_product) {
+    try {
+        const response = await axios.delete(
+            `${BASE_URL}/products/${id_product}`,
+            HEADERS
+        );
+        return response.data;
+    } catch (error) {
+        console.error(error.response.data.message);
+    }
+}
+
+async function activeProduct(id_product) {
+    try {
+        const response = await axios.get(
+            `${BASE_URL}/products/active/${id_product}`,
+            HEADERS
+        );
+        return response.data;
+    } catch (error) {
+        console.error(error.response.data.message);
+    }
+}
+
+export { getProducts, getProduct, getCategories, deleteProduct, activeProduct };

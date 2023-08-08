@@ -19,6 +19,7 @@ function setConfig(labels, sales) {
                 {
                     label: "Sales",
                     data: sales,
+                    fill: true
                 },
             ],
         },
@@ -84,7 +85,6 @@ function ReportChart({ startDate, endDate }) {
             };
             const { data } = await getTotalTransactions(queries);
             setTotalTransaction(data);
-            createChart();
         }
     }
 
@@ -104,6 +104,10 @@ function ReportChart({ startDate, endDate }) {
     useEffect(() => {
         fetchTotalTransactions();
     }, [startDate, endDate]);
+
+    useEffect(()=>{
+        createChart()
+    }, [totalTransactions])
 
     return (
         <Box {...chartOptions}>
