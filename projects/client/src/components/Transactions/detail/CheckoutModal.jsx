@@ -15,6 +15,7 @@ import {
 import { useToast } from "@chakra-ui/react";
 import { v4 as uuidv4 } from "uuid";
 import { addTransaction } from "../../../api/transaction";
+import Notification from "../../../api/Notification";
 
 function priceFormater(price) {
     let formatted = "";
@@ -48,9 +49,16 @@ const CheckoutModal = ({
     }, [money]);
 
     const handleSubmit = async () => {
-        await addTransaction(toast);
-        setUpdateCarts(uuidv4());
-        setCompletedOrder(uuidv4());
+        if (money >= total) {
+            await addTransaction(toast);
+            setUpdateCarts(uuidv4());
+            setCompletedOrder(uuidv4());
+        } else {
+            Notification(toast, {
+                title: "Uang kurang",
+                status: 400,
+            });
+        }
     };
 
     function handleClose() {
