@@ -1,41 +1,48 @@
-import { Flex, Link, useDisclosure } from "@chakra-ui/react";
+import { Box, Flex, Link, useDisclosure } from "@chakra-ui/react";
 import Products from "./Products";
 import { BiAddToQueue } from "react-icons/bi";
 import AddProductModal from "../components/Products/detail/AddProductModal";
 import Categories from "./Categories";
 import { useState } from "react";
 
-function ProductManage({searchQuery=""}) {
+function ProductManage({ searchQuery = "" }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [page, setPage] = useState(0);
-  const [category, setCategory] = useState(0); 
+  const [category, setCategory] = useState(0);
 
   return (
     <Flex>
       <Flex direction={"column"} gap={4}>
-        <Categories setCategory={setCategory} setPage={setPage}/>
-        <Products isEdit={true} category={category} page={page} title={searchQuery} setPage={setPage}/>
+        <Categories setCategory={setCategory} setPage={setPage} />
+        <Products
+          isEdit={true}
+          category={category}
+          page={page}
+          title={searchQuery}
+          setPage={setPage}
+        />
       </Flex>
       <Link
         onClick={() => {
           onOpen();
         }}
       >
-        <Flex
+        <Box
+          as="button"
           position={"fixed"}
           _hover={{ cursor: "pointer", bgColor: "#FAC1D9" }}
           zIndex={60000}
           bottom={8}
           right={8}
-          p={6}
+          p={[4, 6]}
           justifyContent={"center"}
           alignItems={"center"}
           borderRadius={"full"}
-          w={"6%"}
+          w={["9%", "7%", "5%"]}
           bgColor={"#FFFFFF"}
         >
-          <BiAddToQueue size={"25px"} />
-        </Flex>
+          <BiAddToQueue size={["25px", "30px"]} />
+        </Box>
       </Link>
       <AddProductModal isOpen={isOpen} onClose={onClose} />
     </Flex>
