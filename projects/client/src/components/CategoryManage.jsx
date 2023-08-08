@@ -1,4 +1,4 @@
-import { Flex, Link, useDisclosure } from "@chakra-ui/react";
+import { Flex, Link, useDisclosure, Box } from "@chakra-ui/react";
 import Categories from "./Categories";
 import { TbLayoutGridAdd } from "react-icons/tb";
 import AddCategoryModal from "../components/Categories/detail/AddCategoryModal";
@@ -18,21 +18,22 @@ function ProductManage() {
           onOpen();
         }}
       >
-        <Flex
+        <Box
+          as="button"
           position={"fixed"}
-          zIndex={60000}
           _hover={{ cursor: "pointer", bgColor: "#FAC1D9" }}
+          zIndex={60000}
           bottom={8}
           right={8}
-          p={6}
+          p={[4, 6]}
           justifyContent={"center"}
           alignItems={"center"}
           borderRadius={"full"}
-          w={"6%"}
+          w={["9%", "7%", "5%"]}
           bgColor={"#FFFFFF"}
         >
-          <TbLayoutGridAdd size={"25px"} />
-        </Flex>
+          <TbLayoutGridAdd size={["25px", "30px"]} />
+        </Box>
       </Link>
       <AddCategoryModal isOpen={isOpen} onClose={onClose} setUpdateCategory={setUpdateCategory}/>
     </Flex>

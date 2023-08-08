@@ -16,5 +16,7 @@ router.post(
 );
 router.post("/forgot", authController.forgotPassword);
 router.patch("/reset", authController.resetPassword);
+router.patch("/username", authController.changeUsername);
+router.patch("/email", authController.changeEmail);
 
 module.exports = router;

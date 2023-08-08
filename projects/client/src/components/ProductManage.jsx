@@ -1,4 +1,4 @@
-import { Flex, Link, useDisclosure } from "@chakra-ui/react";
+import { Box, Flex, Link, useDisclosure } from "@chakra-ui/react";
 import Products from "./Products";
 import { BiAddToQueue } from "react-icons/bi";
 import AddProductModal from "../components/Products/detail/AddProductModal";
@@ -36,14 +36,14 @@ function ProductManage({ searchQuery = "" }) {
                     zIndex={60000}
                     bottom={8}
                     right={8}
-                    p={6}
+                    p={[4, 6]}
                     justifyContent={"center"}
                     alignItems={"center"}
                     borderRadius={"full"}
-                    w={"6%"}
+                    w={["9%", "7%", "5%"]}
                     bgColor={"#FFFFFF"}
                 >
-                    <BiAddToQueue size={"25px"} />
+                    <BiAddToQueue size={["25px", "30px"]} />
                 </Flex>
             </Link>
             <AddProductModal
