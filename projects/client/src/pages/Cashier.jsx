@@ -43,10 +43,10 @@ function Cashier() {
       const decoded = jwt_decode(token);
       const isAdmin = decoded.is_admin;
       if (isAdmin) {
-        return navigate("/403");
+        return navigate("/not-authorized");
       }
     } catch (error) {
-      return navigate("/404");
+      return navigate("/not-found");
     }
   }, []);
 

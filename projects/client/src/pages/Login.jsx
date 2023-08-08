@@ -36,7 +36,7 @@ const Login = () => {
           return navigate("/cashier");
         }
       } catch (error) {
-        return navigate("/404");
+        return navigate("/not-found");
       }
     } else {
       return navigate("/");
