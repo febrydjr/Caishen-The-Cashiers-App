@@ -16,8 +16,9 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
+import {v4 as uuidv4} from "uuid"
 
-const AddProductModal = ({ isOpen, onClose }) => {
+const AddProductModal = ({ isOpen, onClose, setUpdateProduct }) => {
   const toast = useToast();
   const [category, setCategory] = useState([]);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -65,6 +66,7 @@ const AddProductModal = ({ isOpen, onClose }) => {
         duration: 4000,
         isClosable: true,
       });
+      setUpdateProduct(uuidv4());
       onClose();
     } catch (error) {
       toast({

@@ -20,7 +20,7 @@ const textOptions = {
     fontSize: "1.4em",
 };
 
-function CategoryCard({ category, setCategory, setPage, isEdit }) {
+function CategoryCard({ category, setCategory, setPage, isEdit, setUpdateCategory }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     function changeCategory(id_category) {
         setCategory(id_category);
@@ -45,6 +45,7 @@ function CategoryCard({ category, setCategory, setPage, isEdit }) {
                 isOpen={isOpen}
                 onClose={onClose}
                 category={category}
+                setUpdateCategory={setUpdateCategory}
             />
         </GridItem>
     );

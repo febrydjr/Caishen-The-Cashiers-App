@@ -43,7 +43,7 @@ const AdminDashboard = () => {
         return <CashierManage cashiers={cashiers} />;
       case "category":
         return (
-          <Box mt={6}>
+          <Box mt={6} w={"100%"}>
             <ProductCategories
               isOpen={isOpen}
               onClose={onClose}
@@ -54,7 +54,7 @@ const AdminDashboard = () => {
         );
       case "product":
         return (
-          <Box mt={6}>
+          <Box mt={6} w={"100%"}>
             <ProductManage searchQuery={searchQuery} />;
           </Box>
         );
@@ -184,7 +184,7 @@ const AdminDashboard = () => {
             </Link>
           </VStack>
         </Box>
-        <Box maxW={"100%"}>{renderPage()}</Box>
+        <Box w={"calc(100vw - 220px)"} px={"8px"}>{renderPage()}</Box>
       </Flex>
     </Box>
   );

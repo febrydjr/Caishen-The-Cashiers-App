@@ -28,7 +28,7 @@ async function addProduct(req, res) {
         const result = await productService.addProduct(req);
         res.status(result.status).json(messages.response(result));
     } catch (error) {
-        await fs.unlink(req.file.path);
+        if (req.file) await fs.unlink(req.file.path);
         res.status(500).json({ message: error.message });
     }
 }
