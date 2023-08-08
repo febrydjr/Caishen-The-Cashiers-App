@@ -35,7 +35,7 @@ function Categories({ isEdit = false, setCategory, setPage, isOpen, onClose, onO
 
     async function fetchCategories() {
         const { data } = await getCategories();
-        setCategories([...categories, ...data]);
+        setCategories(isEdit ? data : [...categories, ...data]);
     }
 
     setOptions(isEdit);
