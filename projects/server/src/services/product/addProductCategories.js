@@ -7,7 +7,7 @@ const categories = db["category"];
 const product_categories = db["product_category"];
 
 async function checkCategories(id_categories) {
-    const result =  await categories.findAll({
+    const result = await categories.findAll({
         where: {
             id: id_categories,
         },
@@ -29,7 +29,7 @@ async function checkAlreadyExist(id_product, id_categories) {
     return newCategories;
 }
 
-async function addProductCategories(id_product, id_categories) {
+async function addProductCategories(id_product, id_categories, transactionPass) {
     const isProductExist = products.findOne({ where: { id: id_product } });
     if (!isProductExist) return messages.error(404, "Product not found");
 
@@ -38,7 +38,8 @@ async function addProductCategories(id_product, id_categories) {
         .map((id_category) => parseInt(id_category));
 
     id_categories = await checkCategories(id_categories);
-    if (id_categories.length === 0) return messages.error(404, "Some category not found");
+    if (id_categories.length === 0)
+        return messages.error(404, "Some category not found");
 
     id_categories = await checkAlreadyExist(id_product, id_categories);
     if (id_categories.length === 0)
@@ -48,7 +49,7 @@ async function addProductCategories(id_product, id_categories) {
         for (let id_category of id_categories) {
             await product_categories.create(
                 { id_product, id_category },
-                { transaction: t }
+                { transaction: transactionPass ? transactionPass : t }
             );
         }
         return messages.success("Product category successfully added");

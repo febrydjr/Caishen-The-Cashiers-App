@@ -6,8 +6,8 @@ import AddCategoryModal from "../components/Categories/detail/AddCategoryModal";
 function ProductManage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Flex>
-      <Flex direction={"column"} gap={4}>
+    <Flex w={"100%"}>
+      <Flex direction={"column"} gap={4} w={"100%"}>
         <Categories isEdit={true}/>
       </Flex>
       <Link

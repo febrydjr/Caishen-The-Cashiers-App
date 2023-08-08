@@ -1,8 +1,14 @@
 import ProductCard from "./ProductCard";
 
-function ProductCards({ products, setUpdateCarts, isEdit }) {  
+function ProductCards({ products, setUpdateCarts, setUpdateProduct, isEdit }) {
     return products.map((product, index) => (
-        <ProductCard product={product} setUpdateCarts={setUpdateCarts} isEdit={isEdit} key={index}/>
+        <ProductCard
+            product={product}
+            setUpdateCarts={setUpdateCarts}
+            setUpdateProduct={setUpdateProduct}
+            isEdit={isEdit}
+            key={index}
+        />
     ));
 }
 

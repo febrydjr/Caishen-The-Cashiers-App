@@ -32,8 +32,10 @@ function Products({
     page = 0,
     title = "",
     completedOrder,
+    updateProduct,
     setPage,
     setUpdateCarts,
+    setUpdateProduct,
     isEdit = false,
 }) {
     const [products, setProducts] = useState([]);
@@ -44,11 +46,15 @@ function Products({
     const productsRef = useRef();
 
     function onProductsScroll() {
-        if (productsRef.current) {
+        function checkAxisX() {
             const { scrollLeft, scrollWidth, clientWidth } =
                 productsRef.current;
-            if (scrollLeft + clientWidth === scrollWidth && page < maxPage)
-                setPage(page + 1);
+            return scrollLeft + clientWidth === scrollWidth && page < maxPage;
+        }
+
+        if (productsRef.current) {
+            if (checkAxisX()) setPage(page + 1);
+            console.log("LOL");
         }
     }
 
@@ -70,8 +76,7 @@ function Products({
 
     useEffect(() => {
         fetchProducts({});
-    }, [title, category, filter, order, page, completedOrder]);
-
+    }, [title, category, filter, order, page, completedOrder, updateProduct]);
 
     return (
         <>
@@ -95,6 +100,7 @@ function Products({
                 <ProductCards
                     products={products}
                     setUpdateCarts={setUpdateCarts}
+                    setUpdateProduct={setUpdateProduct}
                     isEdit={isEdit}
                 />
             </Grid>
