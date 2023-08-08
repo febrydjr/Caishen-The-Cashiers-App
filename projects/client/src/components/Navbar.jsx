@@ -65,12 +65,7 @@ function Navbar({ searchQuery, setSearchQuery }) {
       <Flex align="center" justify="space-between" color="white">
         <Flex align="center">
           <Box>
-            <Image
-              src="https://www.freepnglogos.com/uploads/games-png/games-file-wpvg-icon-svg-wikipedia-31.png"
-              alt="Logo"
-              boxSize={8}
-              mr={4}
-            />
+            <Image src={"/caishenPOS.png"} alt="Logo" boxSize={12} mr={4} />
           </Box>
           <Box
             fontWeight="bold"

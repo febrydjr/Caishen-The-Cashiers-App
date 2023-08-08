@@ -23,8 +23,8 @@ function App() {
           <Route path="/dashboard" element={<AdminDashboard />} />
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/reset/:token" element={<ResetPassword />} />
-          <Route path="/403" element={<NotAuthorized />} />
-          <Route path="/404" element={<NotFound />} />
+          <Route path="/not-authorized" element={<NotAuthorized />} />
+          <Route path="/not-found" element={<NotFound />} />
         </Routes>
       </Box>
     </ChakraProvider>
