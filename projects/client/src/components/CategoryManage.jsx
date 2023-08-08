@@ -2,13 +2,16 @@ import { Flex, Link, useDisclosure } from "@chakra-ui/react";
 import Categories from "./Categories";
 import { TbLayoutGridAdd } from "react-icons/tb";
 import AddCategoryModal from "../components/Categories/detail/AddCategoryModal";
+import { useState } from "react";
 
 function ProductManage() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [updateCategory, setUpdateCategory] = useState();
+
   return (
     <Flex w={"100%"}>
       <Flex direction={"column"} gap={4} w={"100%"}>
-        <Categories isEdit={true}/>
+        <Categories updateCategory={updateCategory} setUpdateCategory={setUpdateCategory} isEdit={true}/>
       </Flex>
       <Link
         onClick={() => {
@@ -31,7 +34,7 @@ function ProductManage() {
           <TbLayoutGridAdd size={"25px"} />
         </Flex>
       </Link>
-      <AddCategoryModal isOpen={isOpen} onClose={onClose} />
+      <AddCategoryModal isOpen={isOpen} onClose={onClose} setUpdateCategory={setUpdateCategory}/>
     </Flex>
   );
 }

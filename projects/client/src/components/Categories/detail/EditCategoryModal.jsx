@@ -16,8 +16,9 @@ import { Formik, Form, Field } from "formik";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import { RiDeleteBinFill } from "react-icons/ri";
+import {v4 as uuidv4} from "uuid"
 
-const EditCategoryModal = ({ isOpen, onClose, category }) => {
+const EditCategoryModal = ({ isOpen, onClose, category, setUpdateCategory }) => {
   const toast = useToast();
   const handleDelete = async () => {
     const token = localStorage.getItem("token");
@@ -36,7 +37,8 @@ const EditCategoryModal = ({ isOpen, onClose, category }) => {
         duration: 4000,
         isClosable: true,
       });
-      window.location.reload();
+      setUpdateCategory(uuidv4())
+      onClose();
     } catch (error) {
       toast({
         title: "Error deleting category!",
@@ -60,6 +62,8 @@ const EditCategoryModal = ({ isOpen, onClose, category }) => {
         duration: 4000,
         isClosable: true,
       });
+      setUpdateCategory(uuidv4());
+      onClose()
     } catch (error) {
       toast({
         title: "Error editing Category!",

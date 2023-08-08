@@ -10,16 +10,14 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
-  Flex,
-  Select,
 } from "@chakra-ui/react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
-import { RiDeleteBinFill } from "react-icons/ri";
+import {v4 as uuidv4} from "uuid"
 
-const AddProductModal = ({ isOpen, onClose }) => {
+const AddProductModal = ({ isOpen, onClose, setUpdateCategory }) => {
   const toast = useToast();
 
   const handleSubmit = async (values) => {
@@ -42,6 +40,7 @@ const AddProductModal = ({ isOpen, onClose }) => {
         duration: 4000,
         isClosable: true,
       });
+      setUpdateCategory(uuidv4());
       onClose();
     } catch (error) {
       toast({
