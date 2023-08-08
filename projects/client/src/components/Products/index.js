@@ -72,6 +72,7 @@ function Products({
         fetchProducts({});
     }, [title, category, filter, order, page, completedOrder]);
 
+
     return (
         <>
             <HStack {...fontOptions}>

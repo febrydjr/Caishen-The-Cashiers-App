@@ -25,7 +25,6 @@ function priceFormater(price) {
         if (price.length > 3) formatted = "." + formatted;
         price = price.slice(0, -3);
     }
-
     return formatted;
 }
 
@@ -95,7 +94,6 @@ const CheckoutModal = ({
                         </Text>
                     </Flex>
                 </ModalBody>
-
                 <ModalFooter>
                     <Button onClick={onClose} variant="outline">
                         Cancel
