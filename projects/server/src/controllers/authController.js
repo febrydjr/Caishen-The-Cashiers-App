@@ -50,9 +50,31 @@ async function resetPassword(req, res) {
   }
 }
 
+async function changeUsername(req, res) {
+  try {
+    const { oldUsername, newUsername } = req.body;
+    const result = await authService.changeUsername(oldUsername, newUsername);
+    res.status(result.status).json(messages.response(result));
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
+async function changeEmail(req, res) {
+  try {
+    const { oldEmail, newEmail } = req.body;
+    const result = await authService.changeEmail(oldEmail, newEmail);
+    res.status(result.status).json(messages.response(result));
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+}
+
 module.exports = {
   login,
   register,
   forgotPassword,
   resetPassword,
+  changeUsername,
+  changeEmail,
 };
