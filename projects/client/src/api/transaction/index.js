@@ -26,4 +26,42 @@ async function addTransaction(toast) {
     }
 }
 
-export { addTransaction };
+function createQuery(queries) {
+    // start_date, end_date, order_by, order, page=1, limit=10
+    if (!queries["page"]) queries["page"] = 1;
+    if (!queries["limit"]) queries["limit"] = 10;
+    let query = "";
+    for (const key in queries) {
+        query += `${key}=${queries[key]}&`;
+    }
+    return query.replace(/&$/, "");
+}
+
+async function getTransactions(queries) {
+    try {
+        console.log(HEADERS)
+        const query = createQuery(queries);
+        const response = await axios.get(
+            `${TRANSACTION_URL}?${query}`,
+            HEADERS
+        );
+        return response.data;
+    } catch (error) {
+        console.error(error.response.data.message);
+    }
+}
+
+async function getTotalTransactions(queries) {
+    try {
+        const query = createQuery(queries);
+        const response = await axios.get(
+            `${TRANSACTION_URL}/total?${query}`,
+            HEADERS
+        );
+        return response.data;
+    } catch (error) {
+        console.error(error.response.data.message);
+    }
+}
+
+export { addTransaction, getTransactions, getTotalTransactions };

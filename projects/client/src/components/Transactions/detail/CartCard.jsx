@@ -67,6 +67,7 @@ function CartCards({ cart, setUpdateCarts }) {
     async function deleteItem(id_cart) {
         await deleteCartItem(toast, id_cart);
         setTimeout(() => {
+            // setDeleteToggle(false)
             setUpdateCarts(uuidv4());
         }, 300);
     }
@@ -74,7 +75,7 @@ function CartCards({ cart, setUpdateCarts }) {
     return (
         <Flex {...mainOptions}>
             {deleteToggle && (
-                <Flex {...logoOptions} onClick={() => deleteItem(cart["id"])}>
+                <Flex {...logoOptions} onClick={(event) => deleteItem(event, cart["id"])}>
                     <RiDeleteBin5Fill />
                 </Flex>
             )}

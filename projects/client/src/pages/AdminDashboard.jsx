@@ -12,6 +12,7 @@ import axios from "axios";
 import CashierManage from "../components/CashierManage";
 import ProductCategories from "../components/CategoryManage";
 import ProductManage from "../components/ProductManage";
+import Report from "../components/Report"
 import jwt_decode from "jwt-decode";
 
 const AdminDashboard = () => {
@@ -58,7 +59,9 @@ const AdminDashboard = () => {
           </Box>
         );
       case "report":
-        return "THIS IS REPORT";
+        return <Box mt={6}>
+            <Report />
+        </Box>;
       default:
         return null;
     }

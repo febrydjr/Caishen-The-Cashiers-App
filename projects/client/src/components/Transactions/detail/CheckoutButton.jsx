@@ -1,4 +1,4 @@
-import { Flex, Text, useToast, useDisclosure } from "@chakra-ui/react";
+import { Flex, Text, useDisclosure } from "@chakra-ui/react";
 import customColors from "../../../themes/customColors";
 import CheckoutModal from "./CheckoutModal";
 

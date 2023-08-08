@@ -86,9 +86,9 @@ const Login = () => {
           isClosable: true,
         });
         if (isAdmin) {
-          navigate("/dashboard");
+          document.location.href = '/dashboard';
         } else {
-          navigate("/cashier");
+          document.location.href = '/cashier';
         }
       }
     } catch (err) {
