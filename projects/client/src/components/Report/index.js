@@ -37,7 +37,7 @@ function Report() {
 
     return (
         <Flex {...mainOptions}>
-            <ReportChart />
+            <ReportChart startDate={startDate} endDate={endDate} />
             <ReportFilter setStartDate={setStartDate} setEndDate={setEndDate} />
             <ReportTransactions reports={reports} />
         </Flex>

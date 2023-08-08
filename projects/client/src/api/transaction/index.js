@@ -44,11 +44,23 @@ async function getTransactions(queries) {
             `${TRANSACTION_URL}?${query}`,
             HEADERS
         );
-        console.log(response.data);
         return response.data;
     } catch (error) {
         console.error(error.response.data.message);
     }
 }
 
-export { addTransaction, getTransactions };
+async function getTotalTransactions(queries) {
+    try {
+        const query = createQuery(queries);
+        const response = await axios.get(
+            `${TRANSACTION_URL}/total?${query}`,
+            HEADERS
+        );
+        return response.data;
+    } catch (error) {
+        console.error(error.response.data.message);
+    }
+}
+
+export { addTransaction, getTransactions, getTotalTransactions };

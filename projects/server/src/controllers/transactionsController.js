@@ -21,7 +21,18 @@ async function getTransactions(req, res) {
     }
 }
 
+async function getTotalTransactions(req, res) {
+    try {
+        const queries = req.query;
+        const result = await transactionService.getTotalTransactions(queries);
+        res.status(result.status).json(messages.response(result));
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 module.exports = {
     addTransaction,
     getTransactions,
+    getTotalTransactions,
 };

@@ -7,11 +7,11 @@ const containerOptions = {
     gap: 4,
 };
 
-function defaultDate() {
+function defaultDate(end=false) {
     const now = new Date();
     const year = now.getFullYear();
     const month = now.getMonth() + 1;
-    const day = now.getDate();
+    const day = end ? now.getDate() : 1;
     return `${year}-${month < 10 ? "0" + month : month}-${
         day < 10 ? "0" + day : day
     }`;
@@ -19,11 +19,12 @@ function defaultDate() {
 
 function ReportFilter({ setStartDate, setEndDate }) {
     function setDefault() {
-        const defaultValue = defaultDate();
-        document.getElementById("start_date").value = defaultValue;
-        document.getElementById("end_date").value = defaultValue;
-        setStartDate(defaultValue);
-        setEndDate(defaultValue);
+        const start = defaultDate();
+        const end = defaultDate(true)
+        document.getElementById("start_date").value = start;
+        document.getElementById("end_date").value = end;
+        setStartDate(start);
+        setEndDate(end);
     }
 
     function handleChange(event, setDate) {
@@ -40,7 +41,6 @@ function ReportFilter({ setStartDate, setEndDate }) {
             <Input
                 id="start_date"
                 type="date"
-                pattern=""
                 onChange={(event) => handleChange(event, setStartDate)}
             />
             <Text>-</Text>
