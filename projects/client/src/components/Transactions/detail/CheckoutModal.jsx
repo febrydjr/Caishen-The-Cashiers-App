@@ -28,7 +28,13 @@ function priceFormater(price) {
     return formatted;
 }
 
-const CheckoutModal = ({ isOpen, onClose, setUpdateCarts, total }) => {
+const CheckoutModal = ({
+    isOpen,
+    onClose,
+    setUpdateCarts,
+    setCompletedOrder,
+    total,
+}) => {
     const toast = useToast();
     const [money, setMoney] = useState("");
     const [change, setChange] = useState(total);
@@ -39,15 +45,21 @@ const CheckoutModal = ({ isOpen, onClose, setUpdateCarts, total }) => {
 
     useEffect(() => {
         setChange(money - total);
-    }, [total, money]);
+    }, [money]);
 
     const handleSubmit = async () => {
         await addTransaction(toast);
         setUpdateCarts(uuidv4());
+        setCompletedOrder(uuidv4());
     };
 
+    function handleClose() {
+        setChange(0);
+        onClose();
+    }
+
     return (
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={handleClose}>
             <ModalOverlay />
             <ModalContent fontFamily={"Fira Code"}>
                 <ModalHeader>Checkout!</ModalHeader>
@@ -71,7 +83,7 @@ const CheckoutModal = ({ isOpen, onClose, setUpdateCarts, total }) => {
                             Change:
                         </Text>
                         <Text alignSelf={"center"} fontSize={"40px"}>
-                            {!change ? 0 : priceFormater(change)}
+                            {!change || change < 0 ? 0 : priceFormater(change)}
                         </Text>
                     </Flex>
                 </ModalBody>

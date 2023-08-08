@@ -30,7 +30,7 @@ function priceFormater(price) {
     return formatted;
 }
 
-function Checkout({ updateCarts, setUpdateCarts }) {
+function Checkout({ updateCarts, setUpdateCarts, setCompletedOrder }) {
     const [total, setTotal] = useState(0);
 
     async function getTotal() {
@@ -50,7 +50,7 @@ function Checkout({ updateCarts, setUpdateCarts }) {
                 <Text>{priceFormater(total)}</Text>
             </Flex>
             <Spacer />
-            <CheckoutButton setUpdateCarts={setUpdateCarts} total={total} />
+            <CheckoutButton setUpdateCarts={setUpdateCarts} total={total} setCompletedOrder={setCompletedOrder}/>
         </Flex>
     );
 }
