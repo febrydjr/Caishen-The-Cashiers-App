@@ -13,6 +13,7 @@ import CashierManage from "../components/CashierManage";
 import ProductCategories from "../components/CategoryManage";
 import ProductManage from "../components/ProductManage";
 import Report from "../components/Report"
+import jwt_decode from "jwt-decode";
 
 const AdminDashboard = () => {
   const [cashiers, setCashiers] = useState([]);
@@ -23,9 +24,19 @@ const AdminDashboard = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (!token) {
-      navigate("/");
+      return navigate("/");
+    }
+    try {
+      const decoded = jwt_decode(token);
+      const isAdmin = decoded.is_admin;
+      if (!isAdmin) {
+        return navigate("/not-authorized");
+      }
+    } catch (error) {
+      return navigate("/not-found");
     }
   }, []);
+
   const renderPage = () => {
     switch (activePage) {
       case "cashier":
@@ -44,7 +55,7 @@ const AdminDashboard = () => {
       case "product":
         return (
           <Box mt={6}>
-            <ProductManage searchQuery={searchQuery}/>;
+            <ProductManage searchQuery={searchQuery} />;
           </Box>
         );
       case "report":
@@ -73,7 +84,7 @@ const AdminDashboard = () => {
 
   return (
     <Box bgColor={"#2A2B2E"} maxW={"100vw"} borderRadius={8}>
-      <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>
+      <Navbar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       <Flex>
         <Box
           color="white"
@@ -161,7 +172,7 @@ const AdminDashboard = () => {
                 display={"flex"}
                 flexDirection={"row"}
               >
-                <MdOutlineAutoGraph size={"31px"} />
+                <MdOutlineAutoGraph size={"37px"} />
                 <Text
                   _hover={{ color: "#E4CDED" }}
                   color="white"

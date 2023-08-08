@@ -63,8 +63,8 @@ function priceFormater(price) {
 function CartCards({ cart, setUpdateCarts }) {
     const [deleteToggle, setDeleteToggle] = useState(false);
     const toast = useToast();
-    async function deleteItem(event, id_cart) {
-        event.stopPropagation()
+
+    async function deleteItem(id_cart) {
         await deleteCartItem(toast, id_cart);
         setTimeout(() => {
             // setDeleteToggle(false)

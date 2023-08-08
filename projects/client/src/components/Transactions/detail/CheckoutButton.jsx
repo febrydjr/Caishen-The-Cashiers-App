@@ -1,34 +1,39 @@
-import { Flex, Text, useToast } from "@chakra-ui/react";
+import { Flex, Text, useDisclosure } from "@chakra-ui/react";
 import customColors from "../../../themes/customColors";
-import { addTransaction } from "../../../api/transaction";
-import { v4 as uuidv4 } from "uuid";
+import CheckoutModal from "./CheckoutModal";
 
 const orderOptions = {
-    bgColor: customColors.textSecondary,
-    color: customColors.primary,
-    h: "3.2em",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: "8px",
+  bgColor: customColors.textSecondary,
+  color: customColors.primary,
+  h: "3.2em",
+  alignItems: "center",
+  justifyContent: "center",
+  borderRadius: "8px",
+  cursor: "pointer",
 };
 
 const textOptions = {
-    fontSize: "1.2em",
+  fontSize: "1.2em",
 };
 
-function CheckoutButton({ setUpdateCarts }) {
-    const toast = useToast();
+function CheckoutButton({ total, setUpdateCarts }) {
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-    async function onCheckout() {
-        await addTransaction(toast);        
-        setUpdateCarts(uuidv4());
-    }
+  async function onCheckout() {
+    onOpen();
+  }
 
-    return (
-        <Flex {...orderOptions} onClick={() => onCheckout()}>
-            <Text {...textOptions}>Order</Text>
-        </Flex>
-    );
+  return (
+    <Flex {...orderOptions} onClick={() => onCheckout()}>
+      <CheckoutModal
+        isOpen={isOpen}
+        onClose={onClose}
+        setUpdateCarts={setUpdateCarts}
+        total={total}
+      />
+      <Text {...textOptions}>Order</Text>
+    </Flex>
+  );
 }
 
 export default CheckoutButton;
