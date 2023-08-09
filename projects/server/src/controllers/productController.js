@@ -65,7 +65,7 @@ async function editProduct(req, res) {
             price,
             stock,
             id_categories,
-            file,
+            image: file,
         });
         res.status(result.status).json(messages.response(result));
     } catch (error) {

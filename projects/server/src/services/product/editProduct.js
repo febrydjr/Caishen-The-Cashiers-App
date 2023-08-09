@@ -6,7 +6,7 @@ const addProductCategories = require("./addProductCategories");
 const products = db["product"];
 const product_categories = db["product_category"];
 
-async function createUpdateField(name, description, price, stock, image) {
+function createUpdateField(name, description, price, stock, image) {
   const fields = {};
   if (name) fields["name"] = name;
   if (description) fields["description"] = description;
@@ -33,7 +33,7 @@ async function editProduct({
   id_categories,
   image
 }) {
-  const updateField = await createUpdateField(
+  const updateField = createUpdateField(
     name,
     description,
     price,
@@ -47,7 +47,7 @@ async function editProduct({
       transaction: t,
     });
     if (id_categories) await updateCategories(id, id_categories);
-    if (image) await fs.unlink(oldProduct["image"]);
+    if (image) await fs.unlink(oldProduct['dataValues']["image"]);
     return messages.success("Product successfully updated");
   });
 }

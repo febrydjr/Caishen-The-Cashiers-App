@@ -54,7 +54,6 @@ function Products({
 
         if (productsRef.current) {
             if (checkAxisX()) setPage(page + 1);
-            console.log("LOL");
         }
     }
 
