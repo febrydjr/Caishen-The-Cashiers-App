@@ -12,16 +12,19 @@ import { addCartItem } from "../../../api/cart";
 import EditProductModal from "./EditProductModal";
 import ProductStock from "./ProductStock";
 
-const gridOptions = {
-    w: "180px",
-    h: "180px",
-    pos: "relative",
-    borderRadius: "4px",
-    bgPos: "center",
-    bgSize: "cover",
-    overflow: "hidden",
-    cursor: "pointer",
-};
+function gridOptions(isActive) {
+    return {
+        w: "180px",
+        h: "180px",
+        pos: "relative",
+        borderRadius: "4px",
+        bgPos: "center",
+        bgSize: "cover",
+        overflow: "hidden",
+        cursor: "pointer",
+        filter: `grayscale(${isActive ? "0%" : "90%"})`
+    };
+}
 
 const titleOptions = {
     color: customColors.textPrimary,
@@ -40,7 +43,7 @@ const backdrop = {
     backdropFilter: "blur(2px)",
 };
 
-function ProductCard({ product, setUpdateCarts, setUpdateProduct, isEdit }) {
+function ProductCard({ product, setUpdateCarts, setUpdateProduct, setPage, isEdit }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
 
@@ -56,12 +59,12 @@ function ProductCard({ product, setUpdateCarts, setUpdateProduct, isEdit }) {
 
     return (
         <GridItem
-            {...gridOptions}
+            {...gridOptions(product["is_active"])}
             id={product["id"]}
             bgImage={getImage(product["image"])}
             onClick={() => handleClick(product["id"])}
         >
-            <ProductStock stock={product["stock"]}/>
+            <ProductStock stock={product["stock"]} />
             <Flex bottom={0} {...backdrop}>
                 <Text {...titleOptions}>{product["name"]}</Text>
             </Flex>
@@ -70,6 +73,7 @@ function ProductCard({ product, setUpdateCarts, setUpdateProduct, isEdit }) {
                 onOpen={onOpen}
                 onClose={onClose}
                 product={product}
+                setPage={setPage}
                 setUpdateProduct={setUpdateProduct}
             />
         </GridItem>

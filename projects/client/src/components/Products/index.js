@@ -54,7 +54,6 @@ function Products({
 
         if (productsRef.current) {
             if (checkAxisX()) setPage(page + 1);
-            console.log("LOL");
         }
     }
 
@@ -101,6 +100,7 @@ function Products({
                     products={products}
                     setUpdateCarts={setUpdateCarts}
                     setUpdateProduct={setUpdateProduct}
+                    setPage={setPage}
                     isEdit={isEdit}
                 />
             </Grid>
