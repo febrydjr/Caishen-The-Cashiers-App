@@ -74,7 +74,7 @@ function Products({
     }
 
     useEffect(() => {
-        fetchProducts({});
+        fetchProducts();
     }, [title, category, filter, order, page, completedOrder, updateProduct]);
 
     return (
