@@ -12,16 +12,19 @@ import { addCartItem } from "../../../api/cart";
 import EditProductModal from "./EditProductModal";
 import ProductStock from "./ProductStock";
 
-const gridOptions = {
-    w: "180px",
-    h: "180px",
-    pos: "relative",
-    borderRadius: "4px",
-    bgPos: "center",
-    bgSize: "cover",
-    overflow: "hidden",
-    cursor: "pointer",
-};
+function gridOptions(isActive) {
+    return {
+        w: "180px",
+        h: "180px",
+        pos: "relative",
+        borderRadius: "4px",
+        bgPos: "center",
+        bgSize: "cover",
+        overflow: "hidden",
+        cursor: "pointer",
+        filter: `grayscale(${isActive ? "0%" : "90%"})`
+    };
+}
 
 const titleOptions = {
     color: customColors.textPrimary,
@@ -56,12 +59,12 @@ function ProductCard({ product, setUpdateCarts, setUpdateProduct, isEdit }) {
 
     return (
         <GridItem
-            {...gridOptions}
+            {...gridOptions(product["is_active"])}
             id={product["id"]}
             bgImage={getImage(product["image"])}
             onClick={() => handleClick(product["id"])}
         >
-            <ProductStock stock={product["stock"]}/>
+            <ProductStock stock={product["stock"]} />
             <Flex bottom={0} {...backdrop}>
                 <Text {...titleOptions}>{product["name"]}</Text>
             </Flex>
