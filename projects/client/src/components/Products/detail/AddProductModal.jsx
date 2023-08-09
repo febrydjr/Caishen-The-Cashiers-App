@@ -66,7 +66,8 @@ const AddProductModal = ({ isOpen, onClose, setUpdateProduct }) => {
         duration: 4000,
         isClosable: true,
       });
-      setUpdateProduct(uuidv4());
+      // setUpdateProduct(uuidv4());
+      window.location.reload();
       onClose();
     } catch (error) {
       toast({

@@ -100,6 +100,7 @@ function Products({
                     products={products}
                     setUpdateCarts={setUpdateCarts}
                     setUpdateProduct={setUpdateProduct}
+                    setPage={setPage}
                     isEdit={isEdit}
                 />
             </Grid>

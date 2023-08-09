@@ -43,7 +43,7 @@ const backdrop = {
     backdropFilter: "blur(2px)",
 };
 
-function ProductCard({ product, setUpdateCarts, setUpdateProduct, isEdit }) {
+function ProductCard({ product, setUpdateCarts, setUpdateProduct, setPage, isEdit }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const toast = useToast();
 
@@ -73,6 +73,7 @@ function ProductCard({ product, setUpdateCarts, setUpdateProduct, isEdit }) {
                 onOpen={onOpen}
                 onClose={onClose}
                 product={product}
+                setPage={setPage}
                 setUpdateProduct={setUpdateProduct}
             />
         </GridItem>

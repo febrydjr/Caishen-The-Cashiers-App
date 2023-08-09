@@ -1,6 +1,6 @@
 import ProductCard from "./ProductCard";
 
-function ProductCards({ products, setUpdateCarts, setUpdateProduct, isEdit }) {
+function ProductCards({ products, setUpdateCarts, setUpdateProduct, setPage, isEdit }) {
     return products.map((product, index) => (
         <ProductCard
             product={product}

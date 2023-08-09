@@ -23,9 +23,15 @@ import {
     deleteProduct,
     getCategories,
 } from "../../../api/product";
-import {v4 as uuidv4} from "uuid";
+import { v4 as uuidv4 } from "uuid";
 
-const EditProductModal = ({ isOpen, onClose, product, setUpdateProduct }) => {
+const EditProductModal = ({
+    isOpen,
+    onClose,
+    product,
+    setUpdateProduct,
+    setPage,
+}) => {
     const toast = useToast();
     const [category, setCategory] = useState([]);
     const [selectedImage, setSelectedImage] = useState(null);
@@ -57,7 +63,8 @@ const EditProductModal = ({ isOpen, onClose, product, setUpdateProduct }) => {
                 duration: 4000,
                 isClosable: true,
             });
-            setUpdateProduct(uuidv4())
+            setUpdateProduct(uuidv4());
+            setPage(1);
             onClose();
         } catch (error) {
             toast({
@@ -79,8 +86,10 @@ const EditProductModal = ({ isOpen, onClose, product, setUpdateProduct }) => {
                 duration: 4000,
                 isClosable: true,
             });
-            setUpdateProduct(uuidv4())
+            setUpdateProduct(uuidv4());
+            setPage(1);
             onClose();
+            if (selectedImage) window.location.reload();
         } catch (error) {
             toast({
                 title: "Error activating user!",
@@ -113,7 +122,8 @@ const EditProductModal = ({ isOpen, onClose, product, setUpdateProduct }) => {
                 isClosable: true,
             });
             setUpdateProduct(uuidv4());
-            onClose()
+            setPage(1);
+            onClose();
         } catch (error) {
             toast({
                 title: "Error editing Product!",
